@@ -1,0 +1,292 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+    body {
+      margin: 0;
+      background: #F2F1ED;
+      color: #141311;
+      font-family: Archivo, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #141311; text-decoration: none; cursor: pointer; }
+    a:hover { color: #00A5C4; }
+    .eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; }
+    .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; }
+    .num { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; font-size: 13px; color: #8A867C; }
+    .row {
+      display: grid;
+      grid-template-columns: 66px minmax(0, 1fr) 132px 96px;
+      gap: 28px;
+      align-items: baseline;
+      border-top: 1px solid #DCDAD3;
+      padding: 24px 0;
+    }
+    .row-title { font-size: 23px; font-weight: 500; letter-spacing: -0.015em; line-height: 1.25; }
+    .row-sum { font-size: 14px; line-height: 1.6; color: #55524B; text-wrap: pretty; margin-top: 6px; }
+  </style>
+</helmet>
+<div style="min-height: 1000px; background: #F2F1ED; padding: 46px 88px 64px; box-sizing: border-box; display: flex; flex-direction: column">
+
+  <div style="display: flex; align-items: center; justify-content: space-between">
+    <a onClick="{{goHome}}" style="font-size: 17px; font-weight: 600; letter-spacing: -0.01em">jmocanalab</a>
+    <div style="display: flex; align-items: center; gap: 18px">
+      <a href="#" aria-label="LinkedIn" style="display: flex">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#141311" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3.5" y="3.5" width="17" height="17" rx="2"></rect>
+          <path d="M8 10.5v6"></path>
+          <circle cx="8" cy="7.6" r="0.6" fill="#141311"></circle>
+          <path d="M12 16.5v-3.4a2.1 2.1 0 0 1 4.2 0v3.4"></path>
+          <path d="M12 10.5v1"></path>
+        </svg>
+      </a>
+      <a href="#" aria-label="GitHub" style="display: flex">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#141311" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9.2 20.4v-2.6c-2.9.6-3.6-1.3-3.6-1.3-.5-1.2-1.2-1.5-1.2-1.5-1-.6.1-.6.1-.6 1 .1 1.6 1.1 1.6 1.1.9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.7-1.4-2.3-.3-4.7-1.2-4.7-5.2 0-1.1.4-2 1-2.8-.1-.3-.4-1.3.1-2.7 0 0 .9-.3 2.8 1.1a9.3 9.3 0 0 1 5 0c1.9-1.4 2.8-1.1 2.8-1.1.5 1.4.2 2.4.1 2.7.6.8 1 1.7 1 2.8 0 4-2.4 4.9-4.7 5.2.4.4.7 1 .7 2v3"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 34px; border-top: 1px solid #141311; padding-top: 16px; margin-top: 26px">
+    <sc-for list="{{nav}}" as="c" hint-placeholder-count="3">
+      <a onClick="{{c.go}}" class="eyebrow" style="padding-bottom: 5px; color: {{c.color}}; border-bottom: 2px solid {{c.line}}">{{c.label}}</a>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{isHome}}" hint-placeholder-val="{{ true }}">
+    <div style="display: flex; flex-direction: column; margin-top: 62px">
+      <div class="eyebrow" style="color: #8A867C; margin-bottom: 20px">Destacados</div>
+      <sc-for list="{{featured}}" as="it" hint-placeholder-count="2">
+        <a onClick="{{it.go}}" class="row">
+          <div class="num">{{it.num}}</div>
+          <div>
+            <div class="row-title">{{it.title}}</div>
+            <div class="row-sum">{{it.summary}}</div>
+          </div>
+          <div class="eyebrow" style="color: {{it.catColor}}">{{it.catLabel}}</div>
+          <div class="eyebrow" style="color: #8A867C; text-align: right">{{it.status}}</div>
+        </a>
+      </sc-for>
+      <div style="border-top: 1px solid #DCDAD3"></div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isList}}" hint-placeholder-val="{{ true }}">
+    <div style="display: flex; flex-direction: column; margin-top: 62px">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 20px">
+        <div class="eyebrow" style="color: {{accent}}">{{listLabel}}</div>
+        <div class="eyebrow" style="color: #8A867C">{{listCount}}</div>
+      </div>
+      <sc-for list="{{items}}" as="it" hint-placeholder-count="4">
+        <a onClick="{{it.go}}" class="row">
+          <div class="num">{{it.num}}</div>
+          <div>
+            <div class="row-title">{{it.title}}</div>
+            <div class="row-sum">{{it.summary}}</div>
+          </div>
+          <div class="mono" style="font-size: 12.5px; color: #8A867C; line-height: 1.7">{{it.tags}}</div>
+          <div class="eyebrow" style="color: #8A867C; text-align: right">{{it.status}}</div>
+        </a>
+      </sc-for>
+      <div style="border-top: 1px solid #DCDAD3"></div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isDetail}}" hint-placeholder-val="{{ true }}">
+    <div style="display: flex; flex-direction: column; margin-top: 46px">
+
+      <a onClick="{{goBack}}" style="display: flex; align-items: center; gap: 9px; margin-bottom: 38px">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#141311" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H6"></path><path d="M11 6.5L5.5 12 11 17.5"></path></svg>
+        <span class="eyebrow" style="color: #8A867C">{{backLabel}}</span>
+      </a>
+
+      <div style="display: grid; grid-template-columns: 66px minmax(0, 1fr); gap: 28px; align-items: start">
+        <div class="num" style="font-size: 15px; color: {{accent}}; padding-top: 10px">{{item.num}}</div>
+        <div style="display: flex; flex-direction: column">
+
+          <div style="font-size: 42px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.12; max-width: 780px; text-wrap: balance">{{item.title}}</div>
+          <div style="max-width: 620px; margin-top: 16px; font-size: 16px; line-height: 1.62; color: #55524B; text-wrap: pretty">{{item.summary}}</div>
+
+          <div style="display: flex; align-items: center; gap: 26px; margin-top: 22px">
+            <span class="mono" style="font-size: 12.5px; color: #8A867C">{{item.tags}}</span>
+            <span class="mono" style="font-size: 12.5px; color: #8A867C">{{item.runtime}}</span>
+            <span class="mono" style="font-size: 12.5px; color: #8A867C">{{item.date}}</span>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 26px; border-bottom: 1px solid #DCDAD3; margin-top: 40px">
+            <div class="eyebrow" style="padding-bottom: 12px; border-bottom: 2px solid {{accent}}; margin-bottom: -1px">Resultado</div>
+            <div class="eyebrow" style="padding-bottom: 12px; color: #8A867C">Código</div>
+          </div>
+
+          <div style="border: 1px solid #DCDAD3; border-top: none; background: #FBFAF7; height: 250px; display: flex; align-items: center; justify-content: center">
+            <span class="mono" style="font-size: 12px; color: #A8A49A">[ demo · iframe aislado ]</span>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 22px; margin-top: 30px">
+            <span class="mono" style="font-size: 12px; letter-spacing: 0.08em; font-weight: 500; border-bottom: 2px solid #141311; padding-bottom: 6px">{{item.file}}</span>
+          </div>
+          <div class="mono" style="background: #EAE8E1; padding: 22px 24px; font-size: 13px; line-height: 1.85; white-space: pre-line; color: #3A382F">{{item.code}}</div>
+
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { view: 'home', cat: null, slug: null };
+  }
+
+  cats() {
+    return [
+      { key: 'css', label: 'CSS', accent: '#E14B9B' },
+      { key: 'js', label: 'JS', accent: '#D98E00' },
+      { key: 'react', label: 'React', accent: '#00A5C4' }
+    ];
+  }
+
+  labs() {
+    return [
+      {
+        slug: 'holy-grail', cat: 'css', n: 1, featured: true, status: 'Listo',
+        title: 'Holy grail con Grid',
+        summary: 'Cabecera, pie, dos laterales fijos y un centro que se lo come todo, en una sola declaración.',
+        tags: 'grid · layout', runtime: 'iframe', date: '12 sep 2026', file: 'style.css',
+        code: '.page {\n  display: grid;\n  grid-template:\n    "header header header" auto\n    "nav    main   aside " 1fr\n    "footer footer footer" auto\n    / 12rem 1fr 12rem;\n  min-height: 100dvh;\n  gap: 1rem;\n}'
+      },
+      {
+        slug: 'auto-fit', cat: 'css', n: 2, featured: false, status: 'Listo',
+        title: 'Rejilla de tarjetas sin media queries',
+        summary: 'Un auto-fit con minmax hace el trabajo de cinco breakpoints escritos a mano.',
+        tags: 'grid · responsive', runtime: 'iframe', date: '14 sep 2026', file: 'style.css',
+        code: '.cards {\n  display: grid;\n  grid-template-columns:\n    repeat(auto-fit, minmax(16rem, 1fr));\n  gap: 1.5rem;\n}'
+      },
+      {
+        slug: 'centrar', cat: 'css', n: 3, featured: false, status: 'En curso',
+        title: 'Centrar de verdad, seis maneras',
+        summary: 'Cuándo gana flex, cuándo gana grid y cuándo basta con margin auto.',
+        tags: 'flexbox · grid', runtime: 'iframe', date: '18 sep 2026', file: 'style.css',
+        code: '.box {\n  display: grid;\n  place-items: center;\n}'
+      },
+      {
+        slug: 'subgrid', cat: 'css', n: 4, featured: false, status: 'Idea',
+        title: 'Subgrid para alinear tarjetas desiguales',
+        summary: 'Títulos de una línea y de dos, alineados en la misma retícula sin alturas fijas.',
+        tags: 'subgrid', runtime: 'iframe', date: '—', file: 'style.css',
+        code: '.card {\n  display: grid;\n  grid-row: span 3;\n  grid-template-rows: subgrid;\n}'
+      },
+      {
+        slug: 'poo', cat: 'js', n: 1, featured: true, status: 'Listo',
+        title: 'Orientación a objetos',
+        summary: 'Clases, herencia, composición y campos privados, con tests que pasan en verde.',
+        tags: 'clases · oop', runtime: 'inline', date: '15 sep 2026', file: 'cuenta.js',
+        code: 'class Cuenta {\n  #saldo = 0;\n\n  ingresar(cantidad) {\n    if (cantidad <= 0) throw new RangeError("cantidad no válida");\n    this.#saldo += cantidad;\n    return this;\n  }\n\n  get saldo() {\n    return this.#saldo;\n  }\n}'
+      },
+      {
+        slug: 'prototipos', cat: 'js', n: 2, featured: false, status: 'En curso',
+        title: 'Prototipos, sin azúcar',
+        summary: 'Lo que hace class por debajo, escrito a mano para no olvidarlo.',
+        tags: 'prototipos', runtime: 'inline', date: '19 sep 2026', file: 'proto.js',
+        code: 'function Cuenta() {\n  this.saldo = 0;\n}\n\nCuenta.prototype.ingresar = function (cantidad) {\n  this.saldo += cantidad;\n  return this;\n};'
+      },
+      {
+        slug: 'composicion', cat: 'js', n: 3, featured: false, status: 'Idea',
+        title: 'Composición frente a herencia',
+        summary: 'El mismo problema resuelto de las dos maneras, para poder comparar el coste real.',
+        tags: 'oop · patrones', runtime: 'inline', date: '—', file: 'mixins.js',
+        code: 'const conLog = (base) => ({\n  ...base,\n  hacer(...args) {\n    console.log("hacer", args);\n    return base.hacer(...args);\n  }\n});'
+      },
+      {
+        slug: 'estado-derivado', cat: 'react', n: 1, featured: false, status: 'Idea',
+        title: 'Estado derivado sin useEffect',
+        summary: 'La mitad de los efectos de un proyecto medio son un cálculo disfrazado.',
+        tags: 'hooks · estado', runtime: 'island', date: '—', file: 'Lista.jsx',
+        code: 'const visibles = useMemo(\n  () => items.filter((i) => i.activo),\n  [items]\n);'
+      }
+    ];
+  }
+
+  renderVals() {
+    const cats = this.cats();
+    const labs = this.labs();
+    const view = this.state.view;
+    const activeCat = cats.find((c) => c.key === this.state.cat);
+    const accent = activeCat ? activeCat.accent : '#141311';
+    const catOf = (key) => cats.find((c) => c.key === key);
+    const pad = (n) => String(n).padStart(3, '0');
+
+    const goCat = (key) => () => this.setState({ view: 'list', cat: key, slug: null });
+    const goLab = (lab) => () => this.setState({ view: 'detail', cat: lab.cat, slug: lab.slug });
+
+    const nav = cats.map((c) => ({
+      label: c.label,
+      go: goCat(c.key),
+      color: this.state.cat === c.key ? '#141311' : '#8A867C',
+      line: this.state.cat === c.key ? c.accent : 'transparent'
+    }));
+
+    const featured = labs.filter((l) => l.featured).map((l) => ({
+      num: pad(l.n),
+      title: l.title,
+      summary: l.summary,
+      status: l.status,
+      catLabel: catOf(l.cat).label,
+      catColor: catOf(l.cat).accent,
+      go: goLab(l)
+    }));
+
+    const inCat = labs.filter((l) => l.cat === this.state.cat);
+    const items = inCat.map((l) => ({
+      num: pad(l.n),
+      title: l.title,
+      summary: l.summary,
+      tags: l.tags,
+      status: l.status,
+      go: goLab(l)
+    }));
+
+    const current = labs.find((l) => l.slug === this.state.slug) || labs[0];
+    const item = {
+      num: pad(current.n),
+      title: current.title,
+      summary: current.summary,
+      tags: current.tags,
+      status: current.status,
+      runtime: current.runtime,
+      date: current.date,
+      file: current.file,
+      code: current.code
+    };
+
+    return {
+      isHome: view === 'home',
+      isList: view === 'list',
+      isDetail: view === 'detail',
+      accent: accent,
+      nav: nav,
+      featured: featured,
+      items: items,
+      item: item,
+      listLabel: activeCat ? activeCat.label : '',
+      listCount: inCat.length + ' ejercicios',
+      backLabel: activeCat ? 'Volver a ' + activeCat.label : 'Volver',
+      goHome: () => this.setState({ view: 'home', cat: null, slug: null }),
+      goBack: () => this.setState({ view: 'list', slug: null })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1440, "h": 1000, "title": "jmocanalab", "is_interactive": true }
+  ],
+  "annotations": [
+    { "id": "como-va", "x": 1560, "y": 0, "w": 480, "text": "Una sola página, tres estados.\n\nCSS / JS / React → sustituye el bloque por el listado de esa categoría.\nUn ejercicio → sustituye el listado por la ficha.\njmocanalab (arriba a la izquierda) → vuelve a Destacados.\n\nEs clicable: pruébalo sobre el propio artboard." }
+  ],
+  "launch": { "view": "focused", "file": "Main.dc.html" }
+}

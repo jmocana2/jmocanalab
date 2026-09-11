@@ -1,0 +1,40 @@
+# Dependencias
+node_modules/
+.pnpm-store/
+
+# Build de Astro
+dist/
+.astro/
+
+# Secretos — nunca, el repo es público
+.env
+.env.*
+!.env.example
+
+# Storybook
+storybook-static/
+
+# Vercel
+.vercel/
+
+# Caché de herramientas
+.eslintcache
+*.tsbuildinfo
+
+# Sistema operativo
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Editores
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
