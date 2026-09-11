@@ -1,0 +1,63 @@
+/*
+ * reset.css — reset mínimo. Solo lo que hace falta, no un reset de terceros.
+ */
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+    margin: 0;
+  }
+
+  /* Raíz al 62.5%: 1rem = 10px, y sigue respetando el tamaño de fuente del usuario. */
+  html {
+    font-size: 62.5%;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg,
+  iframe {
+    display: block;
+    max-width: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  ul,
+  ol {
+    list-style: none;
+    padding: 0;
+  }
+
+  /* Quien pida menos movimiento, que no lo tenga. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

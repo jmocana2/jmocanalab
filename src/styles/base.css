@@ -1,0 +1,57 @@
+/*
+ * base.css — estilos de elemento. Nada de clases: eso vive en la capa de componentes.
+ *
+ * 1. Documento
+ * 2. Tipografía
+ * 3. Enlaces y foco
+ */
+
+@layer base {
+  /* 1. Documento */
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-ui);
+    font-size: var(--text-m);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-m);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* 2. Tipografía. El tamaño lo decide el componente, no la etiqueta. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-size: inherit;
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-l);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  code,
+  pre,
+  kbd {
+    font-family: var(--font-mono);
+  }
+
+  /* 3. Enlaces y foco */
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-link-hover);
+    }
+  }
+
+  :focus-visible {
+    outline: var(--border-active) solid var(--color-link-hover);
+    outline-offset: var(--space-1);
+  }
+}

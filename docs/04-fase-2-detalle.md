@@ -400,15 +400,15 @@ convención que se estableció en el código y no está escrita en ningún sitio
 
 ## 6. Versiones instaladas (2026-09-11)
 
-| Paquete | Versión | Nota |
-|---|---|---|
-| astro | 7.3.2 | `output: 'static'`, sin adaptador |
-| typescript | **6.x** | ⚠️ fijado a propósito: `typescript-eslint` 8.70 aún no soporta TS 7.0 |
-| eslint | 10.10 | flat config en `eslint.config.js` |
-| typescript-eslint | 8.70 | |
-| eslint-plugin-astro | 3.1 | aporta también el preset `jsx-a11y-strict` |
-| prettier | 3.9 | con `prettier-plugin-astro` |
-| @astrojs/check | 0.9 | script `typecheck` |
+| Paquete             | Versión | Nota                                                                  |
+| ------------------- | ------- | --------------------------------------------------------------------- |
+| astro               | 7.3.2   | `output: 'static'`, sin adaptador                                     |
+| typescript          | **6.x** | ⚠️ fijado a propósito: `typescript-eslint` 8.70 aún no soporta TS 7.0 |
+| eslint              | 10.10   | flat config en `eslint.config.js`                                     |
+| typescript-eslint   | 8.70    |                                                                       |
+| eslint-plugin-astro | 3.1     | aporta también el preset `jsx-a11y-strict`                            |
+| prettier            | 3.9     | con `prettier-plugin-astro`                                           |
+| @astrojs/check      | 0.9     | script `typecheck`                                                    |
 
 Revisar el pin de TypeScript cuando `typescript-eslint` publique soporte para TS ≥ 7.1
 (seguimiento: issue 10940 del repo de typescript-eslint).

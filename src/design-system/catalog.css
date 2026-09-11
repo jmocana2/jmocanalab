@@ -1,0 +1,104 @@
+/*
+ * catalog.css — andamiaje visual del catálogo de Storybook. NO forma parte del sitio.
+ * Existe para que las stories sigan siendo solo markup + clases, sin estilos sueltos.
+ * Todo lo de aquí consume tokens: el catálogo se mide con su propia vara.
+ *
+ * 1. Página del catálogo
+ * 2. Rejilla de fichas
+ * 3. Muestra de color
+ * 4. Muestra de tipografía
+ * 5. Muestra de espaciado
+ */
+
+@layer components {
+  /* 1. Página del catálogo */
+  .catalog {
+    padding: var(--space-11) var(--space-13) var(--space-12);
+  }
+
+  .catalog__title {
+    font-size: var(--text-ui);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--track-ui);
+    text-transform: uppercase;
+    padding-block-end: var(--space-4);
+    border-block-end: var(--border-thin) solid var(--color-line-strong);
+  }
+
+  .catalog__group {
+    margin-block-start: var(--space-12);
+  }
+
+  .catalog__name {
+    font-family: var(--font-mono);
+    font-size: var(--text-mono);
+    color: var(--color-ink);
+  }
+
+  .catalog__value {
+    font-family: var(--font-mono);
+    font-size: var(--text-mono-s);
+    color: var(--color-ink-3);
+  }
+
+  .catalog__usage {
+    font-size: var(--text-s);
+    color: var(--color-ink-2);
+  }
+
+  /* 2. Rejilla de fichas */
+  .catalog__grid {
+    display: grid;
+    gap: var(--space-7);
+    margin-block-start: var(--space-7);
+    grid-template-columns: 1fr;
+
+    @media (min-width: 48em) {
+      grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
+    }
+  }
+
+  /* 3. Muestra de color */
+  .swatch__chip {
+    block-size: var(--space-13);
+    border: var(--border-thin) solid var(--color-line);
+  }
+
+  .swatch__name {
+    margin-block-start: var(--space-3);
+  }
+
+  /* 4. Muestra de tipografía */
+  .type-row {
+    display: grid;
+    gap: var(--space-2);
+    padding-block: var(--space-7);
+    border-block-start: var(--border-thin) solid var(--color-line);
+  }
+
+  .type-row__sample {
+    font-family: var(--font-ui);
+    color: var(--color-ink);
+  }
+
+  .type-row__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+  }
+
+  /* 5. Muestra de espaciado */
+  .space-row {
+    display: grid;
+    grid-template-columns: 9rem 7rem 1fr;
+    gap: var(--space-5);
+    align-items: center;
+    padding-block: var(--space-3);
+    border-block-start: var(--border-thin) solid var(--color-line);
+  }
+
+  .space-row__bar {
+    block-size: var(--space-4);
+    background-color: var(--color-accent);
+  }
+}

@@ -1,0 +1,117 @@
+/*
+ * tokens.css — contrato de estilos del sitio. Único fichero con valores literales.
+ * Los valores salen de la maqueta `.design/Main.dc.html` (ver docs/04-fase-2-detalle.md).
+ *
+ * 1. Color
+ * 2. Acento por categoría
+ * 3. Tipografía
+ * 4. Espaciado
+ * 5. Layout
+ * 6. Breakpoints
+ */
+
+@layer tokens {
+  :root {
+    /* 1. Color — superficies */
+    --color-bg: #f2f1ed;
+    --color-bg-raised: #fbfaf7;
+    --color-bg-code: #eae8e1;
+
+    /* 1. Color — tinta */
+    --color-ink: #141311;
+    --color-ink-code: #3a382f;
+    --color-ink-2: #55524b;
+    --color-ink-3: #8a867c;
+    --color-ink-4: #a8a49a;
+
+    /* 1. Color — líneas */
+    --color-line: #dcdad3;
+    --color-line-strong: var(--color-ink);
+
+    /* 1. Color — interacción. Genérico, no depende de la categoría. */
+    --color-link-hover: #00a5c4;
+
+    /* 2. Acento. Por defecto no hay: es la tinta. */
+    --color-accent: var(--color-ink);
+
+    /* 3. Tipografía — familias */
+    --font-ui: Archivo, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+
+    /* 3. Tipografía — escala por rol. Base 62.5%: 1rem = 10px. */
+    --text-ui: 1.1rem;
+    --text-mono-s: 1.2rem;
+    --text-mono: 1.3rem;
+    --text-s: 1.4rem;
+    --text-num: 1.5rem;
+    --text-m: 1.6rem;
+    --text-brand: 1.7rem;
+    --text-l: 2.3rem;
+    --text-xl: clamp(2.8rem, 5vw, 4.2rem);
+
+    /* 3. Tipografía — interlineado, emparejado con la escala */
+    --leading-ui: 1;
+    --leading-mono-s: 1.4;
+    --leading-mono: 1.85;
+    --leading-s: 1.6;
+    --leading-m: 1.62;
+    --leading-l: 1.25;
+    --leading-xl: 1.12;
+
+    /* 3. Tipografía — tracking. Tan estructural como el tamaño. */
+    --track-ui: 0.18em;
+    --track-mono: 0.08em;
+    --track-brand: -0.01em;
+    --track-l: -0.015em;
+    --track-xl: -0.025em;
+
+    /* 3. Tipografía — pesos */
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-bold: 600;
+
+    /* 4. Espaciado */
+    --space-1: 0.4rem;
+    --space-2: 0.6rem;
+    --space-3: 0.8rem;
+    --space-4: 1.2rem;
+    --space-5: 1.6rem;
+    --space-6: 2rem;
+    --space-7: 2.4rem;
+    --space-8: 2.8rem;
+    --space-9: 3.4rem;
+    --space-10: 4rem;
+    --space-11: 4.8rem;
+    --space-12: 6.4rem;
+    --space-13: 8.8rem;
+
+    /* 5. Layout */
+    --grid-row: 6.6rem minmax(0, 1fr) 13.2rem 9.6rem;
+    --width-title: 78rem;
+    --width-text: 62rem;
+
+    /* 5. Layout — bordes. Excepción a la regla del rem: son líneas, no texto. */
+    --border-thin: 1px;
+    --border-active: 2px;
+
+    /*
+     * 6. Breakpoints. Solo documentación y lectura desde JS: las custom properties
+     * no funcionan dentro de una media query, así que ahí el valor va literal.
+     */
+    --bp-tablet: 768px;
+    --bp-desktop: 1200px;
+  }
+
+  /* 2. Acento por categoría. Hereda: basta ponerlo en un ancestro. */
+  [data-category='css'] {
+    --color-accent: #e14b9b;
+  }
+
+  [data-category='js'] {
+    --color-accent: #d98e00;
+  }
+
+  [data-category='react'] {
+    --color-accent: #00a5c4;
+  }
+}

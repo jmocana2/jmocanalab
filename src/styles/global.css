@@ -1,0 +1,17 @@
+/*
+ * global.css — orden de la cascada y punto de entrada único de los estilos.
+ * El orden de @layer es lo primero del fichero: cambiarlo después obliga a
+ * revisar toda la cascada.
+ */
+
+@layer reset, tokens, base, components, utilities;
+
+@import '@fontsource/archivo/400.css' layer(base);
+@import '@fontsource/archivo/500.css' layer(base);
+@import '@fontsource/archivo/600.css' layer(base);
+@import '@fontsource/jetbrains-mono/400.css' layer(base);
+@import '@fontsource/jetbrains-mono/500.css' layer(base);
+
+@import './reset.css';
+@import './tokens.css';
+@import './base.css';
