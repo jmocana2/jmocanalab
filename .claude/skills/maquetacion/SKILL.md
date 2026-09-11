@@ -17,14 +17,14 @@ Principio que gobierna todo lo demás: **ante la duda, quitar.**
 
 Regla única, y aplica a todo el proyecto:
 
-| Qué | Idioma |
-|---|---|
-| Nombres de fichero y de carpeta | **inglés** |
-| Identificadores en código: clases BEM, tokens CSS, atributos `data-*`, variables | **inglés** |
-| Slugs de contenido y de URL | **inglés**, ASCII, sin tildes |
-| Comentarios | **español** |
-| Texto visible en la interfaz | **español** |
-| Documentación (`docs/`) y mensajes de commit | **español** |
+| Qué                                                                              | Idioma                        |
+| -------------------------------------------------------------------------------- | ----------------------------- |
+| Nombres de fichero y de carpeta                                                  | **inglés**                    |
+| Identificadores en código: clases BEM, tokens CSS, atributos `data-*`, variables | **inglés**                    |
+| Slugs de contenido y de URL                                                      | **inglés**, ASCII, sin tildes |
+| Comentarios                                                                      | **español**                   |
+| Texto visible en la interfaz                                                     | **español**                   |
+| Documentación (`docs/`) y mensajes de commit                                     | **español**                   |
 
 En una palabra: **se escribe en inglés lo que lee la máquina y en español lo que lee una
 persona.** El comentario en español es deliberado: es donde se explica el porqué, y ahí
@@ -144,8 +144,12 @@ márgenes, tamaños de fuente, radios: `rem`.
 La raíz se define en el HTML para que la conversión sea trivial:
 
 ```css
-html { font-size: 62.5%; }  /* 1rem = 10px con el ajuste por defecto del navegador */
-body { font-size: 1.6rem; } /* devuelve el cuerpo a 16px */
+html {
+  font-size: 62.5%;
+} /* 1rem = 10px con el ajuste por defecto del navegador */
+body {
+  font-size: 1.6rem;
+} /* devuelve el cuerpo a 16px */
 ```
 
 Se usa `62.5%` y no `10px` **a propósito**: al ser relativo, sigue respetando el tamaño de
@@ -169,7 +173,7 @@ Se escribe primero el móvil, sin media query, y se **añade** hacia arriba con 
 Nunca `max-width`.
 
 ```css
---bp-tablet:    768px;   /* referencia; en la media query va el valor literal */
+--bp-tablet: 768px; /* referencia; en la media query va el valor literal */
 --bp-desktop: 1200px;
 ```
 
@@ -178,12 +182,14 @@ Nunca `max-width`.
   display: grid;
   gap: var(--space-4);
 
-  @media (min-width: 48em) {   /* 768px */
+  @media (min-width: 48em) {
+    /* 768px */
     grid-template-columns: var(--grid-row);
     gap: var(--space-8);
   }
 
-  @media (min-width: 75em) {   /* 1200px */
+  @media (min-width: 75em) {
+    /* 1200px */
     /* … */
   }
 }
@@ -209,12 +215,16 @@ Se usa el anidado nativo de CSS, con dos límites:
   el proyecto.
 
 ```css
-.card { /* … */ }
+.card {
+  /* … */
+}
 
 .card__title {
   font-size: var(--text-l);
 
-  &:hover { color: var(--color-link-hover); }
+  &:hover {
+    color: var(--color-link-hover);
+  }
 }
 ```
 
@@ -233,9 +243,13 @@ Se usa el anidado nativo de CSS, con dos límites:
 - El acento de categoría se hereda, no se repite:
 
 ```css
-[data-category="css"] { --color-accent: #E14B9B; }
+[data-category='css'] {
+  --color-accent: #e14b9b;
+}
 
-.card__number { color: var(--color-accent); }
+.card__number {
+  color: var(--color-accent);
+}
 ```
 
 ### Comentarios
@@ -255,7 +269,7 @@ lleva además un índice de secciones.
 ```
 
 Dentro del código, nada. Si una regla necesita explicación, o el nombre está mal elegido o
-sobra la regla. La excepción razonable es un *hack* de navegador: ahí el comentario dice
+sobra la regla. La excepción razonable es un _hack_ de navegador: ahí el comentario dice
 **por qué**, con enlace si lo hay.
 
 ---

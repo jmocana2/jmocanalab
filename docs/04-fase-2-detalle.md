@@ -10,7 +10,7 @@
 ## 0. Decisiones que se cierran aquí
 
 1. **Los tokens son los valores de la maqueta.** Sin reinterpretar. Lo que se hace
-   es *nombrarlos* y *ordenarlos en escalas*, no cambiarlos. (§2)
+   es _nombrarlos_ y _ordenarlos en escalas_, no cambiarlos. (§2)
 2. **El acento se queda**, en los tres neones, uso mínimo: categoría activa y número
    de ficha. Era el pendiente de `02-diseno.md` §5.
 3. **Storybook entra en la Fase 2**, con `@storybook/html-vite`. (§4)
@@ -27,7 +27,7 @@ Web Components, HTML, Svelte, SvelteKit, Qwik y Solid; Astro no está en la list
 a renderizar tus `.astro` sin trabajo extra, y ese trabajo extra choca con la prioridad
 del proyecto: baja fricción por experimento.
 
-Pero el caso de uso que describes —*almacenar el DS, servir de referencia*— **no
+Pero el caso de uso que describes —_almacenar el DS, servir de referencia_— **no
 necesita renderizar `.astro`**. Necesita renderizar **CSS sobre markup**, y para eso
 `@storybook/html-vite` es exacto: una story es una función que devuelve un string de
 HTML. Los componentes de este sitio (fila numerada, nav de categorías, pestañas,
@@ -42,18 +42,18 @@ entera.
 
 ## 1. Tareas, en orden
 
-| # | Tarea | Bloquea a |
-|---|---|---|
-| **2.0** | **`CLAUDE.md` + skills del proyecto (§5)** | **todo** |
-| 2.1 | `git init` · `.gitignore` ✅ | todo |
-| 2.2 | Scaffold Astro + TS strict + Prettier + ESLint | todo |
-| 2.3 | `src/styles/` — **tokens y capas** (§2) | 2.5, 2.6, 2.8 |
-| 2.4 | `src/content.config.ts` — esquema Zod | 2.7 |
-| 2.5 | Layout base: cabecera, nav de categorías, footer | 2.7 |
-| 2.6 | Clases de componente: `.fila`, `.eyebrow`, `.num`, `.mono` | 2.7, 2.8 |
-| 2.7 | Lab de prueba `css/prueba` de punta a punta | 2.9 |
-| 2.8 | Storybook con las stories del DS (§4) | — |
-| 2.9 | GitHub + Vercel | — |
+| #       | Tarea                                                      | Bloquea a     |
+| ------- | ---------------------------------------------------------- | ------------- |
+| **2.0** | **`CLAUDE.md` + skills del proyecto (§5)**                 | **todo**      |
+| 2.1     | `git init` · `.gitignore` ✅                               | todo          |
+| 2.2     | Scaffold Astro + TS strict + Prettier + ESLint             | todo          |
+| 2.3     | `src/styles/` — **tokens y capas** (§2)                    | 2.5, 2.6, 2.8 |
+| 2.4     | `src/content.config.ts` — esquema Zod                      | 2.7           |
+| 2.5     | Layout base: cabecera, nav de categorías, footer           | 2.7           |
+| 2.6     | Clases de componente: `.fila`, `.eyebrow`, `.num`, `.mono` | 2.7, 2.8      |
+| 2.7     | Lab de prueba `css/prueba` de punta a punta                | 2.9           |
+| 2.8     | Storybook con las stories del DS (§4)                      | —             |
+| 2.9     | GitHub + Vercel                                            | —             |
 
 2.8 puede hacerse en paralelo a 2.7 o después; **no bloquea el deploy**.
 
@@ -86,31 +86,37 @@ Los valores de la maqueta, con nombre semántico:
 @layer tokens {
   :root {
     /* superficies */
-    --color-bg:        #F2F1ED;  /* blanco roto cálido */
-    --color-bg-raised:   #FBFAF7;  /* panel elevado */
-    --color-bg-code: #EAE8E1;  /* bloque de código */
+    --color-bg: #f2f1ed; /* blanco roto cálido */
+    --color-bg-raised: #fbfaf7; /* panel elevado */
+    --color-bg-code: #eae8e1; /* bloque de código */
 
     /* tinta */
-    --color-ink:        #141311;  /* texto principal, iconos, línea fuerte */
-    --color-ink-code: #3A382F;  /* texto dentro del bloque de código */
-    --color-ink-2:      #55524B;  /* resúmenes, texto secundario */
-    --color-ink-3:      #8A867C;  /* metadatos, numeración */
-    --color-ink-4:      #A8A49A;  /* placeholders, notas de demo */
+    --color-ink: #141311; /* texto principal, iconos, línea fuerte */
+    --color-ink-code: #3a382f; /* texto dentro del bloque de código */
+    --color-ink-2: #55524b; /* resúmenes, texto secundario */
+    --color-ink-3: #8a867c; /* metadatos, numeración */
+    --color-ink-4: #a8a49a; /* placeholders, notas de demo */
 
     /* líneas */
-    --color-line:        #DCDAD3;  /* separador fino de filas */
+    --color-line: #dcdad3; /* separador fino de filas */
     --color-line-strong: var(--color-ink); /* línea bajo la cabecera */
 
     /* interacción */
-    --color-link-hover: #00A5C4;
+    --color-link-hover: #00a5c4;
 
     /* acento: por defecto, no hay */
-    --color-accent:       var(--color-ink);
+    --color-accent: var(--color-ink);
   }
 
-  [data-category="css"]   { --color-accent: #E14B9B; }
-  [data-category="js"]    { --color-accent: #D98E00; }
-  [data-category="react"] { --color-accent: #00A5C4; }
+  [data-category='css'] {
+    --color-accent: #e14b9b;
+  }
+  [data-category='js'] {
+    --color-accent: #d98e00;
+  }
+  [data-category='react'] {
+    --color-accent: #00a5c4;
+  }
 }
 ```
 
@@ -130,8 +136,8 @@ bloque `[data-theme="oscuro"]` redefiniendo estas mismas propiedades.
 ### 2.2 Tipografía
 
 ```css
---font-ui:   Archivo, "Helvetica Neue", Arial, sans-serif;
---font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+--font-ui: Archivo, 'Helvetica Neue', Arial, sans-serif;
+--font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
 ```
 
 Ambas por `@fontsource` (`archivo` 400/500/600 y `jetbrains-mono` 400/500), **no por
@@ -145,26 +151,26 @@ identificable**, así que la escala se define por rol, no por número:
 Se escriben en `rem` sobre una raíz de `62.5%`, así que el valor en rem es el de px
 dividido entre 10 (11px → `1.1rem`). La columna `px` queda como referencia de la maqueta.
 
-| Token | px | rem | line-height | Dónde |
-|---|---|---|---|---|
-| `--text-ui` | 11 | 1.1 | 1 | `.eyebrow`: nav, etiquetas, todo en mayúsculas |
-| `--text-mono-s` | 12 | 1.2 | 1.4 | nombre de fichero, `[ demo · iframe aislado ]` |
-| `--text-mono` | 13 | 1.3 | 1.85 | numeración de fila y cuerpo del bloque de código |
-| `--text-s` | 14 | 1.4 | 1.6 | resumen en el listado |
-| `--text-num` | 15 | 1.5 | 1 | el número de la ficha, en color de acento |
-| `--text-m` | 16 | 1.6 | 1.62 | resumen de la ficha |
-| `--text-brand` | 17 | 1.7 | 1 | `jmocanalab` en la cabecera |
-| `--text-l` | 23 | 2.3 | 1.25 | título de fila en el listado |
-| `--text-xl` | 42 | 4.2 | 1.12 | título de la ficha |
+| Token           | px  | rem | line-height | Dónde                                            |
+| --------------- | --- | --- | ----------- | ------------------------------------------------ |
+| `--text-ui`     | 11  | 1.1 | 1           | `.eyebrow`: nav, etiquetas, todo en mayúsculas   |
+| `--text-mono-s` | 12  | 1.2 | 1.4         | nombre de fichero, `[ demo · iframe aislado ]`   |
+| `--text-mono`   | 13  | 1.3 | 1.85        | numeración de fila y cuerpo del bloque de código |
+| `--text-s`      | 14  | 1.4 | 1.6         | resumen en el listado                            |
+| `--text-num`    | 15  | 1.5 | 1           | el número de la ficha, en color de acento        |
+| `--text-m`      | 16  | 1.6 | 1.62        | resumen de la ficha                              |
+| `--text-brand`  | 17  | 1.7 | 1           | `jmocanalab` en la cabecera                      |
+| `--text-l`      | 23  | 2.3 | 1.25        | título de fila en el listado                     |
+| `--text-xl`     | 42  | 4.2 | 1.12        | título de la ficha                               |
 
 Y el tracking, que en este diseño es tan estructural como el tamaño:
 
 ```css
---track-ui:    0.18em;   /* mayúsculas de 11px */
---track-mono:  0.08em;   /* nombre de fichero */
---track-brand: -0.01em;  /* 17px */
---track-l:     -0.015em; /* 23px */
---track-xl:    -0.025em; /* 42px */
+--track-ui: 0.18em; /* mayúsculas de 11px */
+--track-mono: 0.08em; /* nombre de fichero */
+--track-brand: -0.01em; /* 17px */
+--track-l: -0.015em; /* 23px */
+--track-xl: -0.025em; /* 42px */
 ```
 
 Pesos: 400 cuerpo · 500 titulares y mono destacada · 600 UI en mayúsculas y marca.
@@ -182,10 +188,19 @@ Propuesta: **snap a una escala de 13 pasos** que los absorbe todos con desviaci�
 de 2px —imperceptible en este diseño— y a cambio el espaciado pasa a ser un sistema:
 
 ```css
---space-1: 0.4rem;  --space-2: 0.6rem;  --space-3: 0.8rem;  --space-4: 1.2rem;   /*  4  6  8 12 */
---space-5: 1.6rem;  --space-6: 2rem;    --space-7: 2.4rem;  --space-8: 2.8rem;   /* 16 20 24 28 */
---space-9: 3.4rem;  --space-10: 4rem;   --space-11: 4.8rem; --space-12: 6.4rem;  /* 34 40 48 64 */
---space-13: 8.8rem;                                                  /* 88 */
+--space-1: 0.4rem;
+--space-2: 0.6rem;
+--space-3: 0.8rem;
+--space-4: 1.2rem; /*  4  6  8 12 */
+--space-5: 1.6rem;
+--space-6: 2rem;
+--space-7: 2.4rem;
+--space-8: 2.8rem; /* 16 20 24 28 */
+--space-9: 3.4rem;
+--space-10: 4rem;
+--space-11: 4.8rem;
+--space-12: 6.4rem; /* 34 40 48 64 */
+--space-13: 8.8rem; /* 88 */
 ```
 
 Correspondencias que importan (el resto cae solo):
@@ -203,10 +218,10 @@ token, no se añade un token nuevo.
 
 ```css
 --grid-row: 6.6rem minmax(0, 1fr) 13.2rem 9.6rem; /* num · título · meta · estado */
---width-title: 78rem;   /* max-width del título de ficha */
---width-text:   62rem;   /* max-width de los resúmenes */
---border-thin:    1px;     /* excepción: son líneas, no texto */
---border-active:  2px;     /* subrayado de categoría activa y de pestaña */
+--width-title: 78rem; /* max-width del título de ficha */
+--width-text: 62rem; /* max-width de los resúmenes */
+--border-thin: 1px; /* excepción: son líneas, no texto */
+--border-active: 2px; /* subrayado de categoría activa y de pestaña */
 ```
 
 En móvil `--grid-row` colapsa a una columna y el número pasa a ir sobre el título.
@@ -282,7 +297,7 @@ ha quedado sin actualizar, ese es el camino de salida.
 
 ## 5. Tarea 2.0 — `CLAUDE.md` y skills, antes de nada
 
-El análisis (§5.4) recomendaba *primero el scaffold, luego las skills*, con un argumento
+El análisis (§5.4) recomendaba _primero el scaffold, luego las skills_, con un argumento
 bueno: **una skill escrita antes de que existan convenciones documenta convenciones
 inventadas**. Pero a día de hoy las convenciones ya no hay que inventarlas: están en
 `01-decisiones.md`, `02-diseno.md` y en §2 de este documento.
@@ -383,7 +398,24 @@ convención que se estableció en el código y no está escrita en ningún sitio
 
 ---
 
-## 6. Definición de "Fase 2 terminada"
+## 6. Versiones instaladas (2026-09-11)
+
+| Paquete | Versión | Nota |
+|---|---|---|
+| astro | 7.3.2 | `output: 'static'`, sin adaptador |
+| typescript | **6.x** | ⚠️ fijado a propósito: `typescript-eslint` 8.70 aún no soporta TS 7.0 |
+| eslint | 10.10 | flat config en `eslint.config.js` |
+| typescript-eslint | 8.70 | |
+| eslint-plugin-astro | 3.1 | aporta también el preset `jsx-a11y-strict` |
+| prettier | 3.9 | con `prettier-plugin-astro` |
+| @astrojs/check | 0.9 | script `typecheck` |
+
+Revisar el pin de TypeScript cuando `typescript-eslint` publique soporte para TS ≥ 7.1
+(seguimiento: issue 10940 del repo de typescript-eslint).
+
+---
+
+## 7. Definición de "Fase 2 terminada"
 
 - [ ] `https://jmocanalab.vercel.app` carga la home con cabecera y nav de categorías.
 - [ ] `/labs/css/prueba` renderiza su iframe aislado.

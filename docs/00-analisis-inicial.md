@@ -25,7 +25,7 @@ Stack propuesto: Astro · monolito modular · GitHub · Vercel · pnpm · Pretti
 
 **Bien planteado, y Astro es la elección correcta.** Razones concretas:
 
-- Astro es *content-first*: las **content collections** con esquema Zod encajan literalmente con "una ficha por ejercicio, con categoría y tags". Dan tipado, validación e índices automáticos sin escribir un CMS.
+- Astro es _content-first_: las **content collections** con esquema Zod encajan literalmente con "una ficha por ejercicio, con categoría y tags". Dan tipado, validación e índices automáticos sin escribir un CMS.
 - **Islands architecture**: puedes tener demos de React, Vue o Svelte conviviendo en el mismo sitio, cada una hidratada solo en su página. Es el único framework mainstream donde "laboratorio multi-tecnología" no es una pelea.
 - **Cero JS por defecto**: un portfolio de front-end con mal Lighthouse resta credibilidad. Astro da un buen punto de partida gratis.
 - Curva de entrada baja: si sabes HTML/CSS/JS, escribes `.astro` el primer día.
@@ -46,7 +46,7 @@ Stack propuesto: Astro · monolito modular · GitHub · Vercel · pnpm · Pretti
 
 No montes `pnpm workspaces` con `apps/` y `packages/` ahora. Es la trampa clásica: mucha ceremonia para un sitio de una sola app. **Un solo `package.json`** en la raíz. La modularidad la das con estructura de carpetas y content collections, no con workspaces.
 
-*Cuándo reconsiderarlo*: cuando un experimento concreto necesite dependencias incompatibles con el resto (p. ej. una demo que exige React 18 mientras el sitio va con React 19). Entonces, y solo entonces, ese experimento pasa a ser un paquete aislado o, mejor, un embed de StackBlitz. No antes.
+_Cuándo reconsiderarlo_: cuando un experimento concreto necesite dependencias incompatibles con el resto (p. ej. una demo que exige React 18 mientras el sitio va con React 19). Entonces, y solo entonces, ese experimento pasa a ser un paquete aislado o, mejor, un embed de StackBlitz. No antes.
 
 ### 3.2 Vercel: empieza en **static**, no en SSR
 
@@ -58,13 +58,13 @@ Esta es, de largo, **la decisión arquitectónica más importante del proyecto**
 
 Propongo **tres niveles de aislamiento**, y que cada experimento declare el suyo en su frontmatter:
 
-| Nivel | `runtime` | Cómo se renderiza | Para qué |
-|---|---|---|---|
-| **A** | `inline` | Componente `.astro` embebido en la página, estilos con scope de Astro | Demos limpias que conviven bien: un componente, una animación contenida |
-| **B** | `iframe` | HTML/CSS/JS suelto en `public/labs/<cat>/<slug>/index.html`, mostrado en `<iframe>` | Demos de CSS/JS puras. **Aislamiento total garantizado**, y el fichero se abre solo en el navegador sin build |
-| **C** | `island` | Componente React/Vue/Svelte con `client:visible` | Demos que necesitan un framework de verdad |
+| Nivel | `runtime` | Cómo se renderiza                                                                   | Para qué                                                                                                      |
+| ----- | --------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| **A** | `inline`  | Componente `.astro` embebido en la página, estilos con scope de Astro               | Demos limpias que conviven bien: un componente, una animación contenida                                       |
+| **B** | `iframe`  | HTML/CSS/JS suelto en `public/labs/<cat>/<slug>/index.html`, mostrado en `<iframe>` | Demos de CSS/JS puras. **Aislamiento total garantizado**, y el fichero se abre solo en el navegador sin build |
+| **C** | `island`  | Componente React/Vue/Svelte con `client:visible`                                    | Demos que necesitan un framework de verdad                                                                    |
 
-El nivel B es el que hace sostenible este laboratorio. Escribir un experimento de CSS pasa a ser "crear una carpeta con un `index.html`" — coste cero, cero riesgo de contaminación, y es *portable*: mañana ese fichero funciona en cualquier otro sitio.
+El nivel B es el que hace sostenible este laboratorio. Escribir un experimento de CSS pasa a ser "crear una carpeta con un `index.html`" — coste cero, cero riesgo de contaminación, y es _portable_: mañana ese fichero funciona en cualquier otro sitio.
 
 ### 3.4 Estructura de carpetas propuesta
 
@@ -118,19 +118,21 @@ const labs = defineCollection({
   schema: z.object({
     title: z.string(),
     summary: z.string().max(180),
-    category: z.enum(['css', 'js', 'react']),   // 'ia'/'herramientas' se añaden cuando existan
+    category: z.enum(['css', 'js', 'react']), // 'ia'/'herramientas' se añaden cuando existan
     tags: z.array(z.string()).default([]),
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),
     status: z.enum(['idea', 'wip', 'done']).default('wip'),
-    featured: z.boolean().default(false),      // ← cara comercial vs laboratorio
+    featured: z.boolean().default(false), // ← cara comercial vs laboratorio
     runtime: z.enum(['inline', 'iframe', 'island']),
-    entry: z.string().optional(),              // ruta al iframe o al componente
-    sources: z.array(z.string()).default([]),  // ficheros a mostrar con Shiki
-    links: z.object({
-      repo: z.string().url().optional(),
-      article: z.string().url().optional(),
-    }).default({}),
+    entry: z.string().optional(), // ruta al iframe o al componente
+    sources: z.array(z.string()).default([]), // ficheros a mostrar con Shiki
+    links: z
+      .object({
+        repo: z.string().url().optional(),
+        article: z.string().url().optional(),
+      })
+      .default({}),
   }),
 });
 
@@ -151,7 +153,7 @@ Ordenados por gravedad real, no por orden de aparición.
 
 Un portfolio público construido por alguien que trabaja en cliente tiende a acabar incluyendo capturas, snippets o "cosas que resolví en el trabajo". **Eso puede ser código propietario y sujeto a contrato.** No es un riesgo teórico: es la vía más rápida de tener un problema laboral real.
 
-Regla que propongo escribir en el `CLAUDE.md` del proyecto desde el minuto uno: *ningún código, captura, dato, marca o asset de Atresmedia/Knowmad mood entra en este repositorio.* Las técnicas aprendidas se reimplementan desde cero con un caso de ejemplo genérico. Mencionar el puesto en el perfil está perfecto; publicar trabajo del cliente, no.
+Regla que propongo escribir en el `CLAUDE.md` del proyecto desde el minuto uno: _ningún código, captura, dato, marca o asset de Atresmedia/Knowmad mood entra en este repositorio._ Las técnicas aprendidas se reimplementan desde cero con un caso de ejemplo genérico. Mencionar el puesto en el perfil está perfecto; publicar trabajo del cliente, no.
 
 ### 4.2 🔴 La categoría `ia` es la que puede costarte dinero
 
@@ -204,13 +206,13 @@ Tres cosas que, si se posponen, duelen. Conviene decidirlas ahora aunque sea en 
 
 ### 5.1 Imprescindibles (el proyecto se resiente sin ellas)
 
-| Mejora | Por qué |
-|---|---|
-| **Generador `pnpm new:lab`** | Ya argumentado en 4.4. Es *la* mejora del proyecto. |
-| **Visor de código con Shiki** | Astro ya trae Shiki. Cada demo muestra "resultado + código fuente" en pestañas. Sin esto es una galería, no un laboratorio: el valor pedagógico está en ver el código. |
-| **Nivel `iframe` desde el día 1** | Aislamiento (3.3). |
-| **`CLAUDE.md` del proyecto** | Convenciones, regla de no-contenido-de-cliente, cómo se añade un lab. Hace que las siguientes sesiones conmigo arranquen bien encaminadas. |
-| **Modo oscuro** | Para un portfolio de front-end en 2026 es expectativa base, y cuesta poco si los colores son tokens CSS desde el principio. |
+| Mejora                            | Por qué                                                                                                                                                                |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Generador `pnpm new:lab`**      | Ya argumentado en 4.4. Es _la_ mejora del proyecto.                                                                                                                    |
+| **Visor de código con Shiki**     | Astro ya trae Shiki. Cada demo muestra "resultado + código fuente" en pestañas. Sin esto es una galería, no un laboratorio: el valor pedagógico está en ver el código. |
+| **Nivel `iframe` desde el día 1** | Aislamiento (3.3).                                                                                                                                                     |
+| **`CLAUDE.md` del proyecto**      | Convenciones, regla de no-contenido-de-cliente, cómo se añade un lab. Hace que las siguientes sesiones conmigo arranquen bien encaminadas.                             |
+| **Modo oscuro**                   | Para un portfolio de front-end en 2026 es expectativa base, y cuesta poco si los colores son tokens CSS desde el principio.                                            |
 
 ### 5.2 Alto valor / bajo coste
 
@@ -233,7 +235,7 @@ Tres cosas que, si se posponen, duelen. Conviene decidirlas ahora aunque sea en 
 Vas bien encaminado, pero conviene distinguir las piezas:
 
 - **Skills de proyecto** (`.claude/skills/<nombre>/SKILL.md`): instrucciones que se cargan cuando la tarea encaja. Aquí las útiles serían `nuevo-lab` (crear un experimento siguiendo las convenciones), `maqueta` (convenciones HTML/CSS/SASS del proyecto, a11y, responsive) y quizá `revisar-demo` (checklist antes de dar por buena una demo).
-- Ya tienes un **agente** `especialista-layouts-web` a nivel de usuario, orientado a HTML/CSS/SASS. Solapa parcialmente con la skill `maqueta`. Sugerencia: la skill lleva las *convenciones de este proyecto*; el agente hace el *trabajo pesado* de maquetación. No dupliques.
+- Ya tienes un **agente** `especialista-layouts-web` a nivel de usuario, orientado a HTML/CSS/SASS. Solapa parcialmente con la skill `maqueta`. Sugerencia: la skill lleva las _convenciones de este proyecto_; el agente hace el _trabajo pesado_ de maquetación. No dupliques.
 - Recomendación de orden: **primero el scaffold, luego las skills**. Una skill escrita antes de que existan convenciones documenta convenciones inventadas.
 
 ### 5.5 Sobre `/design` — sí sirve, pero probablemente no para lo que crees
@@ -252,20 +254,20 @@ Recomendación: **usarlo, y pronto** — en la fase 1 del plan, antes de tocar C
 
 Versiones comprobadas hoy en npm; se fijarán al instalar.
 
-| Área | Elección | Nota |
-|---|---|---|
-| Framework | **Astro 7.3.x** | `output: 'static'` de inicio |
-| Gestor | **pnpm 10.24** (ya instalado) | fijar con `packageManager` en `package.json` |
-| Runtime | **Node 22.16** (ya instalado) | fijar con `.nvmrc` + `engines` |
-| Lenguaje | **TypeScript**, preset `strict` | tipado gratis en las content collections |
-| Estilos | **CSS moderno + tokens** (nesting, `@layer`, custom properties) | SASS solo si lo prefieres por costumbre — ver preguntas |
-| UI islands | **React** únicamente al principio | añadir otros solo bajo demanda |
-| Formato | **Prettier 3.9** + `prettier-plugin-astro` | |
-| Lint | **ESLint 10** (flat config) + `eslint-plugin-astro` + `jsx-a11y` | la a11y importa en un portfolio de front |
-| Hooks | **simple-git-hooks** + **lint-staged** | más ligero que Husky |
-| Tests | **Vitest 5** para katas de JS; Playwright 1.63 más adelante | |
-| Deploy | **Vercel** (preview por PR) | adaptador solo cuando haga falta SSR |
-| CI | GitHub Actions: lint + typecheck + build | |
+| Área       | Elección                                                         | Nota                                                    |
+| ---------- | ---------------------------------------------------------------- | ------------------------------------------------------- |
+| Framework  | **Astro 7.3.x**                                                  | `output: 'static'` de inicio                            |
+| Gestor     | **pnpm 10.24** (ya instalado)                                    | fijar con `packageManager` en `package.json`            |
+| Runtime    | **Node 22.16** (ya instalado)                                    | fijar con `.nvmrc` + `engines`                          |
+| Lenguaje   | **TypeScript**, preset `strict`                                  | tipado gratis en las content collections                |
+| Estilos    | **CSS moderno + tokens** (nesting, `@layer`, custom properties)  | SASS solo si lo prefieres por costumbre — ver preguntas |
+| UI islands | **React** únicamente al principio                                | añadir otros solo bajo demanda                          |
+| Formato    | **Prettier 3.9** + `prettier-plugin-astro`                       |                                                         |
+| Lint       | **ESLint 10** (flat config) + `eslint-plugin-astro` + `jsx-a11y` | la a11y importa en un portfolio de front                |
+| Hooks      | **simple-git-hooks** + **lint-staged**                           | más ligero que Husky                                    |
+| Tests      | **Vitest 5** para katas de JS; Playwright 1.63 más adelante      |                                                         |
+| Deploy     | **Vercel** (preview por PR)                                      | adaptador solo cuando haga falta SSR                    |
+| CI         | GitHub Actions: lint + typecheck + build                         |                                                         |
 
 Alternativa que merece mención: **Biome** sustituye a Prettier + ESLint con una sola herramienta y es mucho más rápido. No lo recomiendo aquí porque su soporte de `.astro` es más flojo que el de ESLint, pero si en algún momento el tooling molesta, es la salida.
 

@@ -10,11 +10,11 @@
 
 Una **única pantalla** con tres estados, no tres páginas separadas:
 
-| Estado | Qué muestra | Cómo se llega |
-|---|---|---|
+| Estado     | Qué muestra                                       | Cómo se llega                         |
+| ---------- | ------------------------------------------------- | ------------------------------------- |
 | Destacados | Los labs con `featured: true`, en filas numeradas | Estado inicial · clic en `jmocanalab` |
-| Listado | Todos los ejercicios de una categoría | Clic en `CSS` · `JS` · `React` |
-| Ficha | Un ejercicio: resultado + código | Clic en una fila del listado |
+| Listado    | Todos los ejercicios de una categoría             | Clic en `CSS` · `JS` · `React`        |
+| Ficha      | Un ejercicio: resultado + código                  | Clic en una fila del listado          |
 
 Cada estado **sustituye** al anterior en el mismo bloque. La cabecera y la fila
 de categorías no se mueven nunca.
@@ -42,26 +42,26 @@ tracking, monocromo) pero **sin sus gestos decorativos**.
 - Fila de categorías bajo una línea negra de 1px, con la activa subrayada.
 - Listado como **lista editorial numerada**, no rejilla de tarjetas. Aguanta 40
   entradas sin despeinarse.
-- Ficha con pestañas *Resultado / Código*, el resultado en su `iframe` aislado.
+- Ficha con pestañas _Resultado / Código_, el resultado en su `iframe` aislado.
 
 ## 4. Valores actuales de la maqueta — PROVISIONALES
 
 ⚠️ Estos números están escritos a pelo en el prototipo. **No son los tokens.**
 Se afinan en la sesión siguiente (ver punto 5).
 
-| Uso | Valor de trabajo |
-|---|---|
-| Fondo | `#F2F1ED` (blanco roto cálido) |
-| Tinta | `#141311` |
-| Texto secundario | `#55524B` |
-| Texto terciario / metadatos | `#8A867C` |
-| Línea fina | `#DCDAD3` |
-| Acento CSS | `#E14B9B` |
-| Acento JS | `#D98E00` |
-| Acento React | `#00A5C4` |
-| Tipografía UI y titulares | Archivo (400/500/600) |
-| Tipografía mono | JetBrains Mono |
-| UI en mayúsculas | 11px · 600 · `letter-spacing: 0.18em` |
+| Uso                         | Valor de trabajo                      |
+| --------------------------- | ------------------------------------- |
+| Fondo                       | `#F2F1ED` (blanco roto cálido)        |
+| Tinta                       | `#141311`                             |
+| Texto secundario            | `#55524B`                             |
+| Texto terciario / metadatos | `#8A867C`                             |
+| Línea fina                  | `#DCDAD3`                             |
+| Acento CSS                  | `#E14B9B`                             |
+| Acento JS                   | `#D98E00`                             |
+| Acento React                | `#00A5C4`                             |
+| Tipografía UI y titulares   | Archivo (400/500/600)                 |
+| Tipografía mono             | JetBrains Mono                        |
+| UI en mayúsculas            | 11px · 600 · `letter-spacing: 0.18em` |
 
 Los tres acentos salen de los matraces de neón del científico. **Su uso es
 mínimo**: solo la categoría activa y el número de la ficha. El resto es negro

@@ -7,12 +7,12 @@
 
 ## 1. Identidad y datos públicos
 
-| Campo | Valor |
-|---|---|
-| Nombre público del sitio | **jmocanalab** |
-| LinkedIn | `https://www.linkedin.com/in/jmocanalab` |
-| GitHub | `https://github.com/jmocana2` |
-| Email público | **no se publica** (ni ofuscado) — contacto vía LinkedIn |
+| Campo                    | Valor                                                   |
+| ------------------------ | ------------------------------------------------------- |
+| Nombre público del sitio | **jmocanalab**                                          |
+| LinkedIn                 | `https://www.linkedin.com/in/jmocanalab`                |
+| GitHub                   | `https://github.com/jmocana2`                           |
+| Email público            | **no se publica** (ni ofuscado) — contacto vía LinkedIn |
 
 ✅ **Resuelto (2026-09-09)**: el usuario ha personalizado la URL de LinkedIn a
 `jmocanalab`. Solo ASCII, sin tildes ni `ñ` — nada que escapar, y además coincide con el
@@ -48,7 +48,7 @@ recomendación 5.1 del análisis.
 ## 5. Dominio
 
 **`jmocanalab.vercel.app`** (gratuito). Sin dominio propio por ahora.
-Nota: si algún día se compra dominio, migrar es indoloro *siempre que* las rutas internas
+Nota: si algún día se compra dominio, migrar es indoloro _siempre que_ las rutas internas
 sean relativas y no se hardcodee el host (solo en `astro.config.mjs` → `site`).
 
 ## 6. Primeros experimentos
@@ -124,7 +124,7 @@ Añadir además: `.gitignore` con `.env*` desde el primer commit.
 ## 11. Demos embebidas
 
 **No.** Basta con **código estático + resultado**.
-Sin StackBlitz ni CodeSandbox. El `CodeViewer` con Shiki (pestañas *Resultado / Código*)
+Sin StackBlitz ni CodeSandbox. El `CodeViewer` con Shiki (pestañas _Resultado / Código_)
 cubre el caso completo. Menos dependencias, menos fricción, carga más rápida.
 
 ## 12. Dirección estética
@@ -149,7 +149,7 @@ tamaño pequeño y muy espaciado** (`letter-spacing` amplio). Un único acento d
 4. **La imagen recortada es el color.** Igual que la salamandra ahí, aquí el científico:
    sin caja, sin marco, flotando sobre el fondo.
 5. **Navegación en una línea horizontal subrayada** — encaja de forma natural con la
-   estructura *categoría → ejercicio* del punto 3: `CSS · JS · REACT` como esa fila.
+   estructura _categoría → ejercicio_ del punto 3: `CSS · JS · REACT` como esa fila.
 6. **Numeración visible** (`014`): se reutiliza como índice de experimento en las fichas y
    los listados. Da sensación de "colección" sin coste de implementación.
 

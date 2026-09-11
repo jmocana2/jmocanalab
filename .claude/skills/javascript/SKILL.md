@@ -13,13 +13,13 @@ Principio que gobierna todo lo demás: **ante la duda, quitar.**
 
 ## Idioma
 
-| Qué | Idioma |
-|---|---|
-| Nombres de fichero y de carpeta | **inglés**, en `kebab-case` (los componentes, en `PascalCase`) |
-| Identificadores: variables, funciones, tipos, propiedades, constantes | **inglés** |
-| Comentarios y JSDoc | **español** |
-| Cadenas de texto que ve el usuario | **español** |
-| Mensajes de commit | **español** |
+| Qué                                                                   | Idioma                                                         |
+| --------------------------------------------------------------------- | -------------------------------------------------------------- |
+| Nombres de fichero y de carpeta                                       | **inglés**, en `kebab-case` (los componentes, en `PascalCase`) |
+| Identificadores: variables, funciones, tipos, propiedades, constantes | **inglés**                                                     |
+| Comentarios y JSDoc                                                   | **español**                                                    |
+| Cadenas de texto que ve el usuario                                    | **español**                                                    |
+| Mensajes de commit                                                    | **español**                                                    |
 
 **Se escribe en inglés lo que lee la máquina y en español lo que lee una persona.**
 
@@ -41,13 +41,13 @@ const STATUS_LABEL = { done: 'Terminado', wip: 'En curso', idea: 'Idea' } as con
 
 Cada componente separa sus responsabilidades en ficheros:
 
-| Fichero | Qué contiene |
-|---|---|
-| `containers/` | La **lógica**: obtener datos, derivarlos, decidir. Sin marcado. |
-| `UI/` | La **presentación**: recibe datos ya resueltos y los pinta. Sin lógica de negocio. |
-| `utils/` | Funciones **puras** y reutilizables. Sin estado, sin efectos. |
-| `constants/` | Valores fijos y configuración. |
-| `types.ts` | Tipos e interfaces. |
+| Fichero       | Qué contiene                                                                       |
+| ------------- | ---------------------------------------------------------------------------------- |
+| `containers/` | La **lógica**: obtener datos, derivarlos, decidir. Sin marcado.                    |
+| `UI/`         | La **presentación**: recibe datos ya resueltos y los pinta. Sin lógica de negocio. |
+| `utils/`      | Funciones **puras** y reutilizables. Sin estado, sin efectos.                      |
+| `constants/`  | Valores fijos y configuración.                                                     |
+| `types.ts`    | Tipos e interfaces.                                                                |
 
 Las carpetas conservan estos nombres tal cual —están en inglés— y los ficheros dentro
 también: `highlight.ts`, no `resaltar.ts`.
@@ -105,7 +105,9 @@ el fichero cuyo único cuerpo son `export * from …`.
  * @param slug Identificador del experimento buscado.
  * @returns El número formateado a tres dígitos («007»), o «000» si no aparece.
  */
-export function orderNumber(labs: Lab[], slug: string): string { /* … */ }
+export function orderNumber(labs: Lab[], slug: string): string {
+  /* … */
+}
 
 /** Altura por defecto del iframe de demo, en rem. La sobrescribe `height` del frontmatter. */
 export const DEFAULT_DEMO_HEIGHT = 40;
@@ -130,7 +132,7 @@ const label = status === 'done' ? 'Terminado' : status === 'wip' ? 'En curso' : 
 // ✅
 const STATUS_LABEL = {
   done: 'Terminado',
-  wip:  'En curso',
+  wip: 'En curso',
   idea: 'Idea',
 } as const satisfies Record<Status, string>;
 

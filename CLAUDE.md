@@ -23,10 +23,10 @@ estático y no llama a ninguna API.
 Son obligatorias, no orientativas. Contienen las convenciones reales del proyecto; este
 fichero solo las resume.
 
-| Skill | Se usa al tocar |
-|---|---|
+| Skill             | Se usa al tocar                                                                    |
+| ----------------- | ---------------------------------------------------------------------------------- |
 | **`maquetacion`** | `.astro`, `.html`, `.css`, las demos de `public/labs/`, cualquier marcado o estilo |
-| **`javascript`** | `.ts`, `.js`, `.tsx`, `scripts/`, el JS de las demos |
+| **`javascript`**  | `.ts`, `.js`, `.tsx`, `scripts/`, el JS de las demos                               |
 
 Un componente con marcado y lógica las usa **las dos**.
 
@@ -101,13 +101,13 @@ pnpm · Node 22 · TypeScript `strict` · Astro con `output: 'static'`, sin adap
 El razonamiento vive en `docs/`, no aquí. Este fichero no duplica tokens, rutas ni listas
 de componentes: eso se desincroniza.
 
-| Documento | Qué contiene |
-|---|---|
-| `docs/00-analisis-inicial.md` | Análisis técnico y alternativas descartadas |
-| `docs/01-decisiones.md` | Decisiones cerradas de la Fase 0 |
-| `docs/02-diseno.md` | Dirección visual. **Manda en lo visual** |
-| `docs/03-plan-implementacion.md` | Plan por fases |
-| `docs/04-fase-2-detalle.md` | Fase 2: tokens, Storybook y skills. **En ejecución** |
+| Documento                        | Qué contiene                                         |
+| -------------------------------- | ---------------------------------------------------- |
+| `docs/00-analisis-inicial.md`    | Análisis técnico y alternativas descartadas          |
+| `docs/01-decisiones.md`          | Decisiones cerradas de la Fase 0                     |
+| `docs/02-diseno.md`              | Dirección visual. **Manda en lo visual**             |
+| `docs/03-plan-implementacion.md` | Plan por fases                                       |
+| `docs/04-fase-2-detalle.md`      | Fase 2: tokens, Storybook y skills. **En ejecución** |
 
 Este `CLAUDE.md` se revisa **al cerrar cada fase**. Dos señales de que hay que tocarlo:
 una corrección repetida dos veces, o una convención que existe en el código y no está
