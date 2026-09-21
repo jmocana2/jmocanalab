@@ -40,6 +40,54 @@ en inglés.
 
 ---
 
+## Componentes Astro — estructura de fichero
+
+Un componente = **una carpeta con su nombre**, y dentro dos ficheros: el `.astro` con el
+marcado y el `.css` con los estilos. Nada de un `.astro` suelto con el CSS mezclado.
+
+```
+src/components/site/SiteHeader/
+├── SiteHeader.astro
+└── SiteHeader.css
+```
+
+Reglas:
+
+- El `.css` se carga desde el frontmatter con `import './NombreComponente.css';`. Astro
+  lo bundlea y optimiza, y como se importa junto al componente, se envía a la página
+  solo cuando el componente se usa.
+- **No se usa `<style>` inline dentro del `.astro`** ni la sintaxis `<style src="…">`.
+  Marcado y estilos separados: cada uno en su fichero.
+- **El CSS importado es global**, no scopeado. Por eso BEM es obligatorio: los nombres
+  son únicos por diseño (`site-header__brand`, `site-footer__credit`) y no hay colisiones.
+- Si un componente necesita aislamiento real de estilos —caso rarísimo: por ejemplo,
+  integrar un tercero sin control de nombres— sí se puede usar `<style>` inline. Es la
+  excepción, no la norma.
+
+### Carpetas de componentes
+
+Se organizan **por rol**, no por escala (nada de `atoms/molecules/organisms`). Tres
+carpetas con criterio no ambiguo:
+
+```
+src/
+├── layouts/         # BaseLayout.astro y otros envoltorios de página
+├── components/
+│   ├── site/        # chrome del sitio: SiteHeader, SiteFooter, NavCategories
+│   ├── lab/         # piezas de listado y ficha: LabRow, LabMeta, CodeViewer
+│   └── ui/          # primitivas sin dominio: Eyebrow, Num, Tabs
+└── demos/           # componentes de demo (runtime inline/island)
+```
+
+- `site/` aparece en todas las páginas.
+- `lab/` aparece en páginas de labs (listado, categoría, ficha).
+- `ui/` no depende del dominio: se puede reutilizar en cualquier sitio.
+
+Si algo no encaja claramente en ninguna, la respuesta por defecto es **no crear una
+cuarta carpeta**: probablemente sea un `ui/` o pertenece a un componente existente.
+
+---
+
 ## HTML
 
 ### Semántica
@@ -278,6 +326,8 @@ sobra la regla. La excepción razonable es un _hack_ de navegador: ahí el comen
 
 - [ ] Ficheros, carpetas, clases y tokens en inglés; comentarios y texto visible en
       español.
+- [ ] Cada componente en su carpeta con `.astro` y `.css` separados; CSS importado
+      en el frontmatter, sin `<style>` inline.
 - [ ] Marcado semántico, un solo `h1`, jerarquía sin saltos.
 - [ ] Contraste AA comprobado, también en el texto de UI pequeño.
 - [ ] Foco visible, navegable con teclado, orden de tabulación lógico.

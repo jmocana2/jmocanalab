@@ -1,0 +1,117 @@
+---
+/*
+ * SiteHeader.astro — cabecera del sitio. Dos filas según la maqueta:
+ * 1. Marca a la izquierda, iconos sociales a la derecha (LinkedIn, GitHub).
+ * 2. Nav de categorías bajo una línea negra fuerte.
+ *
+ * En la home la marca es un H1 sin enlace; fuera de home, enlace a `/`.
+ */
+import './SiteHeader.css';
+
+type Category = 'css' | 'js' | 'react';
+
+type Props = {
+  activeCategory?: Category;
+  isHome?: boolean;
+}
+
+const { activeCategory, isHome = false } = Astro.props;
+
+const categories: Array<{ slug: Category; label: string }> = [
+  { slug: 'css', label: 'CSS' },
+  { slug: 'js', label: 'JS' },
+  { slug: 'react', label: 'React' },
+];
+---
+
+<header class="site-header">
+  <div class="site-header__top">
+    {
+      isHome ? (
+        <h1 class="site-header__brand">jmocanalab</h1>
+      ) : (
+        <a class="site-header__brand" href="/" aria-label="Volver a la portada">
+          jmocanalab
+        </a>
+      )
+    }
+    <ul class="site-header__social">
+      <li class="site-header__social-item">
+        <a
+          class="site-header__social-link"
+          href="https://www.linkedin.com/in/jmocanalab"
+          aria-label="Perfil de LinkedIn"
+          rel="me noopener"
+          target="_blank"
+        >
+          <svg
+            width="19"
+            height="19"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <rect x="3.5" y="3.5" width="17" height="17" rx="2"></rect>
+            <path d="M8 10.5v6"></path>
+            <circle cx="8" cy="7.6" r="0.6" fill="currentColor"></circle>
+            <path d="M12 16.5v-3.4a2.1 2.1 0 0 1 4.2 0v3.4"></path>
+            <path d="M12 10.5v1"></path>
+          </svg>
+        </a>
+      </li>
+      <li class="site-header__social-item">
+        <a
+          class="site-header__social-link"
+          href="https://github.com/jmocana2"
+          aria-label="Perfil de GitHub"
+          rel="me noopener"
+          target="_blank"
+        >
+          <svg
+            width="19"
+            height="19"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M9.2 20.4v-2.6c-2.9.6-3.6-1.3-3.6-1.3-.5-1.2-1.2-1.5-1.2-1.5-1-.6.1-.6.1-.6 1 .1 1.6 1.1 1.6 1.1.9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.7-1.4-2.3-.3-4.7-1.2-4.7-5.2 0-1.1.4-2 1-2.8-.1-.3-.4-1.3.1-2.7 0 0 .9-.3 2.8 1.1a9.3 9.3 0 0 1 5 0c1.9-1.4 2.8-1.1 2.8-1.1.5 1.4.2 2.4.1 2.7.6.8 1 1.7 1 2.8 0 4-2.4 4.9-4.7 5.2.4.4.7 1 .7 2v3"
+            ></path>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <nav class="site-header__nav" aria-label="Categorías">
+    <ul class="site-header__list">
+      {
+        categories.map(({ slug, label }) => {
+          const isActive = slug === activeCategory;
+          return (
+            <li class="site-header__item">
+              <a
+                class="site-header__link"
+                href={`/labs/${slug}`}
+                data-category={slug}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {label}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </nav>
+</header>
+

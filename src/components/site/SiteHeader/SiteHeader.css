@@ -1,0 +1,98 @@
+/*
+ * SiteHeader.css — estilos de la cabecera. Scopeados por Astro vía <style src>.
+ *
+ * 1. Contenedor
+ * 2. Fila superior: marca e iconos
+ * 3. Fila inferior: nav de categorías
+ */
+
+/* 1. Contenedor */
+.site-header {
+  padding-inline: var(--space-7);
+  padding-block-start: var(--space-8);
+
+  @media (min-width: 48em) {
+    padding-inline: var(--space-11);
+  }
+
+  @media (min-width: 75em) {
+    padding-inline: var(--space-13);
+  }
+}
+
+/* 2. Fila superior: marca izquierda, iconos derecha. */
+.site-header__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+.site-header__brand {
+  font-family: var(--font-ui);
+  font-size: var(--text-brand);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-brand);
+  line-height: 1;
+  margin: 0;
+}
+
+.site-header__social {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-5);
+  margin: 0;
+}
+
+.site-header__social-item {
+  display: flex;
+}
+
+.site-header__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.4rem;
+  min-height: 2.4rem;
+  color: var(--color-ink);
+
+  &:hover {
+    color: var(--color-link-hover);
+  }
+}
+
+/* 3. Fila inferior: nav de categorías bajo línea negra fuerte. */
+.site-header__nav {
+  margin-block-start: var(--space-8);
+  padding-block-start: var(--space-5);
+  border-block-start: var(--border-thin) solid var(--color-line-strong);
+}
+
+.site-header__list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-9);
+  margin: 0;
+}
+
+.site-header__item {
+  display: flex;
+}
+
+.site-header__link {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-ui);
+  text-transform: uppercase;
+  padding-block-end: var(--space-2);
+  border-block-end: var(--border-active) solid transparent;
+
+  &[aria-current='page'] {
+    border-block-end-color: var(--color-accent);
+  }
+}

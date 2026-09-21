@@ -1,0 +1,54 @@
+/*
+ * SiteFooter.css — estilos del pie. Scopeados por Astro vía <style src>.
+ *
+ * 1. Contenedor
+ * 2. Crédito y enlace
+ * 3. Corazón
+ */
+
+/* 1. Contenedor */
+.site-footer {
+  padding-inline: var(--space-7);
+  padding-block: var(--space-10);
+  border-block-start: var(--border-thin) solid var(--color-line);
+
+  @media (min-width: 48em) {
+    padding-inline: var(--space-11);
+  }
+
+  @media (min-width: 75em) {
+    padding-inline: var(--space-13);
+  }
+}
+
+/* 2. Crédito y enlace. `word-spacing` compensa el letter-spacing amplio
+      del texto en mayúsculas, que si no se come los espacios entre palabras. */
+.site-footer__credit {
+  color: var(--color-ink);
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--track-ui);
+  line-height: var(--leading-ui);
+  text-transform: uppercase;
+  word-spacing: var(--space-2);
+  margin: 0;
+}
+
+.site-footer__link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: var(--space-1);
+}
+
+/* 3. Corazón */
+.site-footer__heart {
+  display: inline-block;
+  vertical-align: baseline;
+  color: var(--color-heart);
+  fill: var(--color-heart);
+}
+
+.site-footer__year {
+  margin-inline-start: var(--space-2);
+}

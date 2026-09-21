@@ -1,16 +1,7 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
-    <title>jmocanalab</title>
-  </head>
-  <body>
-    <h1>jmocanalab</h1>
-  </body>
-</html>
+<BaseLayout title="jmocanalab" isHome>
+  <p>Laboratorio y portfolio front-end.</p>
+</BaseLayout>
