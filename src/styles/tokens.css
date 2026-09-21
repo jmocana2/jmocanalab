@@ -34,6 +34,9 @@
     /* 2. Acento. Por defecto no hay: es la tinta. */
     --color-accent: var(--color-ink);
 
+    /* 2. Rojo para el icono de corazón del footer. */
+    --color-heart: #e14b4b;
+
     /* 3. Tipografía — familias */
     --font-ui: Archivo, 'Helvetica Neue', Arial, sans-serif;
     --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;

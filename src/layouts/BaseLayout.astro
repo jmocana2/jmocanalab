@@ -1,0 +1,40 @@
+---
+/*
+ * BaseLayout.astro — envoltorio de página. Estructura común: head mínimo,
+ * cabecera, contenido y pie. La categoría activa se propaga al body como
+ * data-category para que el acento herede.
+ */
+import '../styles/global.css';
+import SiteHeader from '../components/site/SiteHeader/SiteHeader.astro';
+import SiteFooter from '../components/site/SiteFooter/SiteFooter.astro';
+
+type Category = 'css' | 'js' | 'react';
+
+type Props = {
+  title: string;
+  description?: string;
+  activeCategory?: Category;
+  isHome?: boolean;
+}
+
+const { title, description, activeCategory, isHome = false } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+  </head>
+  <body data-category={activeCategory}>
+    <SiteHeader activeCategory={activeCategory} isHome={isHome} />
+    <main class="site-main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>
