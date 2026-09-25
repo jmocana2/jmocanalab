@@ -21,7 +21,7 @@
     --color-ink: #141311;
     --color-ink-code: #3a382f;
     --color-ink-2: #55524b;
-    --color-ink-3: #8a867c;
+    --color-ink-3: #716e66;
     --color-ink-4: #a8a49a;
 
     /* 1. Color — líneas */
@@ -29,9 +29,12 @@
     --color-line-strong: var(--color-ink);
 
     /* 1. Color — interacción. Genérico, no depende de la categoría. */
-    --color-link-hover: #00a5c4;
+    --color-link-hover: #00788f;
 
-    /* 2. Acento. Por defecto no hay: es la tinta. */
+    /*
+     * 2. Acento. Por defecto no hay: es la tinta. Solo en líneas y marcas, nunca
+     * como color de texto: los tres llegan a 3:1 sobre el fondo, no a 4.5:1.
+     */
     --color-accent: var(--color-ink);
 
     /* 2. Rojo para el icono de corazón del footer. */
@@ -111,10 +114,10 @@
   }
 
   [data-category='js'] {
-    --color-accent: #d98e00;
+    --color-accent: #bf7d00;
   }
 
   [data-category='react'] {
-    --color-accent: #00a5c4;
+    --color-accent: #0098b4;
   }
 }

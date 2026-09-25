@@ -1,0 +1,51 @@
+---
+/*
+ * LabRow.astro — fila numerada de un experimento: número, título con resumen,
+ * metadato y estado. Es un <li>: la página la mete en un <ol>.
+ *
+ * `meta` decide la tercera columna: la categoría en Destacados, las etiquetas en
+ * el listado de una categoría. El enlace está en el título y se estira a toda la
+ * fila con CSS, para que el lector de pantalla anuncie solo el título.
+ */
+import './LabRow.css';
+import type { Lab } from '../../../types';
+import { CATEGORY_LABEL } from '../../../constants/labels';
+import { STATUS_LABEL } from './constants/index';
+import { formatNumber } from './utils/format-number';
+
+type Meta = 'category' | 'tags';
+
+type Props = {
+  lab: Lab;
+  number: number;
+  meta: Meta;
+  headingLevel?: 2 | 3;
+};
+
+const { lab, number, meta, headingLevel = 2 } = Astro.props;
+const { title, summary, category, tags, status } = lab.data;
+
+const Heading = `h${headingLevel}` as const;
+
+const metaText = {
+  category: CATEGORY_LABEL[category],
+  tags: tags.join(' · '),
+} satisfies Record<Meta, string>;
+
+const metaClass = {
+  category: 'lab-row__meta lab-row__meta--category eyebrow',
+  tags: 'lab-row__meta lab-row__meta--tags mono',
+} satisfies Record<Meta, string>;
+---
+
+<li class="lab-row" data-category={category}>
+  <span class="lab-row__num num">{formatNumber(number)}</span>
+  <div class="lab-row__body">
+    <Heading class="lab-row__title">
+      <a class="lab-row__link" href={`/labs/${lab.id}`}>{title}</a>
+    </Heading>
+    <p class="lab-row__summary">{summary}</p>
+  </div>
+  <span class={metaClass[meta]}>{metaText[meta]}</span>
+  <span class="lab-row__status eyebrow">{STATUS_LABEL[status]}</span>
+</li>

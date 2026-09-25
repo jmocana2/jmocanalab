@@ -38,40 +38,49 @@ Punto en el que dejamos la Fase 2 para retomar en la siguiente sesión.
 - Añadir `superRefine` a `content.config.ts` (exigir `coverAlt` si hay `cover`) cuando
   aparezca la primera ficha con portada.
 - Siguientes tareas del plan:
-  - **2.6 · En curso.** Hecho: `src/styles/utilities.css` (`.eyebrow`, `.mono`,
-    `.num`, `.visually-hidden`), ya aplicado en la cabecera y el pie. Falta `LabRow`
-    (la antigua `.fila`), que está bloqueado por el contraste AA (ver abajo).
-  - 2.7 · Lab de prueba `css/prueba` de punta a punta.
+  - **2.6 · Hecha** (a falta de verla renderizada, que llega con 2.7):
+    - `src/styles/utilities.css`: `.eyebrow`, `.mono`, `.num`, `.visually-hidden`.
+    - `src/components/lab/LabRow/`: fila numerada. `meta="category"` para
+      Destacados y `meta="tags"` para el listado. El enlace va en el título y se
+      estira a toda la fila con `::after`. En móvil, el metadato y el estado bajan a
+      una segunda línea.
+    - `src/types.ts` (`Lab`, `Category`, `Status`, que salen de la colección) y
+      `src/constants/labels.ts` (`CATEGORY_LABEL`, que usan la cabecera y `LabRow`).
+  - **2.7 · Lab de prueba `css/prueba` de punta a punta.** ← siguiente. Conviene
+    marcarlo con `featured: true` y pintarlo en la home con `LabRow`, para ver la
+    fila montada.
   - 2.8 · Storybook: solo quedan revisar las stories de tokens.
   - 2.9 · GitHub + Vercel.
 
-### ⛔ Contraste AA de la paleta (bloquea `LabRow`)
+### Paleta AA — resuelto (2026-09-25)
 
-Ratios sobre `--color-bg` (#f2f1ed). Para texto pequeño hace falta 4.5:1; para líneas
-y otros indicadores de interfaz, 3:1.
+Opción «mínimo AA». **Los acentos se usan solo en líneas y marcas, nunca como color de
+texto.** Por eso la categoría en Destacados va en tinta, con un subrayado del acento.
 
-| Token / uso                           | Ratio | Texto pequeño | Línea (3:1) |
-| ------------------------------------- | ----- | ------------- | ----------- |
-| `--color-ink-2`                       | 6.89  | ✅            | ✅          |
-| `--color-ink-3` (numeración, estado)  | 3.21  | ❌            | ✅          |
-| `--color-ink-4`                       | 2.20  | ❌            | ❌          |
-| acento CSS `#e14b9b`                  | 3.27  | ❌            | ✅          |
-| acento JS `#d98e00`                   | 2.38  | ❌            | ❌          |
-| acento React / hover `#00a5c4`        | 2.59  | ❌            | ❌          |
+| Token                        | Antes   | Ahora   | Ratio sobre el fondo |
+| ---------------------------- | ------- | ------- | -------------------- |
+| `--color-ink-3`              | #8a867c | #716e66 | 4.51 (texto)         |
+| `--color-link-hover` (y foco) | #00a5c4 | #00788f | 4.53 (texto)         |
+| acento CSS                   | #e14b9b | igual   | 3.27 (línea)         |
+| acento JS                    | #d98e00 | #bf7d00 | 3.02 (línea)         |
+| acento React                 | #00a5c4 | #0098b4 | 3.03 (línea)         |
 
-### Otros pendientes de accesibilidad
+Con esto también queda resuelto el problema de que el hover y el acento de React
+fueran el mismo color. `--color-ink-4` (2.20) solo vale para decoración, nunca para
+texto. Falta reflejar estos valores en `04-fase-2-detalle.md` §2.1 y en
+`02-diseno.md`.
 
-- Falta el enlace para saltar al contenido en `BaseLayout`.
+### Otros pendientes
+
+- Accesibilidad: falta el enlace para saltar al contenido en `BaseLayout`.
+- Accesibilidad: el `<ol>` del listado lleva `list-style: none` (reset) y Safari le
+  quita la semántica de lista. Se soluciona con `role="list"` en el `<ol>` de la
+  página.
+- `pnpm typecheck` da 22 avisos de que `z` de `astro:content` está obsoleto. Hay que
+  importarlo de `astro/zod`.
 
 ### Preguntas abiertas rescatadas del antiguo `05`
 
-No bloquean 2.6, pero conviene cerrarlas antes de acabar la fase:
-
-- **Móvil:** ancho máximo de página por encima de 1200 y rejilla de `LabRow` en
-  móvil. Lo de `LabRow` se decide en 2.6.
-- **Hover = acento de React:** `--color-link-hover` y el acento de React son el mismo
-  `#00a5c4`, así que en las páginas de React no se distinguen.
+- **Móvil:** ancho máximo de página por encima de 1200.
 - **Modo oscuro:** el atributo será `[data-theme="dark"]`, en inglés, no `data-tema`.
 - **`<head>`:** patrón del `<title>`, favicon, `theme-color` y qué fuente se precarga.
-- **Traducción de `status`, `category` y `runtime`:** en
-  `src/constants/labels.ts`, con `satisfies Record<…>`.

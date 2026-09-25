@@ -7,8 +7,8 @@
  * En la home la marca es un H1 sin enlace; fuera de home, enlace a `/`.
  */
 import './SiteHeader.css';
-
-type Category = 'css' | 'js' | 'react';
+import type { Category } from '../../../types';
+import { CATEGORY_LABEL } from '../../../constants/labels';
 
 type Props = {
   activeCategory?: Category;
@@ -17,11 +17,7 @@ type Props = {
 
 const { activeCategory, isHome = false } = Astro.props;
 
-const categories: Array<{ slug: Category; label: string }> = [
-  { slug: 'css', label: 'CSS' },
-  { slug: 'js', label: 'JS' },
-  { slug: 'react', label: 'React' },
-];
+const categories = Object.entries(CATEGORY_LABEL);
 ---
 
 <header class="site-header">
@@ -95,7 +91,7 @@ const categories: Array<{ slug: Category; label: string }> = [
   <nav class="site-header__nav" aria-label="Categorías">
     <ul class="site-header__list">
       {
-        categories.map(({ slug, label }) => {
+        categories.map(([slug, label]) => {
           const isActive = slug === activeCategory;
           return (
             <li class="site-header__item">

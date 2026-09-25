@@ -1,0 +1,95 @@
+/*
+ * LabRow.css — fila numerada del listado.
+ * Móvil: número y título arriba; metadato y estado en una línea debajo.
+ * Desde 768: las cuatro columnas de la maqueta (--grid-row).
+ * El ::after del enlace cubre la fila entera, así que toda ella es clicable y el
+ * foco se dibuja alrededor de la fila, no solo del título.
+ */
+
+@layer components {
+  .lab-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      'num body body'
+      '.   meta status';
+    column-gap: var(--space-5);
+    row-gap: var(--space-4);
+    align-items: baseline;
+    padding-block: var(--space-7);
+    border-block-start: var(--border-thin) solid var(--color-line);
+
+    &:last-child {
+      border-block-end: var(--border-thin) solid var(--color-line);
+    }
+
+    @media (min-width: 48em) {
+      grid-template-columns: var(--grid-row);
+      grid-template-areas: 'num body meta status';
+      column-gap: var(--space-8);
+    }
+
+    .lab-row__num {
+      grid-area: num;
+      color: var(--color-ink-3);
+    }
+
+    .lab-row__body {
+      grid-area: body;
+    }
+
+    .lab-row__title {
+      font-size: var(--text-l);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--track-l);
+      line-height: var(--leading-l);
+    }
+
+    .lab-row__link {
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+      }
+
+      &:focus-visible {
+        outline: none;
+      }
+
+      &:focus-visible::after {
+        outline: var(--border-active) solid var(--color-link-hover);
+      }
+    }
+
+    .lab-row__summary {
+      max-width: var(--width-text);
+      margin-block-start: var(--space-2);
+      color: var(--color-ink-2);
+      font-size: var(--text-s);
+      line-height: var(--leading-s);
+    }
+
+    .lab-row__meta {
+      grid-area: meta;
+
+      &.lab-row__meta--category {
+        justify-self: start;
+        padding-block-end: var(--space-1);
+        border-block-end: var(--border-active) solid var(--color-accent);
+      }
+
+      &.lab-row__meta--tags {
+        color: var(--color-ink-3);
+        font-size: var(--text-mono-s);
+        line-height: var(--leading-mono-s);
+      }
+    }
+
+    .lab-row__status {
+      grid-area: status;
+      color: var(--color-ink-3);
+      text-align: end;
+    }
+  }
+}
