@@ -40,11 +40,11 @@ Sin Tailwind, sin SASS, sin i18n y con el JavaScript de cliente reducido al mín
 Cada uno declara su **nivel de aislamiento** en el frontmatter, que es la decisión
 arquitectónica que hace esto sostenible:
 
-| `runtime` | Cómo se renderiza                                | Para qué                          |
-| --------- | ------------------------------------------------ | --------------------------------- |
-| `inline`  | Componente `.astro` con estilos con scope        | Demos que conviven bien           |
-| `iframe`  | HTML suelto en `public/labs/…`, en un `<iframe>` | CSS y JS puros. Aislamiento total |
-| `island`  | Componente con `client:visible`                  | Demos que necesitan un framework  |
+| `runtime` | Cómo se renderiza                                 | Para qué                          |
+| --------- | ------------------------------------------------- | --------------------------------- |
+| `inline`  | Componente `.astro` con estilos con scope         | Demos que conviven bien           |
+| `iframe`  | HTML suelto en `public/demos/…`, en un `<iframe>` | CSS y JS puros. Aislamiento total |
+| `island`  | Componente con `client:visible`                   | Demos que necesitan un framework  |
 
 ## Puesta en marcha
 

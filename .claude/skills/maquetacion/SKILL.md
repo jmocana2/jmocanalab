@@ -1,6 +1,6 @@
 ---
 name: maquetacion
-description: Convenciones de maquetación HTML y CSS de jmocanalab — HTML semántico con accesibilidad AA, BEM, Core Web Vitals, CSS en rem, mobile first con dos breakpoints y anidado. Úsala al crear o modificar cualquier plantilla, componente, demo de `public/labs/` u hoja de estilos del proyecto.
+description: Convenciones de maquetación HTML y CSS de jmocanalab — HTML semántico con accesibilidad AA, BEM, Core Web Vitals, CSS en rem, mobile first con dos breakpoints y anidado. Úsala al crear o modificar cualquier plantilla, componente, demo de `public/demos/` u hoja de estilos del proyecto.
 ---
 
 # Maquetación — HTML y CSS

@@ -12,6 +12,7 @@ import type { Lab } from '../../../types';
 import { CATEGORY_LABEL } from '../../../constants/labels';
 import { STATUS_LABEL } from './constants/index';
 import { formatNumber } from './utils/format-number';
+import { labPath } from '../../../utils/lab-paths';
 
 type Meta = 'category' | 'tags';
 
@@ -42,7 +43,9 @@ const metaClass = {
   <span class="lab-row__num num">{formatNumber(number)}</span>
   <div class="lab-row__body">
     <Heading class="lab-row__title">
-      <a class="lab-row__link" href={`/labs/${lab.id}`}>{title}</a>
+      <a class="lab-row__link" href={labPath(lab)}>
+        {title}
+      </a>
     </Heading>
     <p class="lab-row__summary">{summary}</p>
   </div>

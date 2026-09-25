@@ -44,15 +44,15 @@ Si en algún momento hay que elegir entre el efecto y la URL, **gana la URL**.
 **Objetivo**: una demo de mentira, de punta a punta, desplegada. Valida el modelo
 completo antes de invertir en contenido.
 
-| #   | Tarea                                                                                        | Entregable               |
-| --- | -------------------------------------------------------------------------------------------- | ------------------------ |
-| 2.1 | `git init`, `.gitignore` con `.env*`, `CLAUDE.md` con la línea roja                          | repo local               |
-| 2.2 | Scaffold Astro + TS strict + Prettier + ESLint (flat) + `packageManager` + `.nvmrc`          | `pnpm dev` levanta       |
-| 2.3 | `src/content.config.ts` con el esquema Zod de 3.5 del análisis, tal cual                     | tipos en las colecciones |
-| 2.4 | `src/styles/tokens.css` — **el trabajo pendiente de la Fase 1** (ver abajo)                  | contrato de estilos      |
-| 2.5 | Layout base: cabecera `jmocanalab`, fila de categorías, footer con iconos SVG                | maqueta navegable        |
-| 2.6 | Un lab de prueba `css/prueba` con `runtime: iframe` y su `public/labs/css/prueba/index.html` | ruta real                |
-| 2.7 | Repo en GitHub + Vercel conectado, preview por PR                                            | `jmocanalab.vercel.app`  |
+| #   | Tarea                                                                                         | Entregable               |
+| --- | --------------------------------------------------------------------------------------------- | ------------------------ |
+| 2.1 | `git init`, `.gitignore` con `.env*`, `CLAUDE.md` con la línea roja                           | repo local               |
+| 2.2 | Scaffold Astro + TS strict + Prettier + ESLint (flat) + `packageManager` + `.nvmrc`           | `pnpm dev` levanta       |
+| 2.3 | `src/content.config.ts` con el esquema Zod de 3.5 del análisis, tal cual                      | tipos en las colecciones |
+| 2.4 | `src/styles/tokens.css` — **el trabajo pendiente de la Fase 1** (ver abajo)                   | contrato de estilos      |
+| 2.5 | Layout base: cabecera `jmocanalab`, fila de categorías, footer con iconos SVG                 | maqueta navegable        |
+| 2.6 | Un lab de prueba `css/prueba` con `runtime: iframe` y su `public/demos/css/prueba/index.html` | ruta real                |
+| 2.7 | Repo en GitHub + Vercel conectado, preview por PR                                             | `jmocanalab.vercel.app`  |
 
 ### 2.4 en detalle — los tokens (bloqueante de todo lo visual)
 
@@ -90,16 +90,16 @@ ficha de prueba que renderiza su iframe. Nada más.
 **Objetivo**: que añadir un experimento cueste dos minutos. Es la fase que decide si
 el proyecto vive.
 
-| #   | Tarea                                          | Nota                                                                                                                                                 |
-| --- | ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 3.1 | `scripts/new-lab.mjs` + `pnpm new:lab`         | pregunta categoría, título y runtime; genera `.mdx` con frontmatter completo y, si es `iframe`, la carpeta en `public/labs/` con `index.html` mínimo |
-| 3.2 | `CodeViewer` con Shiki                         | lee `sources[]` del frontmatter, pestañas _Resultado / Código_                                                                                       |
-| 3.3 | `LabFrame`                                     | el `<iframe>` del nivel B, con altura declarada y `loading="lazy"`                                                                                   |
-| 3.4 | Vista **Destacados** en `/`                    | filas numeradas, `featured: true`, orden por fecha                                                                                                   |
-| 3.5 | Vista **Listado** en `/labs/[categoria]`       | lista editorial numerada, sin tarjetas                                                                                                               |
-| 3.6 | Vista **Ficha** en `/labs/[categoria]/[slug]`  | pestañas + numeración + acento de categoría                                                                                                          |
-| 3.7 | View Transitions entre las tres vistas         | cabecera y nav con `transition:persist`                                                                                                              |
-| 3.8 | CI en GitHub Actions: lint + typecheck + build |                                                                                                                                                      |
+| #   | Tarea                                          | Nota                                                                                                                                                  |
+| --- | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 3.1 | `scripts/new-lab.mjs` + `pnpm new:lab`         | pregunta categoría, título y runtime; genera `.mdx` con frontmatter completo y, si es `iframe`, la carpeta en `public/demos/` con `index.html` mínimo |
+| 3.2 | `CodeViewer` con Shiki                         | lee `sources[]` del frontmatter, pestañas _Resultado / Código_                                                                                        |
+| 3.3 | `LabFrame`                                     | el `<iframe>` del nivel B, con altura declarada y `loading="lazy"`                                                                                    |
+| 3.4 | Vista **Destacados** en `/`                    | filas numeradas, `featured: true`, orden por fecha                                                                                                    |
+| 3.5 | Vista **Listado** en `/labs/[categoria]`       | lista editorial numerada, sin tarjetas                                                                                                                |
+| 3.6 | Vista **Ficha** en `/labs/[categoria]/[slug]`  | pestañas + numeración + acento de categoría                                                                                                           |
+| 3.7 | View Transitions entre las tres vistas         | cabecera y nav con `transition:persist`                                                                                                               |
+| 3.8 | CI en GitHub Actions: lint + typecheck + build |                                                                                                                                                       |
 
 La numeración (`001`, `002`…) se calcula **al construir**, por orden de fecha dentro
 de la categoría. No es un campo del frontmatter: un campo manual es fricción y se

@@ -46,11 +46,24 @@ Punto en el que dejamos la Fase 2 para retomar en la siguiente sesión.
       una segunda línea.
     - `src/types.ts` (`Lab`, `Category`, `Status`, que salen de la colección) y
       `src/constants/labels.ts` (`CATEGORY_LABEL`, que usan la cabecera y `LabRow`).
-  - **2.7 · Lab de prueba `css/prueba` de punta a punta.** ← siguiente. Conviene
-    marcarlo con `featured: true` y pintarlo en la home con `LabRow`, para ver la
-    fila montada.
+  - **2.7 · Hecha.**
+    - Ficha `src/content/labs/css/prueba.md`. Es `.md`, no `.mdx`: no hay
+      `@astrojs/mdx` y no hace falta todavía.
+    - Demo `public/demos/css/prueba/index.html`.
+    - Ruta `src/pages/labs/[category]/[slug].astro`, en versión mínima: título,
+      resumen y `LabFrame`.
+    - La home pinta los destacados con `LabList` + `LabRow`.
+    - Utilidades comunes: `src/utils/lab-paths.ts` (`labSlug`, `labPath`,
+      `demoPath`) y `src/utils/lab-number.ts` (numeración por categoría, por
+      fecha ascendente).
+    - Token nuevo: `--height-frame: 40rem`.
+    - **Decisión:** las demos van en `public/demos/`, no en `public/labs/`. Con
+      `public/labs/` la ficha y la demo generaban el mismo
+      `dist/labs/<cat>/<slug>/index.html`. Actualizados `CLAUDE.md`, las skills, el
+      plan, `04`, el README y `eslint.config.js`.
   - 2.8 · Storybook: solo quedan revisar las stories de tokens.
-  - 2.9 · GitHub + Vercel.
+  - **2.9 · GitHub + Vercel.** ← siguiente. Ojo: la nav enlaza a `/labs/css`, etc.,
+    que darán 404 hasta la vista Listado (3.5).
 
 ### Paleta AA — resuelto (2026-09-25)
 
@@ -73,9 +86,6 @@ texto. Falta reflejar estos valores en `04-fase-2-detalle.md` §2.1 y en
 ### Otros pendientes
 
 - Accesibilidad: falta el enlace para saltar al contenido en `BaseLayout`.
-- Accesibilidad: el `<ol>` del listado lleva `list-style: none` (reset) y Safari le
-  quita la semántica de lista. Se soluciona con `role="list"` en el `<ol>` de la
-  página.
 - `pnpm typecheck` da 22 avisos de que `z` de `astro:content` está obsoleto. Hay que
   importarlo de `astro/zod`.
 

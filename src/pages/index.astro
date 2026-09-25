@@ -1,7 +1,20 @@
 ---
+/*
+ * index.astro — portada: los experimentos destacados, del más reciente al más antiguo.
+ */
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import LabList from '../components/lab/LabList/LabList.astro';
+import { labNumber } from '../utils/lab-number';
+
+const labs = await getCollection('labs');
+
+const featured = labs
+  .filter((lab) => lab.data.featured)
+  .toSorted((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .map((lab) => ({ lab, number: labNumber(lab, labs) }));
 ---
 
-<BaseLayout title="jmocanalab" isHome>
-  <p>Laboratorio y portfolio front-end.</p>
+<BaseLayout title="jmocanalab" description="Laboratorio y portfolio front-end." isHome>
+  <LabList heading="Destacados" items={featured} meta="category" />
 </BaseLayout>

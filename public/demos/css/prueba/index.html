@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prueba de punta a punta · demo</title>
+    <!--
+      Demo aislada: se abre sola con doble clic, sin build ni dependencias.
+      No ve los tokens del sitio, así que declara los suyos en :root.
+    -->
+    <style>
+      :root {
+        --color-bg: #fbfaf7;
+        --color-box: #141311;
+        --color-box-text: #fbfaf7;
+        --space: 1.6rem;
+        --text: 1.4rem;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+
+      html {
+        font-size: 62.5%;
+      }
+
+      body {
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        padding: var(--space);
+        background: var(--color-bg);
+        font-family: system-ui, sans-serif;
+        font-size: var(--text);
+      }
+
+      .boxes {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space);
+        width: 100%;
+        padding: 0;
+        list-style: none;
+      }
+
+      .boxes__item {
+        display: grid;
+        place-items: center;
+        aspect-ratio: 1;
+        background: var(--color-box);
+        color: var(--color-box-text);
+      }
+    </style>
+  </head>
+  <body>
+    <ul class="boxes" role="list">
+      <li class="boxes__item">1</li>
+      <li class="boxes__item">2</li>
+      <li class="boxes__item">3</li>
+    </ul>
+  </body>
+</html>

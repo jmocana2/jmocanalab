@@ -32,7 +32,7 @@ const labs = defineCollection({
       runtime: z.enum(['inline', 'iframe', 'island']),
 
       // Rutas relativas a la raíz del proyecto.
-      // - iframe → 'public/labs/<category>/<slug>/index.html'
+      // - iframe → 'public/demos/<category>/<slug>/index.html'
       // - inline/island → 'src/demos/<category>/<Componente>.astro'
       entry: z.string().optional(),
       sources: z.array(z.string()).default([]),

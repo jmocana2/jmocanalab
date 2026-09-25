@@ -1,0 +1,43 @@
+---
+/*
+ * LabList.astro — sección con encabezado en eyebrow y la lista ordenada de filas.
+ * Las filas llevan un nivel de encabezado por debajo del de la sección.
+ * `role="list"` compensa el `list-style: none` del reset, que en Safari quita
+ * la semántica de lista.
+ */
+import './LabList.css';
+import LabRow from '../LabRow/LabRow.astro';
+import type { Lab } from '../../../types';
+
+type Item = {
+  lab: Lab;
+  number: number;
+};
+
+type Props = {
+  heading: string;
+  items: Item[];
+  meta: 'category' | 'tags';
+  headingLevel?: 1 | 2;
+};
+
+const { heading, items, meta, headingLevel = 2 } = Astro.props;
+
+const ROW_HEADING_LEVEL = { 1: 2, 2: 3 } as const;
+
+const Heading = `h${headingLevel}` as const;
+---
+
+<section class="lab-list">
+  <Heading class="lab-list__heading eyebrow">{heading}</Heading>
+  <ol class="lab-list__items" role="list">
+    {items.map(({ lab, number }) => (
+      <LabRow
+        lab={lab}
+        number={number}
+        meta={meta}
+        headingLevel={ROW_HEADING_LEVEL[headingLevel]}
+      />
+    ))}
+  </ol>
+</section>

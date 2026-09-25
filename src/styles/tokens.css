@@ -95,6 +95,7 @@
     --grid-row: 6.6rem minmax(0, 1fr) 13.2rem 9.6rem;
     --width-title: 78rem;
     --width-text: 62rem;
+    --height-frame: 40rem;
 
     /* 5. Layout — bordes. Excepción a la regla del rem: son líneas, no texto. */
     --border-thin: 1px;

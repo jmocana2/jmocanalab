@@ -239,8 +239,8 @@ rellena solo. Si se dejan libres, a la quinta ficha hay cinco convenciones.
 
 ### 3.2 Lab de prueba (tarea 2.7)
 
-`src/content/labs/css/prueba.mdx` con `runtime: iframe` y
-`public/labs/css/prueba/index.html` con un grid de tres cajas. Su única función es
+`src/content/labs/css/prueba.md` con `runtime: iframe` y
+`public/demos/css/prueba/index.html` con un grid de tres cajas. Su única función es
 demostrar que la cadena entera funciona: frontmatter → ruta → iframe → deploy.
 **Se borra en la Fase 4**, cuando entre el primer experimento real.
 
@@ -351,7 +351,7 @@ Dos, no tres. `revisar-demo` se descarta: su contenido cabe en los checklists fi
 las otras dos, y una skill que solo es una lista de repaso se queda sin actualizar.
 
 **`.claude/skills/maquetacion/SKILL.md`** — HTML y CSS. Se dispara al tocar plantillas,
-componentes, demos de `public/labs/` u hojas de estilo.
+componentes, demos de `public/demos/` u hojas de estilo.
 
 - **Idioma**: la tabla de qué va en inglés y qué en español, con el matiz de que `alt`,
   `aria-label` y `title` son texto visible para un lector de pantalla y van en español.

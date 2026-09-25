@@ -1,0 +1,34 @@
+---
+/*
+ * [slug].astro — ficha de un experimento. Versión mínima de la tarea 2.7: título,
+ * resumen y demo. La ficha completa (número, metadatos, pestañas) es la tarea 3.6.
+ */
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LabFrame from '../../../components/lab/LabFrame/LabFrame.astro';
+import type { Lab } from '../../../types';
+import { demoPath, labSlug } from '../../../utils/lab-paths';
+
+export const getStaticPaths = (async () => {
+  const labs = await getCollection('labs');
+
+  return labs.map((lab) => ({
+    params: { category: lab.data.category, slug: labSlug(lab) },
+    props: { lab },
+  }));
+}) satisfies GetStaticPaths;
+
+type Props = {
+  lab: Lab;
+};
+
+const { lab } = Astro.props;
+const { title, summary, category, runtime } = lab.data;
+---
+
+<BaseLayout title={`${title} · jmocanalab`} description={summary} activeCategory={category}>
+  <h1>{title}</h1>
+  <p>{summary}</p>
+  {runtime === 'iframe' && <LabFrame src={demoPath(lab)} title={title} />}
+</BaseLayout>

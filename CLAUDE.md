@@ -23,10 +23,10 @@ estático y no llama a ninguna API.
 Son obligatorias, no orientativas. Contienen las convenciones reales del proyecto; este
 fichero solo las resume.
 
-| Skill             | Se usa al tocar                                                                    |
-| ----------------- | ---------------------------------------------------------------------------------- |
-| **`maquetacion`** | `.astro`, `.html`, `.css`, las demos de `public/labs/`, cualquier marcado o estilo |
-| **`javascript`**  | `.ts`, `.js`, `.tsx`, `scripts/`, el JS de las demos                               |
+| Skill             | Se usa al tocar                                                                     |
+| ----------------- | ----------------------------------------------------------------------------------- |
+| **`maquetacion`** | `.astro`, `.html`, `.css`, las demos de `public/demos/`, cualquier marcado o estilo |
+| **`javascript`**  | `.ts`, `.js`, `.tsx`, `scripts/`, el JS de las demos                                |
 
 Un componente con marcado y lógica las usa **las dos**.
 
@@ -75,7 +75,8 @@ Está desarrollado en la skill `maquetacion`; aquí lo que más se incumple:
 ## 6. Cómo se añade un experimento
 
 **Hoy, a mano** (la Fase 2 no tiene generador): una ficha en `src/content/labs/<categoría>/`
-y, si el `runtime` es `iframe`, su carpeta en `public/labs/<categoría>/<slug>/`.
+y, si el `runtime` es `iframe`, su carpeta en `public/demos/<categoría>/<slug>/`.
+La demo no va en `public/labs/`: chocaría en el build con la ficha `/labs/<categoría>/<slug>`.
 
 **Desde la Fase 3, solo con `pnpm new:lab`.** Nunca a mano. ← actualizar esta línea el día
 que exista el generador.

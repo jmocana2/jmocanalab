@@ -1,0 +1,12 @@
+/*
+ * LabFrame.css — marco de la demo aislada: ancho completo y altura reservada.
+ */
+
+@layer components {
+  .lab-frame {
+    width: 100%;
+    height: var(--height-frame);
+    border: var(--border-thin) solid var(--color-line);
+    background-color: var(--color-bg-raised);
+  }
+}

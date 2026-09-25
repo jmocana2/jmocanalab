@@ -164,7 +164,7 @@ El sitio es estático y casi sin JS del lado del cliente. Antes de añadir una l
 llegue al navegador, comprobar que no se resuelve en build o con CSS. El presupuesto de JS
 es parte del diseño.
 
-Las demos de `public/labs/` son la excepción: ahí el JS es el contenido. Van en ficheros
+Las demos de `public/demos/` son la excepción: ahí el JS es el contenido. Van en ficheros
 sueltos, sin build, sin dependencias, y **deben abrirse solas en el navegador** con doble
 clic. Esa portabilidad es el motivo de que el nivel `iframe` exista.
 

@@ -1,0 +1,12 @@
+/*
+ * LabList.css — encabezado de sección y lista de filas.
+ */
+
+@layer components {
+  .lab-list {
+    .lab-list__heading {
+      margin-block-end: var(--space-6);
+      color: var(--color-ink-3);
+    }
+  }
+}

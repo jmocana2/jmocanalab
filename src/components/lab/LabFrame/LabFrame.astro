@@ -1,0 +1,17 @@
+---
+/*
+ * LabFrame.astro — iframe que aísla la demo de un experimento con `runtime: iframe`.
+ * Altura reservada con token para no provocar saltos de layout al cargar. Sin
+ * `loading="lazy"`: es el contenido principal de la ficha y está sobre el pliegue.
+ */
+import './LabFrame.css';
+
+type Props = {
+  src: string;
+  title: string;
+};
+
+const { src, title } = Astro.props;
+---
+
+<iframe class="lab-frame" src={src} title={`Demo: ${title}`}></iframe>

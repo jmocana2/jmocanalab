@@ -13,7 +13,7 @@ import astro from 'eslint-plugin-astro';
 import globals from 'globals';
 
 export default [
-  { ignores: ['dist/', '.astro/', 'node_modules/', '.design/', 'public/labs/'] },
+  { ignores: ['dist/', '.astro/', 'node_modules/', '.design/', 'public/demos/'] },
 
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -37,6 +37,9 @@ export default [
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       eqeqeq: ['error', 'always'],
       'prefer-const': 'error',
+
+      // Safari quita la semántica a las listas con list-style: none; el role la devuelve.
+      'astro/jsx-a11y/no-redundant-roles': ['error', { ol: ['list'], ul: ['list'] }],
     },
   },
 ];
