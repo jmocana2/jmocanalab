@@ -75,7 +75,7 @@ src/
 ├── components/
 │   ├── site/        # chrome del sitio: SiteHeader, SiteFooter, NavCategories
 │   ├── lab/         # piezas de listado y ficha: LabRow, LabMeta, CodeViewer
-│   └── ui/          # primitivas sin dominio: Eyebrow, Num, Tabs
+│   └── ui/          # primitivas sin dominio con marcado propio: Tabs
 └── demos/           # componentes de demo (runtime inline/island)
 ```
 
@@ -252,34 +252,79 @@ correcta es un `minmax()` o un `auto-fit` que no necesita breakpoint.
 
 ### Anidado
 
-Se usa el anidado nativo de CSS, con dos límites:
-
-- **Máximo 3 niveles de herencia en el selector final.** Con BEM bien aplicado el máximo
-  natural es 2: el bloque y su elemento. Si hace falta un tercero es una señal, no un
-  permiso.
-- Se anidan **estados y media queries** (`&:hover`, `&:focus-visible`,
-  `&[aria-current]`, `@media`), no la estructura. El elemento BEM se escribe como
-  selector propio, no anidado dentro del bloque: así se busca por su nombre completo en
-  el proyecto.
+Anidado nativo de CSS. **Todo el fichero cuelga de su bloque**, y los elementos se anidan
+dentro, así el CSS se lee con la misma forma que el HTML. Pero con el **mínimo anidamiento
+posible**: la estructura tiene como mucho tres niveles, y siempre los mismos.
 
 ```css
-.card {
-  /* … */
-}
+@layer components {
+  .card {
+    /* nivel 1 — bloque */
 
-.card__title {
-  font-size: var(--text-l);
+    &.card--featured {
+      /* modificador del bloque */
+    }
 
-  &:hover {
-    color: var(--color-link-hover);
+    .card__title {
+      /* nivel 2 — elemento */
+
+      &:hover {
+        /* nivel 3 — estado */
+      }
+
+      &.card__title--muted {
+        /* nivel 3 — modificador del elemento */
+      }
+    }
+
+    @media (min-width: 48em) {
+      /* las media queries no cuentan como nivel */
+    }
   }
 }
 ```
 
+Reglas:
+
+- **Bloque → elemento → estado o modificador. Nunca más de tres niveles.** No hay un
+  cuarto: un estado dentro de un modificador se escribe en la misma línea
+  (`&.card__title--muted:hover`), no anidando otra vez.
+- **Los elementos cuelgan siempre del bloque, a un solo nivel**, aunque en el HTML
+  estén más profundos. `.card__meta` va dentro de `.card`, nunca dentro de
+  `.card__header`. El CSS replica la pertenencia al bloque, no el árbol del DOM.
+- **Nombres completos, sin concatenar.** El anidado nativo **no** es SASS: `&__title` y
+  `&--featured` no funcionan (el navegador descarta la regla entera sin avisar). Se
+  escribe la clase entera: `.card__title` y `&.card--featured`. Beneficio de paso: el
+  nombre completo sigue apareciendo en el fichero, así que se encuentra con una búsqueda.
+- El modificador va con `&.` porque convive en el mismo elemento que su clase base
+  (`class="card__title card__title--muted"`). Sin `&` sería un descendiente, y no lo es.
+- **Estados y media queries se anidan en quien los sufre**: `&:hover` dentro del
+  elemento, `@media` dentro del bloque o del elemento que cambia.
+- Consecuencia asumida: la especificidad deja de ser plana. Un elemento pesa `0,2,0`
+  (`.card .card__title`) y su modificador `0,3,0`. Como todos los elementos se anidan
+  igual, siguen compitiendo en igualdad entre ellos; lo que no se hace es sobrescribir un
+  elemento desde fuera de su bloque.
+- Todo componente va envuelto en `@layer components { … }`. Un CSS sin capa gana a
+  todas las capas y rompe el orden de `global.css`.
+
+### Utilidades
+
+`src/styles/utilities.css`, en `@layer utilities`: `.eyebrow`, `.mono`, `.num` y
+`.visually-hidden`. **Un estilo tipográfico que se repite sobre etiquetas distintas es una
+utilidad, no un componente.** No se crea `<Eyebrow>` para envolver un `<span>`.
+
+- Solo fijan tipografía: **nunca color ni espaciado**, que los pone el componente.
+- La capa `utilities` gana a `components`. Si un componente necesita cambiar algo que
+  fija una utilidad, no la usa y escribe sus propias reglas.
+
+```html
+<a class="site-header__link eyebrow" href="/labs/css">CSS</a>
+```
+
 ### Capas y tokens
 
-`@layer reset, tokens, base, componentes, utilidades;`. Todo componente va en
-`componentes`.
+`@layer reset, tokens, base, components, utilities;`. Todo componente va en
+`components`.
 
 - **Ni un hex, ni un tamaño, ni un espaciado literal fuera de `tokens.css`.** En los
   componentes, solo `var(--…)`.
@@ -333,10 +378,13 @@ sobra la regla. La excepción razonable es un _hack_ de navegador: ahí el comen
 - [ ] Foco visible, navegable con teclado, orden de tabulación lógico.
 - [ ] `aria-label` en enlaces de icono, `title` en los `iframe`, `aria-current` en la
       navegación.
-- [ ] Clases BEM sin anidar elementos y sin modificadores huérfanos.
+- [ ] Nombres BEM sin encadenar elementos (`card__header__title`) y sin modificadores
+      huérfanos.
+- [ ] CSS en `@layer components`, con elementos anidados en el bloque y nombres
+      completos (nada de `&__` ni `&--`).
 - [ ] Ni un px fuera de las excepciones. Ni un valor literal fuera de `tokens.css`.
 - [ ] Mobile first con `min-width`, solo 768 y 1200.
-- [ ] Como mucho 3 niveles de herencia.
+- [ ] Como mucho 3 niveles: bloque → elemento → estado o modificador.
 - [ ] Comentario de cabecera, nada de comentarios sueltos.
 - [ ] Sin saltos de layout al cargar: imágenes e `iframe` con dimensiones reservadas.
 - [ ] Funciona a 400px de ancho.

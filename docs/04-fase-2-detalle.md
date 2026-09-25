@@ -73,7 +73,7 @@ src/styles/
 
 ```css
 /* global.css */
-@layer reset, tokens, base, componentes, utilidades;
+@layer reset, tokens, base, components, utilities;
 ```
 
 `@layer` desde el primer fichero: añadirlo después obliga a revisar toda la cascada.
@@ -272,9 +272,9 @@ existe entre Storybook y el sitio.
    escala tipográfica, escala de espaciado. Es lo que pides: el DS almacenado y visible.
    Se escriben leyendo `getComputedStyle(document.documentElement)`, así que **no hay una
    segunda lista de valores que mantener**: si cambia `tokens.css`, cambia Storybook.
-2. **Componentes**, uno por clase, según se vayan creando: `eyebrow`, `num`, `fila` (con
-   variantes por categoría vía el atributo `data-category`), nav de categorías,
-   pestañas, bloque de código.
+2. ~~**Componentes**, uno por clase~~ — **descartado (2026-09-11): Storybook solo
+   documenta tokens.** Los componentes se ven en el propio sitio; si hace falta un
+   catálogo, se monta la página `/ds` de la alternativa de abajo.
 
 ### La regla que evita que esto se pudra
 
@@ -358,13 +358,13 @@ componentes, demos de `public/labs/` u hojas de estilo.
 - **HTML**: semántico (el listado es un `ol`, no `div`), **accesibilidad AA como
   requisito de salida** —contraste 4.5:1, foco visible, `aria-label` en los enlaces de
   icono, `title` en los `iframe`, `aria-current` en la navegación, nada de información
-  solo por color—, y **BEM** en español, con el elemento sin anidar.
+  solo por color—, y **BEM** en inglés, con los elementos anidados en su bloque.
 - **Core Web Vitals**: CLS (dimensiones reservadas en imágenes e `iframe`, fuentes
   autoalojadas con `swap` y fallback ajustado), LCP (`preload` de **una** variante de
   fuente, `fetchpriority`), y la regla de que no se optimiza a ciegas.
-- **CSS**: todo en `rem`, mobile first con `min-width` y solo 768/1200, anidado limitado
-  a 3 niveles de herencia y reservado a estados y media queries, y comentarios **solo**
-  en la cabecera del fichero.
+- **CSS**: todo en `rem`, mobile first con `min-width` y solo 768/1200, anidado
+  bloque → elemento → estado/modificador (máximo 3 niveles, nombres BEM completos), y
+  comentarios **solo** en la cabecera del fichero.
 
 **`.claude/skills/javascript/SKILL.md`** — JS y TS. Se dispara al tocar cualquier `.ts`,
 `.js`, `.tsx`, script o demo de JS.
