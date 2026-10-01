@@ -7,6 +7,7 @@
 import '../styles/global.css';
 import SiteHeader from '../components/site/SiteHeader/SiteHeader.astro';
 import SiteFooter from '../components/site/SiteFooter/SiteFooter.astro';
+import SkipLink from '../components/site/SkipLink/SkipLink.astro';
 import type { Category } from '../types';
 
 type Props = {
@@ -30,8 +31,9 @@ const { title, description, activeCategory, isHome = false } = Astro.props;
     {description && <meta name="description" content={description} />}
   </head>
   <body data-category={activeCategory}>
+    <SkipLink target="content" />
     <SiteHeader activeCategory={activeCategory} isHome={isHome} />
-    <main class="site-main">
+    <main class="site-main" id="content">
       <slot />
     </main>
     <SiteFooter />

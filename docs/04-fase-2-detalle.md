@@ -80,7 +80,7 @@ src/styles/
 
 ### 2.1 Color
 
-Los valores de la maqueta, con nombre semántico:
+Los valores de la maqueta, con nombre semántico, **ajustados a AA** (2026-09-25):
 
 ```css
 @layer tokens {
@@ -94,35 +94,61 @@ Los valores de la maqueta, con nombre semántico:
     --color-ink: #141311; /* texto principal, iconos, línea fuerte */
     --color-ink-code: #3a382f; /* texto dentro del bloque de código */
     --color-ink-2: #55524b; /* resúmenes, texto secundario */
-    --color-ink-3: #8a867c; /* metadatos, numeración */
-    --color-ink-4: #a8a49a; /* placeholders, notas de demo */
+    --color-ink-3: #716e66; /* metadatos, numeración */
+    --color-ink-4: #a8a49a; /* solo decoración: no llega a AA como texto */
 
     /* líneas */
     --color-line: #dcdad3; /* separador fino de filas */
     --color-line-strong: var(--color-ink); /* línea bajo la cabecera */
 
-    /* interacción */
-    --color-link-hover: #00a5c4;
+    /* interacción: hover de enlace y contorno de foco */
+    --color-link-hover: #00788f;
 
     /* acento: por defecto, no hay */
     --color-accent: var(--color-ink);
+
+    /* corazón del footer */
+    --color-heart: #e14b4b;
   }
 
   [data-category='css'] {
     --color-accent: #e14b9b;
   }
   [data-category='js'] {
-    --color-accent: #d98e00;
+    --color-accent: #bf7d00;
   }
   [data-category='react'] {
-    --color-accent: #00a5c4;
+    --color-accent: #0098b4;
   }
 }
 ```
 
+#### Ajuste AA (2026-09-25)
+
+Con los valores de la maqueta, el texto terciario, el hover y dos de los tres acentos no
+llegaban a AA. Se eligió la opción «mínimo AA»: oscurecer lo justo para pasar y no tocar
+lo que ya pasaba.
+
+| Token                | Maqueta   | Ahora     | Ratio sobre `--color-bg` | Se usa como |
+| -------------------- | --------- | --------- | ------------------------ | ----------- |
+| `--color-ink`        | `#141311` | igual     | 16.43                    | texto       |
+| `--color-ink-2`      | `#55524b` | igual     | 6.89                     | texto       |
+| `--color-ink-3`      | `#8a867c` | `#716e66` | 4.51 (antes 3.21)        | texto       |
+| `--color-ink-4`      | `#a8a49a` | igual     | 2.20                     | decoración  |
+| `--color-link-hover` | `#00a5c4` | `#00788f` | 4.55 (antes 2.59)        | texto, foco |
+| acento CSS           | `#e14b9b` | igual     | 3.27                     | línea       |
+| acento JS            | `#d98e00` | `#bf7d00` | 3.02 (antes 2.38)        | línea       |
+| acento React         | `#00a5c4` | `#0098b4` | 3.02                     | línea       |
+
+**La regla que sale de aquí: los acentos se usan solo en líneas y marcas, nunca como
+color de texto.** Llegan a 3:1, que vale para bordes y elementos de interfaz, pero no a
+4.5:1. Por eso la categoría en Destacados va en tinta con un subrayado del acento.
+
+De paso se separan el hover y el acento de React, que en la maqueta eran el mismo cian.
+
 Tres detalles que vienen de la maqueta y hay que respetar:
 
-- `a:hover` usa **#00A5C4** (el cian de React) como color de interacción genérico, no el
+- `a:hover` usa un cian (`--color-link-hover`) como color de interacción genérico, no el
   acento de la categoría. Por eso es un token aparte.
 - `--color-accent` **hereda**: basta poner `data-category` en el `<body>` de la ficha o
   en la fila del listado, y todo lo de dentro se tiñe solo.
@@ -131,7 +157,7 @@ Tres detalles que vienen de la maqueta y hay que respetar:
   la decisión.
 
 **Modo oscuro**: se preparan los nombres, **no se implementa**. El día que toque es un
-bloque `[data-theme="oscuro"]` redefiniendo estas mismas propiedades.
+bloque `[data-theme="dark"]` redefiniendo estas mismas propiedades.
 
 ### 2.2 Tipografía
 

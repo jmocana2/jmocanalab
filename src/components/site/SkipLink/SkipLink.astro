@@ -1,0 +1,17 @@
+---
+/*
+ * SkipLink.astro — enlace para saltar al contenido. Primer elemento enfocable de
+ * la página: oculto hasta que recibe el foco con el teclado.
+ */
+import './SkipLink.css';
+
+type Props = {
+  target: string;
+};
+
+const { target } = Astro.props;
+---
+
+<a class="skip-link eyebrow" href={`#${target}`}>
+  Saltar al contenido
+</a>

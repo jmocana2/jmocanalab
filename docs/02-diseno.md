@@ -44,40 +44,47 @@ tracking, monocromo) pero **sin sus gestos decorativos**.
   entradas sin despeinarse.
 - Ficha con pestañas _Resultado / Código_, el resultado en su `iframe` aislado.
 
-## 4. Valores actuales de la maqueta — PROVISIONALES
+## 4. Valores de la maqueta y valores finales
 
-⚠️ Estos números están escritos a pelo en el prototipo. **No son los tokens.**
-Se afinan en la sesión siguiente (ver punto 5).
+Los valores de la maqueta estaban escritos a pelo en el prototipo. Ya son tokens:
+viven en `src/styles/tokens.css`, y el detalle está en
+[04-fase-2-detalle.md](04-fase-2-detalle.md) §2. Cuatro colores se oscurecieron para
+cumplir AA (2026-09-25).
 
-| Uso                         | Valor de trabajo                      |
-| --------------------------- | ------------------------------------- |
-| Fondo                       | `#F2F1ED` (blanco roto cálido)        |
-| Tinta                       | `#141311`                             |
-| Texto secundario            | `#55524B`                             |
-| Texto terciario / metadatos | `#8A867C`                             |
-| Línea fina                  | `#DCDAD3`                             |
-| Acento CSS                  | `#E14B9B`                             |
-| Acento JS                   | `#D98E00`                             |
-| Acento React                | `#00A5C4`                             |
-| Tipografía UI y titulares   | Archivo (400/500/600)                 |
-| Tipografía mono             | JetBrains Mono                        |
-| UI en mayúsculas            | 11px · 600 · `letter-spacing: 0.18em` |
+| Uso                         | Maqueta                               | Final (AA)                |
+| --------------------------- | ------------------------------------- | ------------------------- |
+| Fondo                       | `#F2F1ED` (blanco roto cálido)        | igual                     |
+| Tinta                       | `#141311`                             | igual                     |
+| Texto secundario            | `#55524B`                             | igual                     |
+| Texto terciario / metadatos | `#8A867C`                             | `#716E66`                 |
+| Hover y foco                | `#00A5C4`                             | `#00788F`                 |
+| Línea fina                  | `#DCDAD3`                             | igual                     |
+| Acento CSS                  | `#E14B9B`                             | igual                     |
+| Acento JS                   | `#D98E00`                             | `#BF7D00`                 |
+| Acento React                | `#00A5C4`                             | `#0098B4`                 |
+| Tipografía UI y titulares   | Archivo (400/500/600)                 | igual                     |
+| Tipografía mono             | JetBrains Mono                        | igual                     |
+| UI en mayúsculas            | 11px · 600 · `letter-spacing: 0.18em` | `1.1rem` · 600 · `0.18em` |
 
 Los tres acentos salen de los matraces de neón del científico. **Su uso es
 mínimo**: solo la categoría activa y el número de la ficha. El resto es negro
 sobre blanco roto.
 
-## 5. Pendiente para la próxima sesión
+**Los acentos son líneas y marcas, nunca color de texto**: llegan a 3:1 sobre el
+fondo, no a los 4.5:1 que pide AA para texto. La categoría activa se marca con un
+subrayado del acento; el texto sigue en tinta.
 
-**Sistema de tokens.** Es el trabajo real que queda de la Fase 1:
+## 5. Sistema de tokens — resuelto en la Fase 2
 
-- [ ] Escala tipográfica completa (no valores sueltos: una escala).
-- [ ] Escala de espaciado coherente.
-- [ ] Nombrar los colores como custom properties semánticas
-      (`--color-fondo`, `--color-tinta`, `--color-acento`…), no por su hex.
-- [ ] Decidir si el acento se queda o el sitio va estrictamente en blanco y negro.
-      **Sin resolver**: se planteó y no llegó a decidirse.
+Resuelto en [04-fase-2-detalle.md](04-fase-2-detalle.md) §2:
+
+- [x] Escala tipográfica completa, por rol.
+- [x] Escala de espaciado de 13 pasos.
+- [x] Colores como custom properties semánticas, en inglés (`--color-bg`,
+      `--color-ink`, `--color-accent`…), no por su hex.
+- [x] El acento **se queda**, con uso mínimo y solo en líneas y marcas.
 - [ ] Modo oscuro: sale casi gratis con los tokens (decisión 4), pero no bloquea.
+      Queda para la Fase 5, con `[data-theme="dark"]`.
 
 ## 6. Nota de arquitectura para cuando se maquete
 

@@ -68,27 +68,30 @@ Punto en el que dejamos la Fase 2 para retomar en la siguiente sesión.
     - **Arreglo:** `demoPath` apunta a `.../index.html`, no a la carpeta. `astro dev`
       no resuelve el índice de una carpeta de `public/` y el iframe daba 404 en local
       (en build y en Vercel sí funcionaba).
+
 ### Paleta AA — resuelto (2026-09-25)
 
 Opción «mínimo AA». **Los acentos se usan solo en líneas y marcas, nunca como color de
 texto.** Por eso la categoría en Destacados va en tinta, con un subrayado del acento.
 
-| Token                        | Antes   | Ahora   | Ratio sobre el fondo |
-| ---------------------------- | ------- | ------- | -------------------- |
-| `--color-ink-3`              | #8a867c | #716e66 | 4.51 (texto)         |
+| Token                         | Antes   | Ahora   | Ratio sobre el fondo |
+| ----------------------------- | ------- | ------- | -------------------- |
+| `--color-ink-3`               | #8a867c | #716e66 | 4.51 (texto)         |
 | `--color-link-hover` (y foco) | #00a5c4 | #00788f | 4.53 (texto)         |
-| acento CSS                   | #e14b9b | igual   | 3.27 (línea)         |
-| acento JS                    | #d98e00 | #bf7d00 | 3.02 (línea)         |
-| acento React                 | #00a5c4 | #0098b4 | 3.03 (línea)         |
+| acento CSS                    | #e14b9b | igual   | 3.27 (línea)         |
+| acento JS                     | #d98e00 | #bf7d00 | 3.02 (línea)         |
+| acento React                  | #00a5c4 | #0098b4 | 3.03 (línea)         |
 
 Con esto también queda resuelto el problema de que el hover y el acento de React
 fueran el mismo color. `--color-ink-4` (2.20) solo vale para decoración, nunca para
-texto. Falta reflejar estos valores en `04-fase-2-detalle.md` §2.1 y en
-`02-diseno.md`.
+texto. **Reflejado (2026-10-01)** en `04-fase-2-detalle.md` §2.1 y en
+`02-diseno.md` §4 y §5.
 
 ### Otros pendientes
 
-- Accesibilidad: falta el enlace para saltar al contenido en `BaseLayout`.
+- ~~Accesibilidad: falta el enlace para saltar al contenido~~ **Resuelto
+  (2026-10-01):** `src/components/site/SkipLink/`, primer elemento del `body`, apunta
+  a `#content` (el `main`).
 - ~~`pnpm typecheck` daba 22 avisos~~ **Resuelto (2026-10-01):** `z` se importa de
   `astro/zod` (Zod 4) y las URL usan `z.url()` en lugar de `z.string().url()`.
 

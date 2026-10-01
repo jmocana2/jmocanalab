@@ -1,0 +1,21 @@
+/*
+ * SkipLink.css — enlace para saltar al contenido. Fuera de la pantalla hasta que
+ * recibe el foco; entonces aparece arriba a la izquierda, en tinta sobre el fondo.
+ */
+
+@layer components {
+  .skip-link {
+    position: absolute;
+    inset-block-start: var(--space-4);
+    inset-inline-start: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    border: var(--border-thin) solid var(--color-ink);
+    translate: 0 -200%;
+
+    &:focus {
+      translate: none;
+    }
+  }
+}
