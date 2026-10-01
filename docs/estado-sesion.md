@@ -62,9 +62,12 @@ Punto en el que dejamos la Fase 2 para retomar en la siguiente sesión.
       `dist/labs/<cat>/<slug>/index.html`. Actualizados `CLAUDE.md`, las skills, el
       plan, `04`, el README y `eslint.config.js`.
   - 2.8 · Storybook: solo quedan revisar las stories de tokens.
-  - **2.9 · GitHub + Vercel.** ← siguiente. Ojo: la nav enlaza a `/labs/css`, etc.,
-    que darán 404 hasta la vista Listado (3.5).
-
+  - **2.9 · Hecha (2026-10-01).** Desplegado en `https://jmocanalab.vercel.app`, con
+    preview por rama. La nav enlaza a `/labs/css`, etc., que dan 404 hasta la vista
+    Listado (3.5).
+    - **Arreglo:** `demoPath` apunta a `.../index.html`, no a la carpeta. `astro dev`
+      no resuelve el índice de una carpeta de `public/` y el iframe daba 404 en local
+      (en build y en Vercel sí funcionaba).
 ### Paleta AA — resuelto (2026-09-25)
 
 Opción «mínimo AA». **Los acentos se usan solo en líneas y marcas, nunca como color de
