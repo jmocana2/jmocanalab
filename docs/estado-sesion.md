@@ -89,8 +89,8 @@ texto. Falta reflejar estos valores en `04-fase-2-detalle.md` §2.1 y en
 ### Otros pendientes
 
 - Accesibilidad: falta el enlace para saltar al contenido en `BaseLayout`.
-- `pnpm typecheck` da 22 avisos de que `z` de `astro:content` está obsoleto. Hay que
-  importarlo de `astro/zod`.
+- ~~`pnpm typecheck` daba 22 avisos~~ **Resuelto (2026-10-01):** `z` se importa de
+  `astro/zod` (Zod 4) y las URL usan `z.url()` en lugar de `z.string().url()`.
 
 ### Preguntas abiertas rescatadas del antiguo `05`
 

@@ -1,7 +1,8 @@
 // Colección única `labs`: cada .md/.mdx en src/content/labs/<category>/<slug>
 // es una ficha de experimento. El esquema es el contrato con las páginas.
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 const labs = defineCollection({
   loader: glob({ base: './src/content/labs', pattern: '**/*.{md,mdx}' }),
@@ -45,8 +46,8 @@ const labs = defineCollection({
       // Enlaces externos opcionales
       links: z
         .object({
-          repo: z.string().url().optional(),
-          article: z.string().url().optional(),
+          repo: z.url().optional(),
+          article: z.url().optional(),
         })
         .default({}),
     }),
