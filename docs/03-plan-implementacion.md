@@ -90,16 +90,16 @@ ficha de prueba que renderiza su iframe. Nada más.
 **Objetivo**: que añadir un experimento cueste dos minutos. Es la fase que decide si
 el proyecto vive.
 
-| #   | Tarea                                          | Nota                                                                                                                                                  |
-| --- | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 3.1 | `scripts/new-lab.mjs` + `pnpm new:lab`         | pregunta categoría, título y runtime; genera `.mdx` con frontmatter completo y, si es `iframe`, la carpeta en `public/demos/` con `index.html` mínimo |
-| 3.2 | `CodeViewer` con Shiki                         | lee `sources[]` del frontmatter, pestañas _Resultado / Código_                                                                                        |
-| 3.3 | `LabFrame`                                     | el `<iframe>` del nivel B, con altura declarada y `loading="lazy"`                                                                                    |
-| 3.4 | Vista **Destacados** en `/`                    | filas numeradas, `featured: true`, orden por fecha                                                                                                    |
-| 3.5 | Vista **Listado** en `/labs/[categoria]`       | lista editorial numerada, sin tarjetas                                                                                                                |
-| 3.6 | Vista **Ficha** en `/labs/[categoria]/[slug]`  | pestañas + numeración + acento de categoría                                                                                                           |
-| 3.7 | View Transitions entre las tres vistas         | cabecera y nav con `transition:persist`                                                                                                               |
-| 3.8 | CI en GitHub Actions: lint + typecheck + build |                                                                                                                                                       |
+| #   | Tarea                                          | Nota                                                                                                                                                                                                  |
+| --- | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 3.1 | `scripts/new-lab/` + `pnpm new:lab` ✅         | pregunta categoría, título, slug y runtime (o los recibe por argumento); genera `.md` con frontmatter completo y el esqueleto de la demo: `public/demos/` si es `iframe`, `src/demos/` si es `inline` |
+| 3.2 | `CodeViewer` con Shiki                         | lee `sources[]` del frontmatter, pestañas _Resultado / Código_                                                                                                                                        |
+| 3.3 | `LabFrame`                                     | el `<iframe>` del nivel B, con altura declarada y `loading="lazy"`                                                                                                                                    |
+| 3.4 | Vista **Destacados** en `/`                    | filas numeradas, `featured: true`, orden por fecha                                                                                                                                                    |
+| 3.5 | Vista **Listado** en `/labs/[categoria]`       | lista editorial numerada, sin tarjetas                                                                                                                                                                |
+| 3.6 | Vista **Ficha** en `/labs/[categoria]/[slug]`  | pestañas + numeración + acento de categoría                                                                                                                                                           |
+| 3.7 | View Transitions entre las tres vistas         | cabecera y nav con `transition:persist`                                                                                                                                                               |
+| 3.8 | CI en GitHub Actions: lint + typecheck + build |                                                                                                                                                                                                       |
 
 La numeración (`001`, `002`…) se calcula **al construir**, por orden de fecha dentro
 de la categoría. No es un campo del frontmatter: un campo manual es fricción y se

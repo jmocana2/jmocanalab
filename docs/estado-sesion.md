@@ -35,9 +35,18 @@
 
 ## Pendiente para la Fase 3
 
-- **3.1 · `pnpm new:lab`.** Decidir si la ficha generada es `.md` o `.mdx`: el plan dice
-  `.mdx`, pero no hay `@astrojs/mdx` y la ficha de prueba es `.md`. Con el generador se
-  escribe la skill `nuevo-lab` y se actualiza `CLAUDE.md` §6.
+- **3.1 · Hecha (2026-10-01).** `scripts/new-lab/`, en TypeScript, ejecutado con
+  `node --experimental-strip-types` (sin compilar; con Node ≥ 22.18 el flag sobra).
+  - Ficha en **`.md`**: MDX entra el día que una ficha necesite componentes en el texto.
+  - Esqueleto para `iframe` e `inline`; `island` se rechaza hasta que exista React.
+  - Pregunta lo que falte o lo recibe por argumentos: `--category`, `--title`,
+    `--slug` y `--runtime`. Sin terminal no pregunta: falla diciendo qué falta.
+  - El **slug se pide aparte**: va en inglés y el título en español.
+  - Nunca sobrescribe. Las categorías salen a `src/constants/categories.ts`, que leen el
+    esquema y el generador. Nueva dependencia: `@types/node@22`.
+  - Skill `nuevo-lab` escrita y `CLAUDE.md` §2 y §6 actualizados.
+  - Las demos `inline` usan `.astro` + `.css` con el slug como bloque BEM, no `<style>`
+    con scope como decía el análisis: así siguen la skill `maquetacion`.
 - **3.6 · Número de la ficha.** `02-diseno.md` y `04` lo ponen en color de acento, pero
   es texto de 15px y la decisión 7 lo impide. Opciones: tinta con una marca del acento
   (como la categoría en Destacados) o sin acento.

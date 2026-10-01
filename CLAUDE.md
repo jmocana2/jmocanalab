@@ -27,6 +27,7 @@ fichero solo las resume.
 | ----------------- | ----------------------------------------------------------------------------------- |
 | **`maquetacion`** | `.astro`, `.html`, `.css`, las demos de `public/demos/`, cualquier marcado o estilo |
 | **`javascript`**  | `.ts`, `.js`, `.tsx`, `scripts/`, el JS de las demos                                |
+| **`nuevo-lab`**   | Crear un experimento, ejercicio o demo: siempre con `pnpm new:lab`                  |
 
 Un componente con marcado y lógica las usa **las dos**.
 
@@ -74,15 +75,15 @@ Está desarrollado en la skill `maquetacion`; aquí lo que más se incumple:
 
 ## 6. Cómo se añade un experimento
 
-**Hoy, a mano** (la Fase 2 no tiene generador): una ficha en `src/content/labs/<categoría>/`
-y, si el `runtime` es `iframe`, su carpeta en `public/demos/<categoría>/<slug>/`.
+**Solo con `pnpm new:lab`. Nunca a mano.** Crea la ficha en `src/content/labs/<categoría>/`
+y el esqueleto de la demo: `public/demos/<categoría>/<slug>/` si el `runtime` es `iframe`,
+`src/demos/<categoría>/<Name>/` si es `inline`. El detalle, en la skill `nuevo-lab`.
+
 La demo no va en `public/labs/`: chocaría en el build con la ficha `/labs/<categoría>/<slug>`.
 
-**Desde la Fase 3, solo con `pnpm new:lab`.** Nunca a mano. ← actualizar esta línea el día
-que exista el generador.
-
-Las categorías son `css`, `js` y `react`. Añadir una es tocar el `z.enum` del esquema;
-renombrarla rompe URLs, así que no se renombra.
+Las categorías son `css`, `js` y `react`, en `src/constants/categories.ts`, que leen el
+esquema y el generador. Añadir una es ampliar esa lista; renombrarla rompe URLs, así que
+no se renombra.
 
 ## 7. Principio de diseño
 

@@ -3,6 +3,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { CATEGORIES } from './constants/categories';
 
 const labs = defineCollection({
   loader: glob({ base: './src/content/labs', pattern: '**/*.{md,mdx}' }),
@@ -12,9 +13,8 @@ const labs = defineCollection({
       title: z.string().min(1),
       summary: z.string().max(180),
 
-      // Taxonomía: categorías cerradas. Añadir una = tocar este enum.
-      // Renombrarlas rompe URLs, así que no se renombran.
-      category: z.enum(['css', 'js', 'react']),
+      // Taxonomía: categorías cerradas, definidas en src/constants/categories.ts.
+      category: z.enum(CATEGORIES),
 
       // Naturaleza de la ficha
       kind: z.enum(['exercise', 'demo', 'project']),
@@ -34,7 +34,7 @@ const labs = defineCollection({
 
       // Rutas relativas a la raíz del proyecto.
       // - iframe → 'public/demos/<category>/<slug>/index.html'
-      // - inline/island → 'src/demos/<category>/<Componente>.astro'
+      // - inline/island → 'src/demos/<category>/<Component>/<Component>.astro'
       entry: z.string().optional(),
       sources: z.array(z.string()).default([]),
 

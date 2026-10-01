@@ -42,9 +42,17 @@ arquitectónica que hace esto sostenible:
 
 | `runtime` | Cómo se renderiza                                 | Para qué                          |
 | --------- | ------------------------------------------------- | --------------------------------- |
-| `inline`  | Componente `.astro` con estilos con scope         | Demos que conviven bien           |
+| `inline`  | Componente `.astro` en `src/demos/…`, embebido    | Demos que conviven bien           |
 | `iframe`  | HTML suelto en `public/demos/…`, en un `<iframe>` | CSS y JS puros. Aislamiento total |
 | `island`  | Componente con `client:visible`                   | Demos que necesitan un framework  |
+
+Un experimento nuevo se crea siempre con el generador, que deja la ficha y el esqueleto
+de la demo listos para editar:
+
+```bash
+pnpm new:lab   # pregunta categoría, título, slug y runtime
+pnpm new:lab --category css --title 'Holy grail con Grid' --slug holy-grail --runtime iframe
+```
 
 ## Puesta en marcha
 
@@ -59,6 +67,7 @@ pnpm storybook    # catálogo del design system, en el 6006
 | `pnpm dev`                                | Servidor de desarrollo   |
 | `pnpm build`                              | Build estático a `dist/` |
 | `pnpm preview`                            | Sirve el build           |
+| `pnpm new:lab`                            | Crea un experimento      |
 | `pnpm typecheck`                          | `astro check`            |
 | `pnpm lint` · `pnpm lint:fix`             | ESLint                   |
 | `pnpm format` · `pnpm format:check`       | Prettier                 |
