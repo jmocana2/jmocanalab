@@ -20,10 +20,12 @@ export function labPath(lab: Lab): string {
 
 /**
  * Construye la URL de la demo aislada de un experimento con `runtime: iframe`.
- * Lleva barra final para que las rutas relativas de la demo resuelvan dentro de su carpeta.
+ * Apunta al `index.html` y no a la carpeta: `astro dev` no resuelve el índice de una
+ * carpeta de `public/` y daría 404. Las rutas relativas de la demo siguen resolviendo
+ * dentro de su carpeta.
  * @param lab Experimento.
- * @returns La ruta de la carpeta en `public/demos/`: «/demos/css/prueba/».
+ * @returns La ruta del fichero en `public/demos/`: «/demos/css/prueba/index.html».
  */
 export function demoPath(lab: Lab): string {
-  return `/demos/${lab.data.category}/${labSlug(lab)}/`;
+  return `/demos/${lab.data.category}/${labSlug(lab)}/index.html`;
 }
