@@ -1,25 +1,17 @@
-# Estado de sesión — 2026-09-25
+# Estado de sesión — 2026-10-01
 
-Punto en el que dejamos la Fase 2 para retomar en la siguiente sesión.
+**Fase 2 cerrada.** Siguiente: Fase 3, empezando por la tarea 3.1 (`pnpm new:lab`).
 
-## Hecho
+## Fase 2 — qué quedó hecho
 
-- 2.0 – 2.5 cerradas. El layout base (`BaseLayout`, `SiteHeader`, `SiteFooter`,
-  `layout.css`) está en el commit `22d19aa`.
-- 2.8 adelantada en parte: las tres stories de tokens existen en `src/design-system/`.
-
-### Esta sesión (2026-09-25)
-
-- **Anidado BEM resuelto** y escrito en la skill `maquetacion` (§CSS › Anidado):
-  bloque → elemento → estado o modificador, máximo tres niveles. Nombres BEM completos:
-  el anidado nativo no concatena, así que `&__x` y `&--x` no valen; el modificador se
-  escribe `&.bloque__elemento--mod`. Todo componente dentro de `@layer components`.
-- `SiteHeader.css` y `SiteFooter.css` refactorizados con esa regla. Además, ahora van
-  en `@layer components` (antes estaban sin capa y ganaban a todas las capas) y los
-  comentarios sueltos se han subido a la cabecera.
-- `04-fase-2-detalle.md` actualizado: Storybook solo documenta tokens, nombres de
-  capa en inglés y BEM en inglés.
-- `docs/05-layout-base.md` descartado y borrado.
+- 2.0 – 2.9 cerradas. El detalle de cada tarea está en `04-fase-2-detalle.md` y en el
+  historial de git.
+- Sitio desplegado en `https://jmocanalab.vercel.app`, con preview por rama. La nav
+  enlaza a `/labs/css`, etc., que dan 404 hasta la vista Listado (3.5).
+- `pnpm lint`, `pnpm typecheck` y `pnpm build` pasan en limpio. Ni un hex fuera de
+  `tokens.css`; el único px fuera de las excepciones es el `1px` de `.visually-hidden`,
+  que es el patrón estándar.
+- Paleta ajustada a AA y reflejada en `02-diseno.md` §4 y `04` §2.1.
 
 ## Decisiones cerradas (para no reabrirlas)
 
@@ -29,74 +21,30 @@ Punto en el que dejamos la Fase 2 para retomar en la siguiente sesión.
    `src/demos/`.
 3. **Un componente = una carpeta** con `.astro` + `.css`, y el CSS importado en el
    frontmatter.
-4. **GitHub:** `https://github.com/jmocana2`, confirmado.
-5. **Rojo del corazón:** `#e14b4b`, validado.
-6. **Anidado BEM:** ver arriba.
+4. **Anidado BEM:** bloque → elemento → estado o modificador, máximo tres niveles,
+   nombres completos (`&.bloque__elemento--mod`, nunca `&__x` ni `&--x`). Está en la
+   skill `maquetacion`.
+5. **Las demos van en `public/demos/`**, no en `public/labs/`: chocaban en el build con
+   la ficha `/labs/<cat>/<slug>`.
+6. **`demoPath` apunta a `.../index.html`**, no a la carpeta: `astro dev` no resuelve el
+   índice de una carpeta de `public/` y el iframe daba 404 en local.
+7. **Los acentos solo en líneas y marcas, nunca como color de texto** (3:1, no 4.5:1).
+8. **`z` se importa de `astro/zod`** (Zod 4). Las URL, con `z.url()`.
+9. **Modo oscuro:** el atributo será `[data-theme="dark"]`.
+10. **GitHub:** `https://github.com/jmocana2`. **Rojo del corazón:** `#e14b4b`.
 
-## Pendiente
+## Pendiente para la Fase 3
 
+- **3.1 · `pnpm new:lab`.** Decidir si la ficha generada es `.md` o `.mdx`: el plan dice
+  `.mdx`, pero no hay `@astrojs/mdx` y la ficha de prueba es `.md`. Con el generador se
+  escribe la skill `nuevo-lab` y se actualiza `CLAUDE.md` §6.
+- **3.6 · Número de la ficha.** `02-diseno.md` y `04` lo ponen en color de acento, pero
+  es texto de 15px y la decisión 7 lo impide. Opciones: tinta con una marca del acento
+  (como la categoría en Destacados) o sin acento.
 - Añadir `superRefine` a `content.config.ts` (exigir `coverAlt` si hay `cover`) cuando
   aparezca la primera ficha con portada.
-- Siguientes tareas del plan:
-  - **2.6 · Hecha** (a falta de verla renderizada, que llega con 2.7):
-    - `src/styles/utilities.css`: `.eyebrow`, `.mono`, `.num`, `.visually-hidden`.
-    - `src/components/lab/LabRow/`: fila numerada. `meta="category"` para
-      Destacados y `meta="tags"` para el listado. El enlace va en el título y se
-      estira a toda la fila con `::after`. En móvil, el metadato y el estado bajan a
-      una segunda línea.
-    - `src/types.ts` (`Lab`, `Category`, `Status`, que salen de la colección) y
-      `src/constants/labels.ts` (`CATEGORY_LABEL`, que usan la cabecera y `LabRow`).
-  - **2.7 · Hecha.**
-    - Ficha `src/content/labs/css/prueba.md`. Es `.md`, no `.mdx`: no hay
-      `@astrojs/mdx` y no hace falta todavía.
-    - Demo `public/demos/css/prueba/index.html`.
-    - Ruta `src/pages/labs/[category]/[slug].astro`, en versión mínima: título,
-      resumen y `LabFrame`.
-    - La home pinta los destacados con `LabList` + `LabRow`.
-    - Utilidades comunes: `src/utils/lab-paths.ts` (`labSlug`, `labPath`,
-      `demoPath`) y `src/utils/lab-number.ts` (numeración por categoría, por
-      fecha ascendente).
-    - Token nuevo: `--height-frame: 40rem`.
-    - **Decisión:** las demos van en `public/demos/`, no en `public/labs/`. Con
-      `public/labs/` la ficha y la demo generaban el mismo
-      `dist/labs/<cat>/<slug>/index.html`. Actualizados `CLAUDE.md`, las skills, el
-      plan, `04`, el README y `eslint.config.js`.
-  - 2.8 · Storybook: solo quedan revisar las stories de tokens.
-  - **2.9 · Hecha (2026-10-01).** Desplegado en `https://jmocanalab.vercel.app`, con
-    preview por rama. La nav enlaza a `/labs/css`, etc., que dan 404 hasta la vista
-    Listado (3.5).
-    - **Arreglo:** `demoPath` apunta a `.../index.html`, no a la carpeta. `astro dev`
-      no resuelve el índice de una carpeta de `public/` y el iframe daba 404 en local
-      (en build y en Vercel sí funcionaba).
 
-### Paleta AA — resuelto (2026-09-25)
-
-Opción «mínimo AA». **Los acentos se usan solo en líneas y marcas, nunca como color de
-texto.** Por eso la categoría en Destacados va en tinta, con un subrayado del acento.
-
-| Token                         | Antes   | Ahora   | Ratio sobre el fondo |
-| ----------------------------- | ------- | ------- | -------------------- |
-| `--color-ink-3`               | #8a867c | #716e66 | 4.51 (texto)         |
-| `--color-link-hover` (y foco) | #00a5c4 | #00788f | 4.53 (texto)         |
-| acento CSS                    | #e14b9b | igual   | 3.27 (línea)         |
-| acento JS                     | #d98e00 | #bf7d00 | 3.02 (línea)         |
-| acento React                  | #00a5c4 | #0098b4 | 3.03 (línea)         |
-
-Con esto también queda resuelto el problema de que el hover y el acento de React
-fueran el mismo color. `--color-ink-4` (2.20) solo vale para decoración, nunca para
-texto. **Reflejado (2026-10-01)** en `04-fase-2-detalle.md` §2.1 y en
-`02-diseno.md` §4 y §5.
-
-### Otros pendientes
-
-- ~~Accesibilidad: falta el enlace para saltar al contenido~~ **Resuelto
-  (2026-10-01):** `src/components/site/SkipLink/`, primer elemento del `body`, apunta
-  a `#content` (el `main`).
-- ~~`pnpm typecheck` daba 22 avisos~~ **Resuelto (2026-10-01):** `z` se importa de
-  `astro/zod` (Zod 4) y las URL usan `z.url()` en lugar de `z.string().url()`.
-
-### Preguntas abiertas rescatadas del antiguo `05`
+## Preguntas abiertas
 
 - **Móvil:** ancho máximo de página por encima de 1200.
-- **Modo oscuro:** el atributo será `[data-theme="dark"]`, en inglés, no `data-tema`.
 - **`<head>`:** patrón del `<title>`, favicon, `theme-color` y qué fuente se precarga.

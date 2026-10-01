@@ -1,6 +1,6 @@
 # jmocanalab — Fase 2 en detalle: esqueleto, tokens y Storybook
 
-> Fecha: 2026-09-11 · Estado: **listo para ejecutar**.
+> Fecha: 2026-09-11 · Estado: **cerrada (2026-10-01)**.
 > Desarrolla la Fase 2 de [03-plan-implementacion.md](03-plan-implementacion.md).
 > Los valores de esta fase salen de `.design/Main.dc.html`, que pasa de maqueta
 > a **fuente de verdad de los tokens**.
@@ -443,14 +443,14 @@ Revisar el pin de TypeScript cuando `typescript-eslint` publique soporte para TS
 
 ## 7. Definición de "Fase 2 terminada"
 
-- [ ] `https://jmocanalab.vercel.app` carga la home con cabecera y nav de categorías.
-- [ ] `/labs/css/prueba` renderiza su iframe aislado.
-- [ ] Ni un solo hex fuera de `tokens.css`. Ni un px fuera de las excepciones de la
+- [x] `https://jmocanalab.vercel.app` carga la home con cabecera y nav de categorías.
+- [x] `/labs/css/prueba` renderiza su iframe aislado.
+- [x] Ni un solo hex fuera de `tokens.css`. Ni un px fuera de las excepciones de la
       skill `maquetacion`.
-- [ ] `pnpm lint`, `pnpm typecheck` y `pnpm build` pasan en limpio.
-- [ ] `pnpm storybook` muestra las tres stories de tokens leyendo del CSS real.
-- [ ] `.env*` ignorado desde el primer commit.
-- [ ] `CLAUDE.md` escrito **antes** del scaffold, y las skills `maqueta` y
+- [x] `pnpm lint`, `pnpm typecheck` y `pnpm build` pasan en limpio.
+- [x] `pnpm storybook` muestra las tres stories de tokens leyendo del CSS real.
+- [x] `.env*` ignorado desde el primer commit.
+- [x] `CLAUDE.md` escrito **antes** del scaffold, y las skills `maquetacion` y
       `javascript` en `.claude/skills/`.
 
 Lo que **no** entra en esta fase, y no pasa nada: modo oscuro, View Transitions,

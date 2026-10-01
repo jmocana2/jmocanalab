@@ -3,8 +3,8 @@
 Laboratorio y portfolio front-end de jmocanalab. Astro estático, desplegado en Vercel.
 Un experimento = una ficha de contenido + su demo aislada. **Repo público.**
 
-Estado: **Fase 2** — esqueleto. Todavía no hay código; lo que se cree ahora fija las
-convenciones del proyecto. Ver `docs/04-fase-2-detalle.md`.
+Estado: **Fase 3** — fricción cero: generador `pnpm new:lab`, `CodeViewer` y las tres
+vistas. La Fase 2 está cerrada y desplegada. Dónde lo dejamos: `docs/estado-sesion.md`.
 
 ---
 
@@ -102,13 +102,14 @@ pnpm · Node 22 · TypeScript `strict` · Astro con `output: 'static'`, sin adap
 El razonamiento vive en `docs/`, no aquí. Este fichero no duplica tokens, rutas ni listas
 de componentes: eso se desincroniza.
 
-| Documento                        | Qué contiene                                         |
-| -------------------------------- | ---------------------------------------------------- |
-| `docs/00-analisis-inicial.md`    | Análisis técnico y alternativas descartadas          |
-| `docs/01-decisiones.md`          | Decisiones cerradas de la Fase 0                     |
-| `docs/02-diseno.md`              | Dirección visual. **Manda en lo visual**             |
-| `docs/03-plan-implementacion.md` | Plan por fases                                       |
-| `docs/04-fase-2-detalle.md`      | Fase 2: tokens, Storybook y skills. **En ejecución** |
+| Documento                        | Qué contiene                                        |
+| -------------------------------- | --------------------------------------------------- |
+| `docs/00-analisis-inicial.md`    | Análisis técnico y alternativas descartadas         |
+| `docs/01-decisiones.md`          | Decisiones cerradas de la Fase 0                    |
+| `docs/02-diseno.md`              | Dirección visual. **Manda en lo visual**            |
+| `docs/03-plan-implementacion.md` | Plan por fases. **En ejecución: Fase 3**            |
+| `docs/04-fase-2-detalle.md`      | Fase 2: tokens, Storybook y skills. Cerrada         |
+| `docs/estado-sesion.md`          | Dónde lo dejamos: pendientes y decisiones recientes |
 
 Este `CLAUDE.md` se revisa **al cerrar cada fase**. Dos señales de que hay que tocarlo:
 una corrección repetida dos veces, o una convención que existe en el código y no está
