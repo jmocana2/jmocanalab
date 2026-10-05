@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img alt="release v0.0.1" src="https://img.shields.io/badge/release-v0.0.1-555555?style=flat-square">
+  <img alt="release v0.1.0" src="https://img.shields.io/badge/release-v0.1.0-555555?style=flat-square">
   <img alt="Astro 7.3" src="https://img.shields.io/badge/Astro-7.3-BC52EE?style=flat-square">
   <img alt="Node 22+" src="https://img.shields.io/badge/Node-22%2B-3C873A?style=flat-square">
   <img alt="pnpm 10" src="https://img.shields.io/badge/pnpm-10-F69220?style=flat-square">
@@ -23,17 +23,24 @@ cliente.
 
 ## Estado
 
-**Fase 2 — esqueleto.** El sitio todavía no tiene contenido. Hecho hasta ahora: la
-dirección visual, el sistema de tokens, el catálogo en Storybook y el andamiaje del
-proyecto. El plan por fases está en [`docs/03-plan-implementacion.md`](docs/03-plan-implementacion.md).
+**v0.1.0 — Fase 3 cerrada.** El sitio está completo y desplegado en
+[jmocanalab.vercel.app](https://jmocanalab.vercel.app): portada con los destacados,
+listado por categoría y ficha de cada experimento con sus pestañas _Resultado / Código_.
+Añadir un experimento es un comando. Lo que falta es contenido: de momento solo hay una
+ficha de prueba.
+
+Siguiente: **Fase 4**, los dos primeros experimentos de verdad. El plan por fases está en
+[`docs/03-plan-implementacion.md`](docs/03-plan-implementacion.md).
 
 ## Stack
 
 Astro 7 con `output: 'static'` · TypeScript en `strict` · CSS moderno con tokens
-(custom properties, `@layer`, nesting nativo) · Storybook para el design system ·
-pnpm · desplegado en Vercel.
+(custom properties, `@layer`, nesting nativo) · código resaltado con Shiki en build ·
+View Transitions nativas · Storybook para el design system · pnpm · CI en GitHub
+Actions · desplegado en Vercel.
 
-Sin Tailwind, sin SASS, sin i18n y con el JavaScript de cliente reducido al mínimo.
+Sin Tailwind, sin SASS, sin i18n y con el JavaScript de cliente reducido al mínimo: hoy
+son unos 660 bytes, los de las pestañas.
 
 ## Cómo se organiza un experimento
 
@@ -45,6 +52,9 @@ arquitectónica que hace esto sostenible:
 | `inline`  | Componente `.astro` en `src/demos/…`, embebido    | Demos que conviven bien           |
 | `iframe`  | HTML suelto en `public/demos/…`, en un `<iframe>` | CSS y JS puros. Aislamiento total |
 | `island`  | Componente con `client:visible`                   | Demos que necesitan un framework  |
+
+`island` todavía no existe: llega con la integración de React, cuando un experimento lo
+pida. Hasta entonces, una ficha que lo use rompe el build con un aviso.
 
 Un experimento nuevo se crea siempre con el generador, que deja la ficha y el esqueleto
 de la demo listos para editar:
@@ -76,9 +86,15 @@ pnpm storybook    # catálogo del design system, en el 6006
 ## Estructura
 
 ```
-.claude/skills/     convenciones del proyecto (maquetacion · javascript)
+.claude/skills/     convenciones del proyecto (maquetacion · javascript · nuevo-lab)
 .design/            maqueta de la dirección visual
+.github/workflows/  CI: lint, tipos, formato y build
 docs/               análisis, decisiones y plan por fases
+scripts/new-lab/    el generador de experimentos
+src/content/labs/   las fichas, una por experimento
+src/components/     site/ (cabecera, pie) · lab/ (listado, ficha, visor) · ui/ (pestañas)
+src/demos/          demos inline
+public/demos/       demos iframe, sueltas y sin build
 src/styles/         tokens y capas. Único sitio con valores literales
 src/design-system/  catálogo de Storybook
 ```
@@ -92,6 +108,7 @@ src/design-system/  catálogo de Storybook
 | [`docs/02-diseno.md`](docs/02-diseno.md)                           | Dirección visual                            |
 | [`docs/03-plan-implementacion.md`](docs/03-plan-implementacion.md) | Plan por fases                              |
 | [`docs/04-fase-2-detalle.md`](docs/04-fase-2-detalle.md)           | Fase 2 en detalle                           |
+| [`docs/05-fase-3-detalle.md`](docs/05-fase-3-detalle.md)           | Fase 3 en detalle                           |
 
 ---
 
