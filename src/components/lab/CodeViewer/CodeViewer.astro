@@ -1,0 +1,80 @@
+---
+/*
+ * CodeViewer.astro — pestañas Resultado / Código de una ficha. El resultado llega por el
+ * slot, así que el visor no sabe de runtimes: la ficha decide si es un iframe o una demo
+ * embebida. El código sale de `sources` y se resalta en build con Shiki.
+ *
+ * Con un solo fichero, su nombre va encima del bloque; con varios, una pestaña secundaria
+ * por fichero. Sin `sources` no hay nada que enseñar: solo el resultado, sin pestañas.
+ */
+import { Code } from 'astro:components';
+import './CodeViewer.css';
+import Tabs from '../../ui/Tabs/Tabs.astro';
+import TabPanel from '../../ui/Tabs/UI/TabPanel.astro';
+import type { Lab } from '../../../types';
+import { CODE_THEME, VIEWER_ID, VIEWER_LABEL } from './constants/index';
+import { readSources } from './containers/read-sources';
+
+type Props = {
+  lab: Lab;
+};
+
+const { lab } = Astro.props;
+
+const sources = await readSources(lab);
+const hasSources = sources.length > 0;
+const hasManyFiles = sources.length > 1;
+
+const viewTabs = [
+  { id: 'result', label: VIEWER_LABEL.result },
+  { id: 'code', label: VIEWER_LABEL.code },
+];
+
+const fileTabs = sources.map((source, index) => ({ id: `file-${index}`, label: source.name }));
+---
+
+<div class="code-viewer">
+  {!hasSources && <slot />}
+  {hasSources && (
+    <Tabs id={VIEWER_ID.view} label={VIEWER_LABEL.tablist} tabs={viewTabs}>
+      <TabPanel tabsId={VIEWER_ID.view} tabId="result" isInitial>
+        <slot />
+      </TabPanel>
+      <TabPanel tabsId={VIEWER_ID.view} tabId="code">
+        <div class="code-viewer__panel">
+          {hasManyFiles && (
+            <Tabs
+              id={VIEWER_ID.files}
+              label={VIEWER_LABEL.files}
+              tabs={fileTabs}
+              variant="secondary"
+            >
+              {sources.map((source, index) => (
+                <TabPanel tabsId={VIEWER_ID.files} tabId={`file-${index}`} isInitial={index === 0}>
+                  <Code
+                    class="code-viewer__code"
+                    code={source.code}
+                    lang={source.lang}
+                    theme={CODE_THEME}
+                  />
+                </TabPanel>
+              ))}
+            </Tabs>
+          )}
+          {!hasManyFiles &&
+            sources.map((source) => (
+              <>
+                <p class="code-viewer__file mono">{source.name}</p>
+                <Code
+                  class="code-viewer__code"
+                  code={source.code}
+                  lang={source.lang}
+                  theme={CODE_THEME}
+                />
+              </>
+            ))}
+        </div>
+      </TabPanel>
+    </Tabs>
+  )}
+</div>

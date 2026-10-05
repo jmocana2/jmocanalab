@@ -1,0 +1,96 @@
+---
+/*
+ * Tabs.astro — pestañas accesibles con el patrón ARIA de tablist. La lista de pestañas
+ * sale de `tabs`; los paneles llegan por el slot, un `TabPanel` por pestaña y en el
+ * mismo orden, con `isInitial` en el primero.
+ *
+ * El estado inicial sale resuelto en el HTML (la primera pestaña visible y el resto con
+ * `hidden`), así que el script solo cambia de pestaña: no mueve nada al cargar.
+ * Activación automática: el contenido ya está en el DOM y enfocar una pestaña la abre.
+ *
+ * `variant="secondary"` es la pestaña pequeña en mono, para listas anidadas.
+ */
+import './Tabs.css';
+import { tabIds } from './utils/tab-ids';
+
+type Tab = {
+  id: string;
+  label: string;
+};
+
+type Variant = 'primary' | 'secondary';
+
+type Props = {
+  id: string;
+  label: string;
+  tabs: Tab[];
+  variant?: Variant;
+};
+
+const { id, label, tabs, variant = 'primary' } = Astro.props;
+
+const listClass = {
+  primary: 'tabs__list',
+  secondary: 'tabs__list tabs__list--secondary',
+} satisfies Record<Variant, string>;
+
+const tabClass = {
+  primary: 'tabs__tab eyebrow',
+  secondary: 'tabs__tab tabs__tab--secondary mono',
+} satisfies Record<Variant, string>;
+---
+
+<div class="tabs">
+  <div class={listClass[variant]} role="tablist" aria-label={label}>
+    {tabs.map((tab, index) => {
+      const ids = tabIds(id, tab.id);
+      return (
+        <button
+          class={tabClass[variant]}
+          type="button"
+          role="tab"
+          id={ids.tab}
+          aria-controls={ids.panel}
+          aria-selected={index === 0 ? 'true' : 'false'}
+          tabindex={index === 0 ? 0 : -1}
+        >
+          {tab.label}
+        </button>
+      );
+    })}
+  </div>
+  <slot />
+</div>
+
+<script>
+  import { nextIndex } from './utils/next-index';
+
+  function select(tabs: HTMLButtonElement[], index: number) {
+    tabs.forEach((tab, position) => {
+      const isSelected = position === index;
+      const panelId = tab.getAttribute('aria-controls');
+      const panel = panelId ? document.getElementById(panelId) : null;
+
+      tab.setAttribute('aria-selected', String(isSelected));
+      tab.tabIndex = isSelected ? 0 : -1;
+      if (panel) panel.hidden = !isSelected;
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>('.tabs__list').forEach((list) => {
+    const tabs = [...list.querySelectorAll<HTMLButtonElement>(':scope > .tabs__tab')];
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => select(tabs, index));
+
+      tab.addEventListener('keydown', (event) => {
+        const target = nextIndex(event.key, index, tabs.length);
+        if (target === undefined) return;
+
+        event.preventDefault();
+        select(tabs, target);
+        tabs[target]?.focus();
+      });
+    });
+  });
+</script>

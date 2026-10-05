@@ -6,6 +6,7 @@
 import type { GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CodeViewer from '../../../components/lab/CodeViewer/CodeViewer.astro';
 import LabFrame from '../../../components/lab/LabFrame/LabFrame.astro';
 import type { Lab } from '../../../types';
 import { demoPath, labSlug } from '../../../utils/lab-paths';
@@ -30,5 +31,7 @@ const { title, summary, category, runtime } = lab.data;
 <BaseLayout title={`${title} · jmocanalab`} description={summary} activeCategory={category}>
   <h1>{title}</h1>
   <p>{summary}</p>
-  {runtime === 'iframe' && <LabFrame src={demoPath(lab)} title={title} />}
+  <CodeViewer lab={lab}>
+    {runtime === 'iframe' && <LabFrame src={demoPath(lab)} title={title} />}
+  </CodeViewer>
 </BaseLayout>

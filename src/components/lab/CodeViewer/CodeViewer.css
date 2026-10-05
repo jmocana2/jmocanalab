@@ -1,0 +1,29 @@
+/*
+ * CodeViewer.css — panel de código: nombre de fichero y bloque resaltado.
+ * El color del bloque lo pone el tema de Shiki con tokens; aquí solo caja y tipografía.
+ */
+
+@layer components {
+  .code-viewer {
+    .code-viewer__panel {
+      padding-block-start: var(--space-6);
+    }
+
+    .code-viewer__file {
+      display: inline-block;
+      padding-block: var(--space-1) var(--space-2);
+      border-block-end: var(--border-active) solid var(--color-ink);
+      font-size: var(--text-mono-s);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--track-mono);
+      line-height: var(--leading-mono-s);
+    }
+
+    .code-viewer__code {
+      padding: var(--space-7);
+      font-family: var(--font-mono);
+      font-size: var(--text-mono);
+      line-height: var(--leading-mono);
+    }
+  }
+}

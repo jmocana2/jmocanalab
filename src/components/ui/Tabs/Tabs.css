@@ -1,0 +1,52 @@
+/*
+ * Tabs.css — lista de pestañas y paneles.
+ * Primaria: mayúsculas pequeñas sobre una línea fina; la activa, en tinta con el
+ * subrayado del acento montado sobre esa línea.
+ * Secundaria: nombre de fichero en mono, sin línea; la activa, subrayada en tinta.
+ */
+
+@layer components {
+  .tabs {
+    .tabs__list {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: var(--space-8);
+      border-block-end: var(--border-thin) solid var(--color-line);
+
+      &.tabs__list--secondary {
+        column-gap: var(--space-7);
+        border-block-end: none;
+      }
+    }
+
+    .tabs__tab {
+      margin-block-end: calc(var(--border-thin) * -1);
+      padding-block: var(--space-2) var(--space-4);
+      padding-inline: 0;
+      border-block-end: var(--border-active) solid transparent;
+      color: var(--color-ink-3);
+
+      &:hover {
+        color: var(--color-link-hover);
+      }
+
+      &[aria-selected='true'] {
+        border-block-end-color: var(--color-accent);
+        color: var(--color-ink);
+      }
+
+      &.tabs__tab--secondary {
+        margin-block-end: 0;
+        padding-block: var(--space-1) var(--space-2);
+        font-size: var(--text-mono-s);
+        font-weight: var(--weight-medium);
+        letter-spacing: var(--track-mono);
+        line-height: var(--leading-mono-s);
+      }
+
+      &.tabs__tab--secondary[aria-selected='true'] {
+        border-block-end-color: var(--color-ink);
+      }
+    }
+  }
+}

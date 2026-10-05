@@ -1,6 +1,7 @@
-# Estado de sesión — 2026-10-01
+# Estado de sesión — 2026-10-05
 
-**Fase 2 cerrada.** Siguiente: Fase 3, empezando por la tarea 3.1 (`pnpm new:lab`).
+**Fase 3 en curso.** Plan detallado y aprobado en `05-fase-3-detalle.md` (2026-10-05).
+Hechas 3.1 y 3.2. Siguiente: 3.3 (solo documental) y 3.4.
 
 ## Fase 2 — qué quedó hecho
 
@@ -47,9 +48,14 @@
   - Skill `nuevo-lab` escrita y `CLAUDE.md` §2 y §6 actualizados.
   - Las demos `inline` usan `.astro` + `.css` con el slug como bloque BEM, no `<style>`
     con scope como decía el análisis: así siguen la skill `maquetacion`.
-- **3.6 · Número de la ficha.** `02-diseno.md` y `04` lo ponen en color de acento, pero
-  es texto de 15px y la decisión 7 lo impide. Opciones: tinta con una marca del acento
-  (como la categoría en Destacados) o sin acento.
+- **3.2 · Hecha (2026-10-05).** `ui/Tabs` (+ `TabPanel`) y `lab/CodeViewer`, montado en
+  la ficha mínima. Tema de Shiki monocromo con tokens; comentarios en `--color-ink-2`.
+  Falta la prueba manual de teclado y lector de pantalla en el navegador.
+- **`pnpm format:check` falla** por `.claude/settings.local.json`. Resolver antes de la
+  3.8 (formatearlo o añadirlo a `.prettierignore`).
+- Las decisiones de la Fase 3 (número de ficha en tinta con marca del acento, View
+  Transitions nativas, contador del listado, cuerpo del `.md`…) están en
+  `05-fase-3-detalle.md` §0.
 - Añadir `superRefine` a `content.config.ts` (exigir `coverAlt` si hay `cover`) cuando
   aparezca la primera ficha con portada.
 

@@ -1,0 +1,27 @@
+---
+/*
+ * TabPanel.astro — panel de una pestaña de `Tabs`. Va en el slot de `Tabs`, uno por
+ * pestaña y en el mismo orden. Solo el primero sale visible en el HTML.
+ */
+import { tabIds } from '../utils/tab-ids';
+
+type Props = {
+  tabsId: string;
+  tabId: string;
+  isInitial?: boolean;
+};
+
+const { tabsId, tabId, isInitial = false } = Astro.props;
+
+const ids = tabIds(tabsId, tabId);
+---
+
+<div
+  class="tabs__panel"
+  role="tabpanel"
+  id={ids.panel}
+  aria-labelledby={ids.tab}
+  hidden={!isInitial}
+>
+  <slot />
+</div>
