@@ -1,6 +1,7 @@
 ---
 /*
  * index.astro — portada: los experimentos destacados, del más reciente al más antiguo.
+ * Si no hay ninguno, no se pinta la sección: un encabezado sobre una lista vacía no dice nada.
  */
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -16,5 +17,5 @@ const featured = labs
 ---
 
 <BaseLayout title="jmocanalab" description="Laboratorio y portfolio front-end." isHome>
-  <LabList heading="Destacados" items={featured} meta="category" />
+  {featured.length > 0 && <LabList heading="Destacados" items={featured} meta="category" />}
 </BaseLayout>

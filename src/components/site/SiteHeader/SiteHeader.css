@@ -10,6 +10,7 @@
 
     @media (min-width: 48em) {
       padding-inline: var(--space-11);
+      padding-block-start: var(--space-11);
     }
 
     @media (min-width: 75em) {

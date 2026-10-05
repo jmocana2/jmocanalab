@@ -45,7 +45,7 @@ Todas aprobadas el 2026-10-05, también las que nacieron como **propuesta**.
 | 3.1 | `pnpm new:lab` ✅                       | Hecha (2026-10-01)                                  | —         |
 | 3.2 | `ui/Tabs` + `lab/CodeViewer` ✅         | Hecha (2026-10-05); falta la prueba manual          | 3.6       |
 | 3.3 | `LabFrame` ✅                           | Hecha en la Fase 2; plan corregido (2026-10-05)     | —         |
-| 3.4 | Vista **Destacados** en `/`             | Funciona; falta repasarla contra la maqueta         | —         |
+| 3.4 | Vista **Destacados** en `/`             | Repasada (2026-10-05)                               | —         |
 | 3.5 | Vista **Listado** en `/labs/[category]` | Sin empezar. **La nav da 404 en producción**        | 3.7       |
 | 3.6 | Vista **Ficha** completa                | Versión mínima: título, resumen, iframe             | 3.7       |
 | 3.7 | View Transitions                        | Sin empezar                                         | —         |
@@ -215,10 +215,19 @@ Ya está hecho en la Fase 2 (`src/components/lab/LabFrame/`). Lo que queda es do
 Funciona (`src/pages/index.astro`): filtra `featured`, ordena por fecha descendente y
 numera dentro de cada categoría. Repaso contra la maqueta, sin cambios de diseño:
 
-- [ ] Encabezado `Destacados` en `eyebrow` y `--color-ink-3`, separación de la maqueta.
-- [ ] Categoría en tinta con subrayado del acento (ya cumple la decisión 7).
-- [ ] Estado vacío si no hay ningún `featured`: hoy la sección quedaría con un `<ol>`
-      vacío. Propuesta: no pintar la sección.
+- [x] Encabezado `Destacados` en `eyebrow` y `--color-ink-3`, con `--space-6` debajo (20
+      en la maqueta).
+- [x] Categoría en tinta con subrayado del acento (ya cumple la decisión 7).
+- [x] Estado vacío: si no hay ningún `featured`, no se pinta la sección.
+- [x] **Separaciones de página corregidas** desde 768, que no seguían `04` §2.3:
+  - Arriba de la cabecera: `--space-8` → `--space-11` (46 en la maqueta).
+  - Entre la nav y el contenido: `--space-10` → `--space-12` (62 en la maqueta).
+  - En móvil se quedan los valores compactos de antes.
+- [x] `text-wrap: pretty` en el resumen de la fila, como en la maqueta.
+
+**Cerrada (2026-10-05).** Queda para la 3.6: en la maqueta, la ficha arranca a 46 de la
+nav, no a 62. El `padding-block-start` de `.site-main` vale para las listas; la ficha
+necesitará el suyo.
 
 ---
 

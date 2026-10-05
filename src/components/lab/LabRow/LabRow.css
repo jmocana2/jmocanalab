@@ -68,6 +68,7 @@
       color: var(--color-ink-2);
       font-size: var(--text-s);
       line-height: var(--leading-s);
+      text-wrap: pretty;
     }
 
     .lab-row__meta {

@@ -25,6 +25,7 @@
 
     @media (min-width: 48em) {
       padding-inline: var(--space-11);
+      padding-block-start: var(--space-12);
     }
 
     @media (min-width: 75em) {
