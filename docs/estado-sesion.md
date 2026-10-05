@@ -1,19 +1,27 @@
 # Estado de sesión — 2026-10-05
 
-**Fase 3 en curso.** Plan detallado y aprobado en `05-fase-3-detalle.md` (2026-10-05).
-Hechas 3.1 a 3.8 (la 3.3, solo documental). Siguiente: cerrar la fase (`05` §9 y §10):
-revisión en el navegador, CI en verde y actualizar skills y `CLAUDE.md`.
+**Fase 3 cerrada.** Siguiente: Fase 4, los dos primeros experimentos de verdad
+(`03-plan-implementacion.md`).
 
-## Fase 2 — qué quedó hecho
+## Antes de empezar la Fase 4 — lo que solo puede hacer el usuario
 
-- 2.0 – 2.9 cerradas. El detalle de cada tarea está en `04-fase-2-detalle.md` y en el
-  historial de git.
-- Sitio desplegado en `https://jmocanalab.vercel.app`, con preview por rama. El 404 de
-  la nav (`/labs/css`, etc.) lo arregla la 3.5 en cuanto se despliegue.
-- `pnpm lint`, `pnpm typecheck` y `pnpm build` pasan en limpio. Ni un hex fuera de
-  `tokens.css`; el único px fuera de las excepciones es el `1px` de `.visually-hidden`,
-  que es el patrón estándar.
-- Paleta ajustada a AA y reflejada en `02-diseno.md` §4 y `04` §2.1.
+- [ ] `git rm --cached .claude/settings.local.json`: estaba confirmado en el repo
+      público. Contenido inofensivo; ya está en `.gitignore`.
+- [ ] Revisar en el navegador (`pnpm dev`):
+  - Aspecto de las tres vistas y en móvil.
+  - Pestañas con teclado (flechas, Inicio, Fin) y foco visible.
+  - Transición entre vistas en Chrome, Edge o Safari, y que desaparece con "reducir
+    movimiento".
+- [ ] Ver el CI en verde en la pestaña _Actions_ tras el push.
+- [ ] Comprobar que `/labs/css`, `/labs/js` y `/labs/react` ya no dan 404 en producción.
+
+## Fase 3 — qué quedó hecho
+
+- 3.1 – 3.8 cerradas. El detalle de cada tarea y cómo quedó está en
+  `05-fase-3-detalle.md` y en el historial de git.
+- `pnpm lint`, `pnpm typecheck`, `pnpm format:check` y `pnpm build` pasan en limpio.
+  Ni un hex fuera de `tokens.css`.
+- Skills `maquetacion`, `javascript` y `nuevo-lab` y `CLAUDE.md` actualizados (`05` §9).
 
 ## Decisiones cerradas (para no reabrirlas)
 
@@ -34,41 +42,20 @@ revisión en el navegador, CI en verde y actualizar skills y `CLAUDE.md`.
 8. **`z` se importa de `astro/zod`** (Zod 4). Las URL, con `z.url()`.
 9. **Modo oscuro:** el atributo será `[data-theme="dark"]`.
 10. **GitHub:** `https://github.com/jmocana2`. **Rojo del corazón:** `#e14b4b`.
+11. **Código monocromo**: tema de Shiki con tokens; comentarios en `--color-ink-2`.
+12. **Pestañas con `ui/Tabs` + `TabPanel`**; sin JS se ve el resultado, no el código.
+13. **View Transitions nativas** (`@view-transition`), sin `<ClientRouter />`.
+14. **`aria-current`**: `page` en el listado, `true` en la ficha.
+15. **Lo que falta en build rompe el build** con la ficha y la ruta en el mensaje.
 
-## Pendiente para la Fase 3
+## Pendientes que se arrastran
 
-- **3.1 · Hecha (2026-10-01).** `scripts/new-lab/`, en TypeScript, ejecutado con
-  `node --experimental-strip-types` (sin compilar; con Node ≥ 22.18 el flag sobra).
-  - Ficha en **`.md`**: MDX entra el día que una ficha necesite componentes en el texto.
-  - Esqueleto para `iframe` e `inline`; `island` se rechaza hasta que exista React.
-  - Pregunta lo que falte o lo recibe por argumentos: `--category`, `--title`,
-    `--slug` y `--runtime`. Sin terminal no pregunta: falla diciendo qué falta.
-  - El **slug se pide aparte**: va en inglés y el título en español.
-  - Nunca sobrescribe. Las categorías salen a `src/constants/categories.ts`, que leen el
-    esquema y el generador. Nueva dependencia: `@types/node@22`.
-  - Skill `nuevo-lab` escrita y `CLAUDE.md` §2 y §6 actualizados.
-  - Las demos `inline` usan `.astro` + `.css` con el slug como bloque BEM, no `<style>`
-    con scope como decía el análisis: así siguen la skill `maquetacion`.
-- **3.2 · Hecha (2026-10-05).** `ui/Tabs` (+ `TabPanel`) y `lab/CodeViewer`, montado en
-  la ficha mínima. Tema de Shiki monocromo con tokens; comentarios en `--color-ink-2`.
-  Falta la prueba manual de teclado y lector de pantalla en el navegador.
-- **3.3 y 3.4 · Hechas (2026-10-05).** La 3.3, solo el plan. En la 3.4 se corrigieron
-  las separaciones de página desde 768, que no seguían la maqueta.
-- **3.5 · Hecha (2026-10-05).** `/labs/[category]` para las tres categorías, con estado
-  vacío. `LabList` recibe ahora `view: 'featured' | 'category'`.
-- **3.6 · Hecha (2026-10-05).** `LabDetail`, `LabMeta` y `LabDemo`; `inline` probado con
-  el generador. Detalle en `05` §6.6. Pendiente: revisarla en el navegador.
-- **3.7 · Hecha (2026-10-05).** View Transitions nativas, sin JS. Pendiente: verlas en
-  Chrome, Edge o Safari.
-- **3.8 · Hecha (2026-10-05).** `.github/workflows/ci.yml`: lint, typecheck,
-  format:check y build en push a `main` y en cada PR. Pendiente: verlo en verde.
-- **`.claude/settings.local.json` estaba confirmado** en el repo público (contenido
-  inofensivo). Va a `.gitignore`; falta `git rm --cached .claude/settings.local.json`.
-- Las decisiones de la Fase 3 (número de ficha en tinta con marca del acento, View
-  Transitions nativas, contador del listado, cuerpo del `.md`…) están en
-  `05-fase-3-detalle.md` §0.
 - Añadir `superRefine` a `content.config.ts` (exigir `coverAlt` si hay `cover`) cuando
   aparezca la primera ficha con portada.
+- `frameHeight` opcional en el esquema cuando una demo `iframe` no quepa en 40rem.
+- La ficha `prueba` se borra en la Fase 4, con el primer experimento real.
+- Mejoras de la Fase 5 en `03` (modo oscuro, que el CI bloquee el despliegue, RSS, OG,
+  `island`, Playwright).
 
 ## Preguntas abiertas
 

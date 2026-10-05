@@ -73,11 +73,16 @@ carpetas con criterio no ambiguo:
 src/
 ├── layouts/         # BaseLayout.astro y otros envoltorios de página
 ├── components/
-│   ├── site/        # chrome del sitio: SiteHeader, SiteFooter, NavCategories
-│   ├── lab/         # piezas de listado y ficha: LabRow, LabMeta, CodeViewer
+│   ├── site/        # chrome del sitio: SiteHeader, SiteFooter, SkipLink
+│   ├── lab/         # piezas de listado y ficha: LabList, LabRow, LabDetail, LabMeta,
+│   │                #   LabDemo, LabFrame, CodeViewer
 │   └── ui/          # primitivas sin dominio con marcado propio: Tabs
 └── demos/           # componentes de demo (runtime inline/island)
 ```
+
+Dentro de la carpeta del componente, junto al `.astro` y el `.css`, las subcarpetas de
+la skill `javascript` cuando hacen falta: `containers/`, `UI/` (subcomponentes que solo
+usa este, como `Tabs/UI/TabPanel.astro`), `utils/`, `constants/` y `types.ts`.
 
 - `site/` aparece en todas las páginas.
 - `lab/` aparece en páginas de labs (listado, categoría, ficha).
@@ -118,14 +123,25 @@ Es requisito de salida, no un repaso final.
 - **Texto alternativo**: `alt` descriptivo en imágenes informativas, `alt=""` en las
   decorativas, `aria-label` en los enlaces que solo llevan un icono SVG (LinkedIn,
   GitHub) y `aria-hidden="true"` en el `<svg>` de dentro.
-- **Estado activo** de la navegación: `aria-current="page"`. El subrayado es refuerzo
-  visual, no la única señal.
+- **Estado activo** de la navegación: `aria-current="page"` en el listado de la
+  categoría; `aria-current="true"` en una ficha, porque ahí estás dentro de la categoría
+  y no en su página (`BaseLayout` con `isDetail`). El subrayado es refuerzo visual, no
+  la única señal, y el CSS lo engancha a `[aria-current]`, sin valor.
+- **Pestañas**: siempre con `ui/Tabs` + `TabPanel`, que ya implementan el patrón ARIA
+  (`tablist`/`tab`/`tabpanel`, flechas, Inicio/Fin, tabindex móvil). El estado inicial
+  sale resuelto en el HTML: primer panel visible, el resto con `hidden`. No se escriben
+  pestañas a mano.
 - **Los `iframe` de las demos llevan `title`** descriptivo. Sin él son un agujero de
   accesibilidad en la vista más importante del sitio.
 - **Nada de información solo por color**: la categoría activa se marca también por
   subrayado y `aria-current`.
 - Respetar `prefers-reduced-motion` en cualquier animación, incluidas las View
-  Transitions.
+  Transitions. Ojo: el `*` del reset no alcanza a los pseudoelementos
+  `::view-transition-*`; por eso `layout.css` las apaga con su propia media query.
+- **View Transitions nativas entre documentos** (`@view-transition` en `layout.css`),
+  sin `<ClientRouter />`: cero JS y navegaciones reales. Lo que deba quedarse quieto al
+  navegar lleva `view-transition-name` (la cabecera). Nada de `transition:persist`:
+  congelaría el DOM viejo, `aria-current` incluido.
 - El orden del DOM es el orden de lectura. Si el CSS reordena visualmente, revisar que
   la tabulación sigue teniendo sentido.
 
@@ -150,6 +166,9 @@ Reglas:
   contenedor. Así el bloque es reutilizable.
 - El acento de categoría no es un modificador BEM, es el atributo `data-category` en un
   ancestro (§CSS). BEM describe la estructura; `data-*` transporta el dato.
+- **Única excepción: el HTML que genera Markdown** (el cuerpo del `.md` de una ficha), que
+  no lleva clases. Se estiliza con selectores de etiqueta colgados de su elemento
+  contenedor (`.lab-detail__content h2`), sin pasar de los tres niveles de anidado.
 
 ### Core Web Vitals
 
@@ -333,7 +352,9 @@ utilidad, no un componente.** No se crea `<Eyebrow>` para envolver un `<span>`.
   suelto, no.
 - Nada de `!important`. Nada de estilos en línea salvo valores calculados en tiempo de
   render.
-- El acento de categoría se hereda, no se repite:
+- El acento de categoría se hereda, no se repite. Y **va solo en líneas y marcas, nunca
+  como color de texto**: los tres acentos llegan a 3:1, no a 4.5:1. El texto sigue en
+  tinta y el acento es el subrayado:
 
 ```css
 [data-category='css'] {
@@ -341,9 +362,15 @@ utilidad, no un componente.** No se crea `<Eyebrow>` para envolver un `<span>`.
 }
 
 .card__number {
-  color: var(--color-accent);
+  border-block-end: var(--border-active) solid var(--color-accent);
+  color: var(--color-ink);
 }
 ```
+
+- El código resaltado no lleva colores propios: el tema de Shiki de
+  `lab/CodeViewer/constants/index.ts` usa tokens (`--color-ink-code`, y `--color-ink-2`
+  para comentarios; `--color-ink-3` no llega a AA sobre `--color-bg-code`). Los `style`
+  en línea que genera Shiki se aceptan: son valores generados que solo apuntan a tokens.
 
 ### Comentarios
 
@@ -377,7 +404,9 @@ sobra la regla. La excepción razonable es un _hack_ de navegador: ahí el comen
 - [ ] Contraste AA comprobado, también en el texto de UI pequeño.
 - [ ] Foco visible, navegable con teclado, orden de tabulación lógico.
 - [ ] `aria-label` en enlaces de icono, `title` en los `iframe`, `aria-current` en la
-      navegación.
+      navegación (`page` o `true` según la vista).
+- [ ] El acento solo en líneas y marcas; ningún texto en `--color-accent`.
+- [ ] Pestañas con `ui/Tabs`, nunca a mano.
 - [ ] Nombres BEM sin encadenar elementos (`card__header__title`) y sin modificadores
       huérfanos.
 - [ ] CSS en `@layer components`, con elementos anidados en el bloque y nombres

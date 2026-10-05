@@ -1,6 +1,7 @@
 # jmocanalab — Fase 3 en detalle: CodeViewer, las tres vistas y CI
 
-> Fecha: 2026-10-05 · Estado: **aprobado (2026-10-05)**, en ejecución.
+> Fecha: 2026-10-05 · Estado: **cerrada (2026-10-05)**. Quedan dos comprobaciones que
+> solo puede hacer el usuario: la revisión en el navegador y el CI en verde (§10).
 > Desarrolla la Fase 3 de [03-plan-implementacion.md](03-plan-implementacion.md).
 > En lo visual manda [02-diseno.md](02-diseno.md) y la maqueta `.design/Main.dc.html`;
 > los valores ya son tokens ([04-fase-2-detalle.md](04-fase-2-detalle.md) §2).
@@ -417,28 +418,38 @@ que hace el usuario.
 
 ## 9. Documentación y skills al cerrar la fase
 
-- `03-plan-implementacion.md`: tabla de la Fase 3 con estados; 3.3 sin `lazy`; 3.7 sin
-  `transition:persist`.
-- `estado-sesion.md`: decisiones de §0 y pendientes nuevos.
-- Skill `javascript`: el ejemplo de estructura con la convención real (§2.5).
-- Skill `maquetacion`: patrón de pestañas, `aria-current` `page`/`true`, View Transitions
-  nativas.
-- Skill `nuevo-lab`: qué pinta la ficha según el runtime y qué rompe el build.
-- `CLAUDE.md`: estado → Fase 4.
+- [x] `03-plan-implementacion.md`: tabla de la Fase 3 con estados; 3.3 sin `lazy`; 3.7
+      sin `transition:persist`.
+- [x] `estado-sesion.md`: decisiones de §0 y pendientes nuevos.
+- [x] Skill `javascript`: el ejemplo de estructura con la convención real (§2.5), la
+      frontera `containers/` (efectos) / `utils/` (puras), `Map` para claves abiertas,
+      `ComponentProps`, errores de build y cómo se escribe el JS de cliente.
+- [x] Skill `maquetacion`: pestañas con `ui/Tabs`, `aria-current` `page`/`true`, View
+      Transitions nativas, la excepción de BEM para el HTML de Markdown y el tema de
+      Shiki. **Se corrige su ejemplo del acento**, que lo usaba como color de texto.
+- [x] Skill `nuevo-lab`: qué pinta la ficha según el runtime, el cuerpo del `.md` y qué
+      rompe el build.
+- [x] `CLAUDE.md`: estado → Fase 4; el acento en §5, porque se corrigió tres veces (número
+      de ficha, encabezado del listado, ejemplo de la skill); los comandos de
+      comprobación y que el CI no bloquea el despliegue en §8; `05` en la tabla de §9.
 
 ---
 
 ## 10. Definición de "Fase 3 terminada"
 
-- [ ] `pnpm new:lab` → editar la demo → commit → publicado, **sin tocar nada más**.
-      Probado con un `iframe` y un `inline` de usar y tirar (se borran después).
-- [ ] Las tres entradas de la nav responden; ninguna da 404.
-- [ ] La ficha muestra número, metadatos, _Resultado / Código_ y el código resaltado.
+- [x] `pnpm new:lab` → editar la demo → build, **sin tocar nada más**. Probado con un
+      `inline` de usar y tirar (§6.6); el `iframe` lo cubre `prueba`.
+- [x] Las tres entradas de la nav responden; ninguna da 404 (en local; en producción, tras
+      el despliegue).
+- [x] La ficha muestra número, metadatos, _Resultado / Código_ y el código resaltado.
 - [ ] Pestañas operables con teclado y anunciadas bien por lector de pantalla.
+      **Pendiente: revisión manual del usuario.**
 - [ ] Transición entre vistas sin mover la cabecera, y sin animación con movimiento
-      reducido.
-- [ ] El CI pasa en verde en GitHub.
-- [ ] Ni un hex fuera de `tokens.css`; AA en todo lo nuevo.
+      reducido. **Pendiente: revisión manual del usuario.**
+- [ ] El CI pasa en verde en GitHub. **Pendiente: tras el push.**
+- [x] Ni un hex fuera de `tokens.css` (comprobado con `grep`); contrastes nuevos
+      calculados (§2.3). El único px fuera de las excepciones sigue siendo el `1px` de
+      `.visually-hidden`.
 
 Lo que **no** entra en esta fase: React y el nivel `island`, modo oscuro, RSS, OG,
 `frameHeight`, el `<head>` definitivo (favicon, `theme-color`, precarga de fuente) y el

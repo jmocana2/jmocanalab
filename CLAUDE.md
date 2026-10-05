@@ -3,8 +3,9 @@
 Laboratorio y portfolio front-end de jmocanalab. Astro estático, desplegado en Vercel.
 Un experimento = una ficha de contenido + su demo aislada. **Repo público.**
 
-Estado: **Fase 3** — fricción cero: generador `pnpm new:lab`, `CodeViewer` y las tres
-vistas. La Fase 2 está cerrada y desplegada. Dónde lo dejamos: `docs/estado-sesion.md`.
+Estado: **Fase 4** — los dos primeros experimentos de verdad (CSS `iframe` y JS
+`inline`). La Fase 3 está cerrada: generador, `CodeViewer`, las tres vistas, View
+Transitions y CI. Dónde lo dejamos: `docs/estado-sesion.md`.
 
 ---
 
@@ -71,6 +72,8 @@ Está desarrollado en la skill `maquetacion`; aquí lo que más se incumple:
   bordes, y las media queries.
 - Mobile first con `min-width`. Dos breakpoints, 768 y 1200, y ninguno más.
 - Accesibilidad **AA** como requisito de salida, no como repaso final.
+- **El acento de categoría, solo en líneas y marcas, nunca como color de texto**: no llega
+  a 4.5:1. La maqueta lo usa en texto en varios sitios; ahí manda AA, no la maqueta.
 - Nada de `!important`. Nada de estilos en línea salvo valores calculados.
 
 ## 6. Cómo se añade un experimento
@@ -98,19 +101,24 @@ visual está cerrada en `docs/02-diseno.md`; no se reinterpreta al maquetar.
 pnpm · Node 22 · TypeScript `strict` · Astro con `output: 'static'`, sin adaptador.
 `gh` no está instalado en esta máquina.
 
+Antes de dar algo por terminado: `pnpm lint`, `pnpm typecheck`, `pnpm format:check` y
+`pnpm build`. Es lo mismo que comprueba el CI (`.github/workflows/ci.yml`). El CI avisa,
+pero **no bloquea el despliegue** de Vercel.
+
 ## 9. Documentación
 
 El razonamiento vive en `docs/`, no aquí. Este fichero no duplica tokens, rutas ni listas
 de componentes: eso se desincroniza.
 
-| Documento                        | Qué contiene                                        |
-| -------------------------------- | --------------------------------------------------- |
-| `docs/00-analisis-inicial.md`    | Análisis técnico y alternativas descartadas         |
-| `docs/01-decisiones.md`          | Decisiones cerradas de la Fase 0                    |
-| `docs/02-diseno.md`              | Dirección visual. **Manda en lo visual**            |
-| `docs/03-plan-implementacion.md` | Plan por fases. **En ejecución: Fase 3**            |
-| `docs/04-fase-2-detalle.md`      | Fase 2: tokens, Storybook y skills. Cerrada         |
-| `docs/estado-sesion.md`          | Dónde lo dejamos: pendientes y decisiones recientes |
+| Documento                        | Qué contiene                                          |
+| -------------------------------- | ----------------------------------------------------- |
+| `docs/00-analisis-inicial.md`    | Análisis técnico y alternativas descartadas           |
+| `docs/01-decisiones.md`          | Decisiones cerradas de la Fase 0                      |
+| `docs/02-diseno.md`              | Dirección visual. **Manda en lo visual**              |
+| `docs/03-plan-implementacion.md` | Plan por fases. **En ejecución: Fase 4**              |
+| `docs/04-fase-2-detalle.md`      | Fase 2: tokens, Storybook y skills. Cerrada           |
+| `docs/05-fase-3-detalle.md`      | Fase 3: CodeViewer, vistas, transiciones, CI. Cerrada |
+| `docs/estado-sesion.md`          | Dónde lo dejamos: pendientes y decisiones recientes   |
 
 Este `CLAUDE.md` se revisa **al cerrar cada fase**. Dos señales de que hay que tocarlo:
 una corrección repetida dos veces, o una convención que existe en el código y no está

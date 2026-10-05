@@ -56,8 +56,33 @@ el `summary` vacío. **Nunca sobrescribe**: si algún fichero ya existe, no crea
 2. Escribir la demo siguiendo las skills `maquetacion` y `javascript`. En las demos
    `iframe`, todo dentro del `index.html` o en ficheros sueltos a su lado, sin build ni
    dependencias; si se añaden ficheros, se añaden también a `sources`.
-3. `status: done` cuando esté terminada; `featured: true` solo si el usuario lo pide.
-4. Comprobar con `pnpm build` y abrir `/labs/<cat>/<slug>`.
+3. Si hace falta explicar el experimento, se escribe en el **cuerpo del `.md`**, debajo del
+   frontmatter: la ficha lo pinta bajo _Resultado / Código_. Vacío, no se pinta nada.
+4. `status: done` cuando esté terminada; `featured: true` solo si el usuario lo pide.
+5. Comprobar con `pnpm build` y abrir `/labs/<cat>/<slug>`.
+
+## Qué pinta la ficha
+
+- **Número**: se calcula al construir, por orden de fecha dentro de la categoría. No es un
+  campo del frontmatter: no se escribe a mano.
+- **Resultado**: con `iframe`, la demo de `public/demos/<cat>/<slug>/index.html`; con
+  `inline`, el componente al que apunta `entry`, dentro de un marco.
+- **Código**: un bloque por cada ruta de `sources`, en ese orden, resaltado en build. Con
+  varias rutas, una pestaña por fichero con su nombre. Con `sources: []` no hay pestañas,
+  solo el resultado.
+- El lenguaje del resaltado sale de la extensión (`html`, `css`, `js`, `ts`, `astro`); lo
+  demás se pinta como texto plano. Se amplía en `lab/CodeViewer/constants/index.ts`.
+
+## Qué rompe el build
+
+Cada error nombra la ficha. Mejor un build roto que una ficha vacía en producción:
+
+- Una ruta de `sources` que no existe.
+- `runtime: iframe` sin su `public/demos/<cat>/<slug>/index.html`.
+- `runtime: inline` cuyo `entry` no es un `.astro` de `src/demos/`.
+- `runtime: island`: el esquema lo admite, pero no hay integración de React.
+- Lo que valida el esquema de `content.config.ts`, como un `summary` de más de 180
+  caracteres.
 
 Línea roja de `CLAUDE.md`: nada de código, datos ni marcas de Atresmedia o Knowmad mood.
 Una técnica aprendida en el trabajo se reimplementa desde cero con un ejemplo genérico.

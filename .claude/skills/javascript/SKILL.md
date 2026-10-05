@@ -41,13 +41,13 @@ const STATUS_LABEL = { done: 'Terminado', wip: 'En curso', idea: 'Idea' } as con
 
 Cada componente separa sus responsabilidades en ficheros:
 
-| Fichero       | Qué contiene                                                                       |
-| ------------- | ---------------------------------------------------------------------------------- |
-| `containers/` | La **lógica**: obtener datos, derivarlos, decidir. Sin marcado.                    |
-| `UI/`         | La **presentación**: recibe datos ya resueltos y los pinta. Sin lógica de negocio. |
-| `utils/`      | Funciones **puras** y reutilizables. Sin estado, sin efectos.                      |
-| `constants/`  | Valores fijos y configuración.                                                     |
-| `types.ts`    | Tipos e interfaces.                                                                |
+| Fichero       | Qué contiene                                                                     |
+| ------------- | -------------------------------------------------------------------------------- |
+| `containers/` | La **lógica con efectos**: leer disco, `import.meta.glob`, decidir. Sin marcado. |
+| `UI/`         | **Subcomponentes** `.astro` que solo usa este: reciben datos resueltos y pintan. |
+| `utils/`      | Funciones **puras** y reutilizables. Sin estado, sin efectos.                    |
+| `constants/`  | Valores fijos y configuración.                                                   |
+| `types.ts`    | Tipos e interfaces.                                                              |
 
 Las carpetas conservan estos nombres tal cual —están en inglés— y los ficheros dentro
 también: `highlight.ts`, no `resaltar.ts`.
@@ -56,19 +56,31 @@ también: `highlight.ts`, no `resaltar.ts`.
 componente. Cuando lo necesita un segundo, **se sube a la carpeta común de `src/`**
 (`src/utils/`, `src/constants/`, `src/types.ts`) y no antes.
 
+El componente en sí es **una carpeta en PascalCase con su `.astro` y su `.css`** (skill
+`maquetacion`); las subcarpetas van dentro, solo las que hagan falta. Ejemplo real:
+
 ```
 src/
-├── utils/                      # comunes: los usa más de un componente
+├── utils/                          # comunes: los usa más de un componente
 ├── constants/
 ├── types.ts
 └── components/
-    └── code-viewer/
-        ├── containers/CodeViewer.astro
-        ├── UI/Tabs.astro
-        ├── utils/highlight.ts
-        ├── constants/index.ts
-        └── types.ts
+    ├── lab/CodeViewer/
+    │   ├── CodeViewer.astro
+    │   ├── CodeViewer.css
+    │   ├── containers/read-sources.ts  # lee del disco: tiene efectos
+    │   ├── utils/code-language.ts      # extensión → lenguaje: pura
+    │   ├── constants/index.ts
+    │   └── types.ts
+    └── ui/Tabs/
+        ├── Tabs.astro
+        ├── Tabs.css
+        ├── UI/TabPanel.astro
+        └── utils/next-index.ts
 ```
+
+La frontera entre `containers/` y `utils/` es si la función tiene efectos. Lo que lee del
+disco o del sistema de módulos va a `containers/`; lo que solo transforma datos, a `utils/`.
 
 Subir algo a común es una decisión consciente: hace crecer la superficie compartida del
 proyecto. Bajar algo de común a un componente, cuando resulta que solo lo usa uno, es
@@ -149,6 +161,10 @@ no hay `break` que olvidar, y el objeto se puede extraer a `constants/` y reutil
 Si las ramas son comportamiento y no valores, el objeto guarda funciones. Si además hace
 falta un caso por defecto, `?? POR_DEFECTO` y listo.
 
+Cuando la clave es un `string` cualquiera (una tecla, una extensión de fichero) y no un
+tipo cerrado, se usa un **`Map`**: `MAP.get(key) ?? POR_DEFECTO`. Indexar un objeto con
+un `string` obligaría a un `as`.
+
 ## TypeScript
 
 - `strict`, y sin `any`. Si un tipo no se conoce, `unknown` y se estrecha.
@@ -157,12 +173,30 @@ falta un caso por defecto, `?? POR_DEFECTO` y listo.
   (`CollectionEntry<'labs'>`), no se reescriben a mano.
 - `type` por defecto; `interface` solo cuando se necesite extender o fusionar.
 - Exportaciones **nombradas**. Sin `export default`, salvo donde lo exija una herramienta.
+- Los tipos de las props de un componente Astro se sacan con `ComponentProps<typeof X>`
+  (`astro/types`), no se reescriben. Así se tipa también lo que viene de una dependencia
+  transitiva que con pnpm no se puede importar (el tema de Shiki).
+
+## Errores de build
+
+Lo que se resuelve en build y puede faltar (un fichero de `sources`, una demo) **lanza
+un error que nombra la ficha y la ruta**, en español. Un build roto avisa; una ficha vacía
+en producción, no. Nunca se cae en silencio a un valor por defecto.
 
 ## JavaScript en el sitio
 
 El sitio es estático y casi sin JS del lado del cliente. Antes de añadir una línea que
 llegue al navegador, comprobar que no se resuelve en build o con CSS. El presupuesto de JS
 es parte del diseño.
+
+Hoy el único JS del sitio es el de `ui/Tabs` (unos 660 bytes). Cuando haga falta más:
+
+- Un `<script>` en el propio componente: Astro lo empaqueta una vez aunque el componente
+  se repita. La lógica pura va a `utils/` y el `<script>` la importa.
+- El HTML sale ya en su estado inicial; el script solo reacciona. Nada que mueva el
+  layout al cargar.
+- Sin `<ClientRouter />`: las transiciones son nativas (skill `maquetacion`), así que los
+  scripts no tienen que volver a engancharse en cada navegación.
 
 Las demos de `public/demos/` son la excepción: ahí el JS es el contenido. Van en ficheros
 sueltos, sin build, sin dependencias, y **deben abrirse solas en el navegador** con doble
@@ -173,7 +207,9 @@ clic. Esa portabilidad es el motivo de que el nivel `iframe` exista.
 - [ ] Ficheros, carpetas e identificadores en inglés; comentarios y texto visible en
       español.
 - [ ] Ningún barrel; los imports apuntan al fichero real.
-- [ ] Lógica, UI, utils, constantes y tipos, cada cosa en su sitio.
+- [ ] Lógica, UI, utils, constantes y tipos, cada cosa en su sitio; lo que tiene efectos
+      en `containers/`, lo puro en `utils/`.
+- [ ] Lo que puede faltar en build lanza un error con la ficha y la ruta.
 - [ ] Lo específico vive en el componente; solo sube a común lo que usa más de uno.
 - [ ] JSDoc en funciones y en configuración; en ningún otro sitio.
 - [ ] Ni un ternario anidado, ni un `switch`.
