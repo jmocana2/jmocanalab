@@ -90,16 +90,16 @@ ficha de prueba que renderiza su iframe. Nada más.
 **Objetivo**: que añadir un experimento cueste dos minutos. Es la fase que decide si
 el proyecto vive.
 
-| #   | Tarea                                            | Nota                                                                                                                                                                                                  |
-| --- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 3.1 | `scripts/new-lab/` + `pnpm new:lab` ✅           | pregunta categoría, título, slug y runtime (o los recibe por argumento); genera `.md` con frontmatter completo y el esqueleto de la demo: `public/demos/` si es `iframe`, `src/demos/` si es `inline` |
-| 3.2 | `CodeViewer` con Shiki ✅                        | lee `sources[]` del frontmatter, pestañas _Resultado / Código_                                                                                                                                        |
-| 3.3 | `LabFrame` ✅                                    | el `<iframe>` del nivel B, con altura reservada por token y **sin** `loading="lazy"`: es el contenido principal de la ficha y está sobre el pliegue                                                   |
-| 3.4 | Vista **Destacados** en `/` ✅                   | filas numeradas, `featured: true`, orden por fecha                                                                                                                                                    |
-| 3.5 | Vista **Listado** en `/labs/[categoria]` ✅      | lista editorial numerada, sin tarjetas                                                                                                                                                                |
-| 3.6 | Vista **Ficha** en `/labs/[categoria]/[slug]` ✅ | pestañas + numeración + acento de categoría                                                                                                                                                           |
-| 3.7 | View Transitions entre las tres vistas ✅        | nativas entre documentos (`@view-transition`), sin `<ClientRouter />`: la cabecera con nombre propio no funde. `transition:persist` congelaba el `aria-current` de la nav                             |
-| 3.8 | CI en GitHub Actions: lint + typecheck + build   |                                                                                                                                                                                                       |
+| #   | Tarea                                             | Nota                                                                                                                                                                                                  |
+| --- | ------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 3.1 | `scripts/new-lab/` + `pnpm new:lab` ✅            | pregunta categoría, título, slug y runtime (o los recibe por argumento); genera `.md` con frontmatter completo y el esqueleto de la demo: `public/demos/` si es `iframe`, `src/demos/` si es `inline` |
+| 3.2 | `CodeViewer` con Shiki ✅                         | lee `sources[]` del frontmatter, pestañas _Resultado / Código_                                                                                                                                        |
+| 3.3 | `LabFrame` ✅                                     | el `<iframe>` del nivel B, con altura reservada por token y **sin** `loading="lazy"`: es el contenido principal de la ficha y está sobre el pliegue                                                   |
+| 3.4 | Vista **Destacados** en `/` ✅                    | filas numeradas, `featured: true`, orden por fecha                                                                                                                                                    |
+| 3.5 | Vista **Listado** en `/labs/[categoria]` ✅       | lista editorial numerada, sin tarjetas                                                                                                                                                                |
+| 3.6 | Vista **Ficha** en `/labs/[categoria]/[slug]` ✅  | pestañas + numeración + acento de categoría                                                                                                                                                           |
+| 3.7 | View Transitions entre las tres vistas ✅         | nativas entre documentos (`@view-transition`), sin `<ClientRouter />`: la cabecera con nombre propio no funde. `transition:persist` congelaba el `aria-current` de la nav                             |
+| 3.8 | CI en GitHub Actions: lint + typecheck + build ✅ | también `format:check`; en push a `main` y en cada PR                                                                                                                                                 |
 
 La numeración (`001`, `002`…) se calcula **al construir**, por orden de fecha dentro
 de la categoría. No es un campo del frontmatter: un campo manual es fricción y se
@@ -131,9 +131,17 @@ de los tres niveles. A partir de aquí el proyecto es solo escribir.
 Ninguno bloquea. Se hacen cuando apetezca, y en este orden:
 
 1. **Modo oscuro** — el toggle; los tokens ya están.
-2. **RSS** (`/rss.xml`) — barato y hace el laboratorio seguible.
-3. **OG images** — importa si se comparte un experimento con un cliente.
-4. Playwright, si algún día hay algo que merezca una prueba de regresión visual.
+2. **Que el CI bloquee el despliegue** — hoy Vercel despliega aunque el CI falle en lint,
+   tipos o formato: solo lo frena un `pnpm build` roto. Primera opción, que Vercel espere
+   a los checks de GitHub antes de publicar en producción, si el panel lo permite (hay que
+   comprobar cómo se llama la opción). Si no, cambiar el comando de build de Vercel a
+   `pnpm lint && pnpm typecheck && pnpm build`. Descartados: proteger `main` con PR
+   obligatorio (cambia el flujo de trabajo) y desplegar desde Actions (token y más piezas).
+3. **RSS** (`/rss.xml`) — barato y hace el laboratorio seguible.
+4. **OG images** — importa si se comparte un experimento con un cliente.
+5. **Nivel `island` (React)** — cuando un experimento lo pida de verdad (ver Fase 4). Hoy
+   el esquema lo admite y el build falla con un mensaje explícito si una ficha lo usa.
+6. Playwright, si algún día hay algo que merezca una prueba de regresión visual.
 
 ---
 

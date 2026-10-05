@@ -28,6 +28,9 @@ Desktop.ini
 $RECYCLE.BIN/
 .DS_Store
 
+# Claude Code: los ajustes locales son de cada máquina; las skills sí se comparten
+.claude/settings.local.json
+
 # Editores
 .idea/
 .vscode/*

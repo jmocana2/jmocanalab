@@ -1,7 +1,8 @@
 # Estado de sesión — 2026-10-05
 
 **Fase 3 en curso.** Plan detallado y aprobado en `05-fase-3-detalle.md` (2026-10-05).
-Hechas 3.1 a 3.7 (la 3.3, solo documental). Siguiente: 3.8, CI.
+Hechas 3.1 a 3.8 (la 3.3, solo documental). Siguiente: cerrar la fase (`05` §9 y §10):
+revisión en el navegador, CI en verde y actualizar skills y `CLAUDE.md`.
 
 ## Fase 2 — qué quedó hecho
 
@@ -59,8 +60,10 @@ Hechas 3.1 a 3.7 (la 3.3, solo documental). Siguiente: 3.8, CI.
   el generador. Detalle en `05` §6.6. Pendiente: revisarla en el navegador.
 - **3.7 · Hecha (2026-10-05).** View Transitions nativas, sin JS. Pendiente: verlas en
   Chrome, Edge o Safari.
-- **`pnpm format:check` falla** por `.claude/settings.local.json`. Resolver antes de la
-  3.8 (formatearlo o añadirlo a `.prettierignore`).
+- **3.8 · Hecha (2026-10-05).** `.github/workflows/ci.yml`: lint, typecheck,
+  format:check y build en push a `main` y en cada PR. Pendiente: verlo en verde.
+- **`.claude/settings.local.json` estaba confirmado** en el repo público (contenido
+  inofensivo). Va a `.gitignore`; falta `git rm --cached .claude/settings.local.json`.
 - Las decisiones de la Fase 3 (número de ficha en tinta con marca del acento, View
   Transitions nativas, contador del listado, cuerpo del `.md`…) están en
   `05-fase-3-detalle.md` §0.

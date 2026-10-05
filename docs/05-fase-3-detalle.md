@@ -40,16 +40,16 @@ Todas aprobadas el 2026-10-05, también las que nacieron como **propuesta**.
 
 ## 1. Tareas, en orden
 
-| #   | Tarea                                   | Estado real (2026-10-05)                            | Bloquea a |
-| --- | --------------------------------------- | --------------------------------------------------- | --------- |
-| 3.1 | `pnpm new:lab` ✅                       | Hecha (2026-10-01)                                  | —         |
-| 3.2 | `ui/Tabs` + `lab/CodeViewer` ✅         | Hecha (2026-10-05); falta la prueba manual          | 3.6       |
-| 3.3 | `LabFrame` ✅                           | Hecha en la Fase 2; plan corregido (2026-10-05)     | —         |
-| 3.4 | Vista **Destacados** en `/`             | Repasada (2026-10-05)                               | —         |
-| 3.5 | Vista **Listado** en `/labs/[category]` | Hecha (2026-10-05); la nav ya no da 404             | 3.7       |
-| 3.6 | Vista **Ficha** completa                | Hecha (2026-10-05)                                  | 3.7       |
-| 3.7 | View Transitions                        | Hecha (2026-10-05); falta verla en el navegador     | —         |
-| 3.8 | CI en GitHub Actions                    | Sin empezar. Independiente: cabe en cualquier hueco | —         |
+| #   | Tarea                                   | Estado real (2026-10-05)                           | Bloquea a |
+| --- | --------------------------------------- | -------------------------------------------------- | --------- |
+| 3.1 | `pnpm new:lab` ✅                       | Hecha (2026-10-01)                                 | —         |
+| 3.2 | `ui/Tabs` + `lab/CodeViewer` ✅         | Hecha (2026-10-05); falta la prueba manual         | 3.6       |
+| 3.3 | `LabFrame` ✅                           | Hecha en la Fase 2; plan corregido (2026-10-05)    | —         |
+| 3.4 | Vista **Destacados** en `/`             | Repasada (2026-10-05)                              | —         |
+| 3.5 | Vista **Listado** en `/labs/[category]` | Hecha (2026-10-05); la nav ya no da 404            | 3.7       |
+| 3.6 | Vista **Ficha** completa                | Hecha (2026-10-05)                                 | 3.7       |
+| 3.7 | View Transitions                        | Hecha (2026-10-05); falta verla en el navegador    | —         |
+| 3.8 | CI en GitHub Actions                    | Hecha (2026-10-05); falta verla en verde en GitHub | —         |
 
 Se sigue el orden del plan. La 3.2 se monta desde el primer día en la ficha mínima que
 ya existe, con el lab `prueba`; la 3.6 completa después lo que la rodea.
@@ -399,6 +399,19 @@ Antes de añadir `format:check`, comprobar que hoy pasa en limpio.
 
 `gh` no está instalado: el workflow se ve funcionar en la pestaña _Actions_ tras el push,
 que hace el usuario.
+
+### 8.1 Cerrada (2026-10-05) — cómo quedó
+
+- Se dispara en **push a `main` y en cada PR**, no en cada push a cualquier rama: una rama
+  con PR abierto correría dos veces. Las ramas sin PR ya las construye Vercel.
+- `permissions: contents: read` y `concurrency` que cancela la ejecución anterior de la
+  misma rama.
+- Acciones: `actions/checkout@v5`, `pnpm/action-setup@v4`, `actions/setup-node@v5`.
+- **`format:check` fallaba por `.claude/settings.local.json`**, que además estaba
+  confirmado en un repo público. Contenido inofensivo (un permiso de context7), pero es
+  configuración local de cada máquina: pasa a `.gitignore`, y Prettier 3 respeta
+  `.gitignore`. Hay que sacarlo del índice a mano: `git rm --cached .claude/settings.local.json`.
+- Los cinco pasos pasan en local. **Falta verlo en verde en GitHub** tras el push.
 
 ---
 
