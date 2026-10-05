@@ -1,12 +1,40 @@
 /*
- * LabList.css — encabezado de sección y lista de filas.
+ * LabList.css — encabezado de sección (con contador en el listado) y lista de filas.
+ * El encabezado de categoría va en tinta con el subrayado del acento: el acento no
+ * llega a AA como color de texto.
  */
 
 @layer components {
   .lab-list {
-    .lab-list__heading {
+    .lab-list__header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-4);
       margin-block-end: var(--space-6);
+    }
+
+    .lab-list__heading {
       color: var(--color-ink-3);
+
+      &.lab-list__heading--category {
+        padding-block-end: var(--space-1);
+        border-block-end: var(--border-active) solid var(--color-accent);
+        color: var(--color-ink);
+      }
+    }
+
+    .lab-list__count {
+      color: var(--color-ink-3);
+    }
+
+    .lab-list__empty {
+      padding-block: var(--space-7);
+      border-block: var(--border-thin) solid var(--color-line);
+      color: var(--color-ink-2);
+      font-size: var(--text-s);
+      line-height: var(--leading-s);
     }
   }
 }

@@ -1,43 +1,80 @@
 ---
 /*
  * LabList.astro — sección con encabezado en eyebrow y la lista ordenada de filas.
- * Las filas llevan un nivel de encabezado por debajo del de la sección.
+ * `view` decide todo lo que cambia entre las dos vistas que la usan:
+ *
+ * - `featured` (portada): encabezado h2 en gris, la categoría como metadato de fila.
+ * - `category` (listado): el nombre de la categoría es el h1, en tinta con el subrayado
+ *   del acento; a su derecha el contador, y las etiquetas como metadato de fila. Si no
+ *   hay filas, un aviso en lugar de la lista y sin contador: «0 ejercicios» repetiría
+ *   el aviso.
+ *
  * `role="list"` compensa el `list-style: none` del reset, que en Safari quita
  * la semántica de lista.
  */
+import type { ComponentProps } from 'astro/types';
 import './LabList.css';
 import LabRow from '../LabRow/LabRow.astro';
 import type { Lab } from '../../../types';
+import { countLabel } from './utils/count-label';
 
 type Item = {
   lab: Lab;
   number: number;
 };
 
+type View = 'featured' | 'category';
+
 type Props = {
   heading: string;
   items: Item[];
-  meta: 'category' | 'tags';
-  headingLevel?: 1 | 2;
+  view: View;
 };
 
-const { heading, items, meta, headingLevel = 2 } = Astro.props;
+const { heading, items, view } = Astro.props;
 
-const ROW_HEADING_LEVEL = { 1: 2, 2: 3 } as const;
+const isCategory = view === 'category';
+const isEmpty = items.length === 0;
 
-const Heading = `h${headingLevel}` as const;
+const HEADING = {
+  featured: 'h2',
+  category: 'h1',
+} as const satisfies Record<View, 'h1' | 'h2'>;
+
+const ROW_HEADING_LEVEL = {
+  featured: 3,
+  category: 2,
+} as const satisfies Record<View, ComponentProps<typeof LabRow>['headingLevel']>;
+
+const ROW_META = {
+  featured: 'category',
+  category: 'tags',
+} as const satisfies Record<View, ComponentProps<typeof LabRow>['meta']>;
+
+const headingClass = {
+  featured: 'lab-list__heading eyebrow',
+  category: 'lab-list__heading lab-list__heading--category eyebrow',
+} satisfies Record<View, string>;
+
+const Heading = HEADING[view];
 ---
 
 <section class="lab-list">
-  <Heading class="lab-list__heading eyebrow">{heading}</Heading>
-  <ol class="lab-list__items" role="list">
-    {items.map(({ lab, number }) => (
-      <LabRow
-        lab={lab}
-        number={number}
-        meta={meta}
-        headingLevel={ROW_HEADING_LEVEL[headingLevel]}
-      />
-    ))}
-  </ol>
+  <div class="lab-list__header">
+    <Heading class={headingClass[view]}>{heading}</Heading>
+    {isCategory && !isEmpty && <p class="lab-list__count eyebrow">{countLabel(items.length)}</p>}
+  </div>
+  {!isEmpty && (
+    <ol class="lab-list__items" role="list">
+      {items.map(({ lab, number }) => (
+        <LabRow
+          lab={lab}
+          number={number}
+          meta={ROW_META[view]}
+          headingLevel={ROW_HEADING_LEVEL[view]}
+        />
+      ))}
+    </ol>
+  )}
+  {isEmpty && <p class="lab-list__empty">Todavía no hay ejercicios de {heading}.</p>}
 </section>

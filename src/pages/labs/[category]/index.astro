@@ -1,0 +1,44 @@
+---
+/*
+ * index.astro — listado de una categoría: todos sus experimentos, por número
+ * ascendente (001 arriba), como un índice. Lo reciente ya lo enseña la portada.
+ * Se genera para todas las categorías, también las vacías, para que ninguna entrada
+ * de la nav dé 404.
+ */
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LabList from '../../../components/lab/LabList/LabList.astro';
+import { CATEGORIES } from '../../../constants/categories';
+import { CATEGORY_LABEL } from '../../../constants/labels';
+import type { Category } from '../../../types';
+import { labNumber } from '../../../utils/lab-number';
+
+export const getStaticPaths = (() =>
+  CATEGORIES.map((category) => ({
+    params: { category },
+    props: { category },
+  }))) satisfies GetStaticPaths;
+
+type Props = {
+  category: Category;
+};
+
+const { category } = Astro.props;
+const label = CATEGORY_LABEL[category];
+
+const labs = await getCollection('labs');
+
+const items = labs
+  .filter((lab) => lab.data.category === category)
+  .map((lab) => ({ lab, number: labNumber(lab, labs) }))
+  .toSorted((a, b) => a.number - b.number);
+---
+
+<BaseLayout
+  title={`${label} · jmocanalab`}
+  description={`Ejercicios de ${label} del laboratorio de jmocanalab.`}
+  activeCategory={category}
+>
+  <LabList heading={label} items={items} view="category" />
+</BaseLayout>

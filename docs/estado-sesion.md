@@ -1,15 +1,14 @@
 # Estado de sesión — 2026-10-05
 
 **Fase 3 en curso.** Plan detallado y aprobado en `05-fase-3-detalle.md` (2026-10-05).
-Hechas 3.1 a 3.4 (la 3.3, solo documental). Siguiente: 3.5, el listado, que arregla el
-404 de la nav.
+Hechas 3.1 a 3.5 (la 3.3, solo documental). Siguiente: 3.6, la ficha completa.
 
 ## Fase 2 — qué quedó hecho
 
 - 2.0 – 2.9 cerradas. El detalle de cada tarea está en `04-fase-2-detalle.md` y en el
   historial de git.
-- Sitio desplegado en `https://jmocanalab.vercel.app`, con preview por rama. La nav
-  enlaza a `/labs/css`, etc., que dan 404 hasta la vista Listado (3.5).
+- Sitio desplegado en `https://jmocanalab.vercel.app`, con preview por rama. El 404 de
+  la nav (`/labs/css`, etc.) lo arregla la 3.5 en cuanto se despliegue.
 - `pnpm lint`, `pnpm typecheck` y `pnpm build` pasan en limpio. Ni un hex fuera de
   `tokens.css`; el único px fuera de las excepciones es el `1px` de `.visually-hidden`,
   que es el patrón estándar.
@@ -52,6 +51,10 @@ Hechas 3.1 a 3.4 (la 3.3, solo documental). Siguiente: 3.5, el listado, que arre
 - **3.2 · Hecha (2026-10-05).** `ui/Tabs` (+ `TabPanel`) y `lab/CodeViewer`, montado en
   la ficha mínima. Tema de Shiki monocromo con tokens; comentarios en `--color-ink-2`.
   Falta la prueba manual de teclado y lector de pantalla en el navegador.
+- **3.3 y 3.4 · Hechas (2026-10-05).** La 3.3, solo el plan. En la 3.4 se corrigieron
+  las separaciones de página desde 768, que no seguían la maqueta.
+- **3.5 · Hecha (2026-10-05).** `/labs/[category]` para las tres categorías, con estado
+  vacío. `LabList` recibe ahora `view: 'featured' | 'category'`.
 - **`pnpm format:check` falla** por `.claude/settings.local.json`. Resolver antes de la
   3.8 (formatearlo o añadirlo a `.prettierignore`).
 - Las decisiones de la Fase 3 (número de ficha en tinta con marca del acento, View
