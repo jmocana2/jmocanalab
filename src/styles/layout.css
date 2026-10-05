@@ -4,6 +4,10 @@
  * no componentes reutilizables.
  *
  * 1. Contenedor principal
+ * 2. Transición entre vistas: View Transitions nativas entre documentos, sin JS. El
+ *    navegador funde el contenido y la cabecera, que tiene nombre propio, se queda
+ *    quieta. Donde no hay soporte, se navega sin efecto. Con movimiento reducido, nada.
+ *    Va fuera de @layer: es una regla de documento, no de cascada.
  */
 
 @layer base {
@@ -38,5 +42,15 @@
         padding-block-start: var(--space-11);
       }
     }
+  }
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
   }
 }

@@ -98,7 +98,7 @@ el proyecto vive.
 | 3.4 | Vista **Destacados** en `/` ✅                   | filas numeradas, `featured: true`, orden por fecha                                                                                                                                                    |
 | 3.5 | Vista **Listado** en `/labs/[categoria]` ✅      | lista editorial numerada, sin tarjetas                                                                                                                                                                |
 | 3.6 | Vista **Ficha** en `/labs/[categoria]/[slug]` ✅ | pestañas + numeración + acento de categoría                                                                                                                                                           |
-| 3.7 | View Transitions entre las tres vistas           | cabecera y nav con `transition:persist`                                                                                                                                                               |
+| 3.7 | View Transitions entre las tres vistas ✅        | nativas entre documentos (`@view-transition`), sin `<ClientRouter />`: la cabecera con nombre propio no funde. `transition:persist` congelaba el `aria-current` de la nav                             |
 | 3.8 | CI en GitHub Actions: lint + typecheck + build   |                                                                                                                                                                                                       |
 
 La numeración (`001`, `002`…) se calcula **al construir**, por orden de fecha dentro

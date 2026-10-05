@@ -48,7 +48,7 @@ Todas aprobadas el 2026-10-05, también las que nacieron como **propuesta**.
 | 3.4 | Vista **Destacados** en `/`             | Repasada (2026-10-05)                               | —         |
 | 3.5 | Vista **Listado** en `/labs/[category]` | Hecha (2026-10-05); la nav ya no da 404             | 3.7       |
 | 3.6 | Vista **Ficha** completa                | Hecha (2026-10-05)                                  | 3.7       |
-| 3.7 | View Transitions                        | Sin empezar                                         | —         |
+| 3.7 | View Transitions                        | Hecha (2026-10-05); falta verla en el navegador     | —         |
 | 3.8 | CI en GitHub Actions                    | Sin empezar. Independiente: cabe en cualquier hueco | —         |
 
 Se sigue el orden del plan. La 3.2 se monta desde el primer día en la ficha mínima que
@@ -368,6 +368,19 @@ Objeto de consulta, sin `switch`:
 
 Si un día hace falta algo que solo da el router (persistir estado, animar entre
 navegadores sin soporte), se reabre.
+
+### 7.3 Cerrada (2026-10-05) — cómo quedó
+
+- `@view-transition { navigation: auto; }` en `src/styles/layout.css`, **fuera de
+  `@layer`**: es una regla de documento, no de cascada, y así no depende de si el
+  navegador la acepta dentro de una capa.
+- La misma regla con `navigation: none` bajo `prefers-reduced-motion: reduce`. El reset
+  no cubre esto: su `*` no alcanza a los pseudoelementos `::view-transition-*`.
+- `view-transition-name: site-header` en `SiteHeader.css`. El pie no lleva nombre: cambia
+  de posición con la altura del contenido y funde con él.
+- Sin duraciones ni animaciones propias: el fundido por defecto del navegador.
+- Comprobado que el build conserva las tres reglas. **El efecto no se ha visto todavía**:
+  hay que navegar entre vistas en un navegador con soporte (Chrome, Edge o Safari).
 
 ---
 

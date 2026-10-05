@@ -1,10 +1,12 @@
 /*
  * SiteHeader.css — cabecera del sitio, en dos filas:
  * marca e iconos sociales arriba; nav de categorías bajo la línea negra abajo.
+ * Tiene nombre de View Transition propio: al navegar no funde con el contenido.
  */
 
 @layer components {
   .site-header {
+    view-transition-name: site-header;
     padding-inline: var(--space-7);
     padding-block-start: var(--space-8);
 
