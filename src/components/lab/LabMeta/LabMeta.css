@@ -1,0 +1,19 @@
+/*
+ * LabMeta.css — metadatos de la ficha: una línea en mono pequeña y gris, que se parte
+ * en varias si no cabe.
+ */
+
+@layer components {
+  .lab-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-8);
+    color: var(--color-ink-3);
+    font-size: var(--text-mono-s);
+    line-height: var(--leading-mono-s);
+
+    .lab-meta__value {
+      margin: 0;
+    }
+  }
+}

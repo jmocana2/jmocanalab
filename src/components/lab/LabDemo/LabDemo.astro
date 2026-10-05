@@ -1,0 +1,27 @@
+---
+/*
+ * LabDemo.astro — el resultado de un experimento, según su runtime: el iframe aislado
+ * (`iframe`) o el componente de `src/demos/` dentro de un marco igual al del iframe,
+ * pero con altura automática (`inline`). Si la demo no existe, el build falla.
+ */
+import './LabDemo.css';
+import LabFrame from '../LabFrame/LabFrame.astro';
+import type { Lab } from '../../../types';
+import { resolveDemo } from './containers/resolve-demo';
+
+type Props = {
+  lab: Lab;
+};
+
+const { lab } = Astro.props;
+
+const demo = await resolveDemo(lab);
+const Inline = demo.kind === 'inline' ? demo.component : null;
+---
+
+{demo.kind === 'iframe' && <LabFrame src={demo.src} title={lab.data.title} />}
+{Inline && (
+  <div class="lab-demo">
+    <Inline />
+  </div>
+)}

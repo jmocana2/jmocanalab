@@ -1,0 +1,37 @@
+---
+/*
+ * LabMeta.astro — metadatos de la ficha en una línea: etiquetas, runtime y fecha.
+ * Es una lista de descripción con los términos visualmente ocultos: quien mira lee
+ * valores sueltos, como en la maqueta; el lector de pantalla oye pares con nombre.
+ * Sin etiquetas, ese par no se pinta.
+ */
+import './LabMeta.css';
+import type { Lab } from '../../../types';
+import { formatDate, isoDate } from './utils/format-date';
+
+type Props = {
+  lab: Lab;
+};
+
+const { lab } = Astro.props;
+const { tags, runtime, date } = lab.data;
+---
+
+<dl class="lab-meta mono">
+  {tags.length > 0 && (
+    <div class="lab-meta__item">
+      <dt class="visually-hidden">Etiquetas</dt>
+      <dd class="lab-meta__value">{tags.join(' · ')}</dd>
+    </div>
+  )}
+  <div class="lab-meta__item">
+    <dt class="visually-hidden">Ejecución</dt>
+    <dd class="lab-meta__value">{runtime}</dd>
+  </div>
+  <div class="lab-meta__item">
+    <dt class="visually-hidden">Fecha</dt>
+    <dd class="lab-meta__value">
+      <time datetime={isoDate(date)}>{formatDate(date)}</time>
+    </dd>
+  </div>
+</dl>

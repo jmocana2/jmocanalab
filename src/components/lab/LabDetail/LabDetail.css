@@ -1,0 +1,116 @@
+/*
+ * LabDetail.css — ficha de un experimento.
+ *
+ * 1. Volver
+ * 2. Rejilla número + cuerpo
+ * 3. Título, resumen, metadatos y visor
+ * 4. Cuerpo del .md: estilos mínimos sobre el HTML que genera Markdown
+ */
+
+@layer components {
+  .lab-detail {
+    .lab-detail__back {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-height: var(--space-7);
+      margin-block-end: var(--space-10);
+      color: var(--color-ink-3);
+
+      &:hover {
+        color: var(--color-link-hover);
+      }
+    }
+
+    .lab-detail__back-icon {
+      color: var(--color-ink);
+    }
+
+    .lab-detail__grid {
+      display: grid;
+      gap: var(--space-4);
+
+      @media (min-width: 48em) {
+        grid-template-columns: var(--width-num) minmax(0, 1fr);
+        align-items: baseline;
+        gap: var(--space-8);
+      }
+    }
+
+    .lab-detail__num {
+      justify-self: start;
+      padding-block-end: var(--space-1);
+      border-block-end: var(--border-active) solid var(--color-accent);
+      font-family: var(--font-mono);
+      font-size: var(--text-num);
+      font-variant-numeric: tabular-nums;
+      line-height: var(--leading-ui);
+    }
+
+    .lab-detail__title {
+      max-width: var(--width-title);
+      font-size: var(--text-xl);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--track-xl);
+      line-height: var(--leading-xl);
+      text-wrap: balance;
+    }
+
+    .lab-detail__summary {
+      max-width: var(--width-text);
+      margin-block-start: var(--space-5);
+      color: var(--color-ink-2);
+      font-size: var(--text-m);
+      line-height: var(--leading-m);
+      text-wrap: pretty;
+    }
+
+    .lab-detail__meta {
+      margin-block-start: var(--space-6);
+    }
+
+    .lab-detail__viewer {
+      margin-block-start: var(--space-10);
+    }
+
+    .lab-detail__content {
+      max-width: var(--width-text);
+      margin-block-start: var(--space-12);
+      color: var(--color-ink-2);
+      font-size: var(--text-m);
+      line-height: var(--leading-m);
+
+      & > * + * {
+        margin-block-start: var(--space-5);
+      }
+
+      & h2 {
+        margin-block-start: var(--space-10);
+        color: var(--color-ink);
+        font-size: var(--text-l);
+        font-weight: var(--weight-medium);
+        letter-spacing: var(--track-l);
+        line-height: var(--leading-l);
+      }
+
+      & ul,
+      & ol {
+        padding-inline-start: var(--space-6);
+        list-style: revert;
+      }
+
+      & code {
+        font-family: var(--font-mono);
+        font-size: var(--text-mono);
+        color: var(--color-ink-code);
+        background-color: var(--color-bg-code);
+        padding-inline: var(--space-1);
+      }
+
+      & a {
+        color: var(--color-ink);
+        text-decoration: underline;
+      }
+    }
+  }
+}

@@ -31,5 +31,12 @@
     @media (min-width: 75em) {
       padding-inline: var(--space-13);
     }
+
+    /* La ficha arranca más cerca de la nav: 46 en la maqueta, frente a 62 de las listas. */
+    &.site-main--detail {
+      @media (min-width: 48em) {
+        padding-block-start: var(--space-11);
+      }
+    }
   }
 }

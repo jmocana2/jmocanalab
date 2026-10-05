@@ -1,37 +1,39 @@
 ---
 /*
- * [slug].astro — ficha de un experimento. Versión mínima de la tarea 2.7: título,
- * resumen y demo. La ficha completa (número, metadatos, pestañas) es la tarea 3.6.
+ * [slug].astro — ficha de un experimento. La página solo resuelve la ruta y el número;
+ * la ficha entera la pinta LabDetail.
  */
 import type { GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import CodeViewer from '../../../components/lab/CodeViewer/CodeViewer.astro';
-import LabFrame from '../../../components/lab/LabFrame/LabFrame.astro';
+import LabDetail from '../../../components/lab/LabDetail/LabDetail.astro';
 import type { Lab } from '../../../types';
-import { demoPath, labSlug } from '../../../utils/lab-paths';
+import { labNumber } from '../../../utils/lab-number';
+import { labSlug } from '../../../utils/lab-paths';
 
 export const getStaticPaths = (async () => {
   const labs = await getCollection('labs');
 
   return labs.map((lab) => ({
     params: { category: lab.data.category, slug: labSlug(lab) },
-    props: { lab },
+    props: { lab, number: labNumber(lab, labs) },
   }));
 }) satisfies GetStaticPaths;
 
 type Props = {
   lab: Lab;
+  number: number;
 };
 
-const { lab } = Astro.props;
-const { title, summary, category, runtime } = lab.data;
+const { lab, number } = Astro.props;
+const { title, summary, category } = lab.data;
 ---
 
-<BaseLayout title={`${title} · jmocanalab`} description={summary} activeCategory={category}>
-  <h1>{title}</h1>
-  <p>{summary}</p>
-  <CodeViewer lab={lab}>
-    {runtime === 'iframe' && <LabFrame src={demoPath(lab)} title={title} />}
-  </CodeViewer>
+<BaseLayout
+  title={`${title} · jmocanalab`}
+  description={summary}
+  activeCategory={category}
+  isDetail
+>
+  <LabDetail lab={lab} number={number} />
 </BaseLayout>

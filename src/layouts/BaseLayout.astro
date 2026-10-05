@@ -3,6 +3,9 @@
  * BaseLayout.astro — envoltorio de página. Estructura común: head mínimo,
  * cabecera, contenido y pie. La categoría activa se propaga al body como
  * data-category para que el acento herede.
+ *
+ * `isDetail` marca la ficha: la nav dice que estás dentro de la categoría, no en su
+ * página, y el contenido arranca más cerca de la nav, como en la maqueta.
  */
 import '../styles/global.css';
 import SiteHeader from '../components/site/SiteHeader/SiteHeader.astro';
@@ -15,9 +18,10 @@ type Props = {
   description?: string;
   activeCategory?: Category;
   isHome?: boolean;
+  isDetail?: boolean;
 };
 
-const { title, description, activeCategory, isHome = false } = Astro.props;
+const { title, description, activeCategory, isHome = false, isDetail = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -32,8 +36,8 @@ const { title, description, activeCategory, isHome = false } = Astro.props;
   </head>
   <body data-category={activeCategory}>
     <SkipLink target="content" />
-    <SiteHeader activeCategory={activeCategory} isHome={isHome} />
-    <main class="site-main" id="content">
+    <SiteHeader activeCategory={activeCategory} isHome={isHome} isDetail={isDetail} />
+    <main class:list={['site-main', { 'site-main--detail': isDetail }]} id="content">
       <slot />
     </main>
     <SiteFooter />

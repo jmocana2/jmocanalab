@@ -92,7 +92,8 @@
     --space-13: 8.8rem;
 
     /* 5. Layout */
-    --grid-row: 6.6rem minmax(0, 1fr) 13.2rem 9.6rem;
+    --width-num: 6.6rem;
+    --grid-row: var(--width-num) minmax(0, 1fr) 13.2rem 9.6rem;
     --width-title: 78rem;
     --width-text: 62rem;
     --height-frame: 40rem;

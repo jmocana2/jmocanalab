@@ -1,0 +1,12 @@
+/*
+ * LabDemo.css — marco de una demo embebida: el mismo borde y fondo que el iframe,
+ * con altura automática y el aire dentro.
+ */
+
+@layer components {
+  .lab-demo {
+    padding: var(--space-7);
+    border: var(--border-thin) solid var(--color-line);
+    background-color: var(--color-bg-raised);
+  }
+}

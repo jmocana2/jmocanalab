@@ -44,6 +44,7 @@ export const SPACE_STEPS = Array.from({ length: 13 }, (_, index) => `--space-${i
 
 /** Tokens de layout que no son ni color, ni texto, ni espacio. */
 export const LAYOUT_TOKENS = [
+  '--width-num',
   '--grid-row',
   '--width-title',
   '--width-text',

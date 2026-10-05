@@ -80,7 +80,7 @@
       padding-block-end: var(--space-2);
       border-block-end: var(--border-active) solid transparent;
 
-      &[aria-current='page'] {
+      &[aria-current] {
         border-block-end-color: var(--color-accent);
       }
     }

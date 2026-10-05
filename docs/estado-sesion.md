@@ -1,7 +1,7 @@
 # Estado de sesión — 2026-10-05
 
 **Fase 3 en curso.** Plan detallado y aprobado en `05-fase-3-detalle.md` (2026-10-05).
-Hechas 3.1 a 3.5 (la 3.3, solo documental). Siguiente: 3.6, la ficha completa.
+Hechas 3.1 a 3.6 (la 3.3, solo documental). Siguiente: 3.7, View Transitions.
 
 ## Fase 2 — qué quedó hecho
 
@@ -55,6 +55,8 @@ Hechas 3.1 a 3.5 (la 3.3, solo documental). Siguiente: 3.6, la ficha completa.
   las separaciones de página desde 768, que no seguían la maqueta.
 - **3.5 · Hecha (2026-10-05).** `/labs/[category]` para las tres categorías, con estado
   vacío. `LabList` recibe ahora `view: 'featured' | 'category'`.
+- **3.6 · Hecha (2026-10-05).** `LabDetail`, `LabMeta` y `LabDemo`; `inline` probado con
+  el generador. Detalle en `05` §6.6. Pendiente: revisarla en el navegador.
 - **`pnpm format:check` falla** por `.claude/settings.local.json`. Resolver antes de la
   3.8 (formatearlo o añadirlo a `.prettierignore`).
 - Las decisiones de la Fase 3 (número de ficha en tinta con marca del acento, View

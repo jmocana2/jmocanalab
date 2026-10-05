@@ -1,0 +1,72 @@
+---
+/*
+ * LabDetail.astro — ficha de un experimento, de arriba abajo como la maqueta: volver a
+ * la categoría, número, título, resumen, metadatos, Resultado / Código y, si la ficha
+ * tiene texto, el cuerpo del .md debajo.
+ *
+ * Desde 768, el número va en su propia columna, alineado con la línea base del título;
+ * en móvil, encima. Va en tinta con el subrayado del acento: el acento no llega a AA
+ * como color de texto.
+ */
+import { render } from 'astro:content';
+import './LabDetail.css';
+import CodeViewer from '../CodeViewer/CodeViewer.astro';
+import LabDemo from '../LabDemo/LabDemo.astro';
+import LabMeta from '../LabMeta/LabMeta.astro';
+import type { Lab } from '../../../types';
+import { CATEGORY_LABEL } from '../../../constants/labels';
+import { formatNumber } from '../../../utils/format-number';
+
+type Props = {
+  lab: Lab;
+  number: number;
+};
+
+const { lab, number } = Astro.props;
+const { title, summary, category } = lab.data;
+
+const { Content } = await render(lab);
+const hasBody = Boolean(lab.body?.trim());
+---
+
+<article class="lab-detail">
+  <a class="lab-detail__back eyebrow" href={`/labs/${category}`}>
+    <svg
+      class="lab-detail__back-icon"
+      width="17"
+      height="17"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="M19 12H6"></path>
+      <path d="M11 6.5L5.5 12 11 17.5"></path>
+    </svg>
+    Volver a {CATEGORY_LABEL[category]}
+  </a>
+  <div class="lab-detail__grid">
+    <p class="lab-detail__num">{formatNumber(number)}</p>
+    <div class="lab-detail__body">
+      <h1 class="lab-detail__title">{title}</h1>
+      <p class="lab-detail__summary">{summary}</p>
+      <div class="lab-detail__meta">
+        <LabMeta lab={lab} />
+      </div>
+      <div class="lab-detail__viewer">
+        <CodeViewer lab={lab}>
+          <LabDemo lab={lab} />
+        </CodeViewer>
+      </div>
+      {hasBody && (
+        <div class="lab-detail__content">
+          <Content />
+        </div>
+      )}
+    </div>
+  </div>
+</article>

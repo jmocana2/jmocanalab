@@ -47,7 +47,7 @@ Todas aprobadas el 2026-10-05, también las que nacieron como **propuesta**.
 | 3.3 | `LabFrame` ✅                           | Hecha en la Fase 2; plan corregido (2026-10-05)     | —         |
 | 3.4 | Vista **Destacados** en `/`             | Repasada (2026-10-05)                               | —         |
 | 3.5 | Vista **Listado** en `/labs/[category]` | Hecha (2026-10-05); la nav ya no da 404             | 3.7       |
-| 3.6 | Vista **Ficha** completa                | Versión mínima: título, resumen, iframe             | 3.7       |
+| 3.6 | Vista **Ficha** completa                | Hecha (2026-10-05)                                  | 3.7       |
 | 3.7 | View Transitions                        | Sin empezar                                         | —         |
 | 3.8 | CI en GitHub Actions                    | Sin empezar. Independiente: cabe en cualquier hueco | —         |
 
@@ -316,6 +316,28 @@ Objeto de consulta, sin `switch`:
 
 `formatNumber` (`lab/LabRow/utils/`) pasa a usarlo también la ficha: se sube a
 `src/utils/`, como manda la skill `javascript`.
+
+### 6.6 Cerrada (2026-10-05) — cómo quedó
+
+- **Componentes nuevos** en `src/components/lab/`:
+  - `LabDetail`: la ficha entera. La página `[slug].astro` solo resuelve la ruta y el número.
+  - `LabMeta`: la línea de metadatos (`<dl>` con los `<dt>` ocultos), con
+    `utils/format-date.ts`. La fecha se formatea en UTC: Zod crea las fechas del
+    frontmatter a medianoche UTC y en otra zona podrían caer en el día anterior.
+  - `LabDemo`: el resultado según el runtime. `containers/resolve-demo.ts` tiene un
+    objeto de consulta `iframe | inline | island` con `satisfies Record<Runtime, …>`.
+- **Errores de build**, con la ficha en el mensaje: `iframe` sin su `index.html` en
+  `public/demos/`, `inline` cuyo `entry` no es un `.astro` de `src/demos/`, e `island`.
+- **Token nuevo `--width-num`** (6.6rem): la columna del número, que comparten la fila y
+  la ficha. `--grid-row` lo usa ahora en lugar del valor literal.
+- **`BaseLayout` recibe `isDetail`**, que hace dos cosas: `aria-current="true"` en la
+  nav (en `SiteHeader`) y `.site-main--detail`, que pone el contenido a `--space-11` de
+  la nav desde 768 (46 en la maqueta, frente a los 62 de las listas).
+- **Cuerpo del `.md`** con estilos mínimos: párrafos, `h2`, listas, código en línea y
+  enlaces. Solo se pinta si el cuerpo no está vacío.
+- **Probado con el generador**: un `pnpm new:lab --runtime inline` de usar y tirar dio una
+  ficha con la demo embebida, dos pestañas de fichero (`astro` y `css`) y el texto del
+  `.md`. Se borró después.
 
 ---
 

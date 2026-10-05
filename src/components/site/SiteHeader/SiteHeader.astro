@@ -5,6 +5,9 @@
  * 2. Nav de categorías bajo una línea negra fuerte.
  *
  * En la home la marca es un H1 sin enlace; fuera de home, enlace a `/`.
+ *
+ * La categoría activa lleva aria-current="page" en su listado y "true" en una ficha:
+ * ahí estás dentro de la categoría, no en su página.
  */
 import './SiteHeader.css';
 import type { Category } from '../../../types';
@@ -13,9 +16,12 @@ import { CATEGORY_LABEL } from '../../../constants/labels';
 type Props = {
   activeCategory?: Category;
   isHome?: boolean;
+  isDetail?: boolean;
 };
 
-const { activeCategory, isHome = false } = Astro.props;
+const { activeCategory, isHome = false, isDetail = false } = Astro.props;
+
+const activeCurrent = isDetail ? 'true' : 'page';
 
 const categories = Object.entries(CATEGORY_LABEL);
 ---
@@ -94,7 +100,7 @@ const categories = Object.entries(CATEGORY_LABEL);
               class="site-header__link eyebrow"
               href={`/labs/${slug}`}
               data-category={slug}
-              aria-current={isActive ? 'page' : undefined}
+              aria-current={isActive ? activeCurrent : undefined}
             >
               {label}
             </a>
