@@ -43,8 +43,8 @@ Todas aprobadas el 2026-10-05, también las que nacieron como **propuesta**.
 | #   | Tarea                                   | Estado real (2026-10-05)                            | Bloquea a |
 | --- | --------------------------------------- | --------------------------------------------------- | --------- |
 | 3.1 | `pnpm new:lab` ✅                       | Hecha (2026-10-01)                                  | —         |
-| 3.2 | `ui/Tabs` + `lab/CodeViewer`            | Sin empezar                                         | 3.6       |
-| 3.3 | `LabFrame`                              | Hecha en la Fase 2; solo falta corregir el plan     | —         |
+| 3.2 | `ui/Tabs` + `lab/CodeViewer` ✅         | Hecha (2026-10-05); falta la prueba manual          | 3.6       |
+| 3.3 | `LabFrame` ✅                           | Hecha en la Fase 2; plan corregido (2026-10-05)     | —         |
 | 3.4 | Vista **Destacados** en `/`             | Funciona; falta repasarla contra la maqueta         | —         |
 | 3.5 | Vista **Listado** en `/labs/[category]` | Sin empezar. **La nav da 404 en producción**        | 3.7       |
 | 3.6 | Vista **Ficha** completa                | Versión mínima: título, resumen, iframe             | 3.7       |
@@ -205,6 +205,8 @@ Ya está hecho en la Fase 2 (`src/components/lab/LabFrame/`). Lo que queda es do
   pida. El día que pase, un `frameHeight` opcional en el esquema.
 - **`loading="lazy"`: no.** La skill `maquetacion` ya lo dice: no en el contenido
   principal sobre el pliegue. Se corrige la tabla de `03`.
+
+**Cerrada (2026-10-05).** Tabla de `03` corregida; el código no cambia.
 
 ---
 

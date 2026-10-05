@@ -1,7 +1,7 @@
 # Estado de sesión — 2026-10-05
 
 **Fase 3 en curso.** Plan detallado y aprobado en `05-fase-3-detalle.md` (2026-10-05).
-Hechas 3.1 y 3.2. Siguiente: 3.3 (solo documental) y 3.4.
+Hechas 3.1, 3.2 y 3.3 (esta, solo documental). Siguiente: 3.4.
 
 ## Fase 2 — qué quedó hecho
 
