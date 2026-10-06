@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img alt="release v0.1.0" src="https://img.shields.io/badge/release-v0.1.0-555555?style=flat-square">
+  <img alt="release v0.2.0" src="https://img.shields.io/badge/release-v0.2.0-555555?style=flat-square">
   <img alt="Astro 7.3" src="https://img.shields.io/badge/Astro-7.3-BC52EE?style=flat-square">
   <img alt="Node 22+" src="https://img.shields.io/badge/Node-22%2B-3C873A?style=flat-square">
   <img alt="pnpm 10" src="https://img.shields.io/badge/pnpm-10-F69220?style=flat-square">
