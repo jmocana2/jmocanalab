@@ -3,9 +3,9 @@
 Laboratorio y portfolio front-end de jmocanalab. Astro estático, desplegado en Vercel.
 Un experimento = una ficha de contenido + su demo aislada. **Repo público.**
 
-Estado: **Fase 4** — los dos primeros experimentos de verdad (CSS `iframe` y JS
-`inline`). La Fase 3 está cerrada: generador, `CodeViewer`, las tres vistas, View
-Transitions y CI. Dónde lo dejamos: `docs/estado-sesion.md`.
+Estado: el sitio está completo (generador, `CodeViewer`, las tres vistas, View
+Transitions, modo oscuro y CI). Falta contenido: los primeros experimentos y las mejoras
+pendientes están en `docs/TODO.md`.
 
 ---
 
@@ -80,7 +80,8 @@ Está desarrollado en la skill `maquetacion`; aquí lo que más se incumple:
 
 **Solo con `pnpm new:lab`. Nunca a mano.** Crea la ficha en `src/content/labs/<categoría>/`
 y el esqueleto de la demo: `public/demos/<categoría>/<slug>/` si el `runtime` es `iframe`,
-`src/demos/<categoría>/<Name>/` si es `inline`. El detalle, en la skill `nuevo-lab`.
+`src/demos/<categoría>/<Name>/` si es `inline`. El detalle, en la skill `nuevo-lab` y en
+`docs/newlab.md`.
 
 La demo no va en `public/labs/`: chocaría en el build con la ficha `/labs/<categoría>/<slug>`.
 
@@ -94,7 +95,7 @@ no se renombra.
 
 Aire, mayúsculas pequeñas con mucho tracking, monocromo con un acento mínimo. Si una
 propuesta añade un elemento decorativo, la respuesta por defecto es **no**. La dirección
-visual está cerrada en `docs/02-diseno.md`; no se reinterpreta al maquetar.
+visual está cerrada en `docs/design.md`; no se reinterpreta al maquetar.
 
 ## 8. Entorno
 
@@ -110,16 +111,16 @@ pero **no bloquea el despliegue** de Vercel.
 El razonamiento vive en `docs/`, no aquí. Este fichero no duplica tokens, rutas ni listas
 de componentes: eso se desincroniza.
 
-| Documento                        | Qué contiene                                          |
-| -------------------------------- | ----------------------------------------------------- |
-| `docs/00-analisis-inicial.md`    | Análisis técnico y alternativas descartadas           |
-| `docs/01-decisiones.md`          | Decisiones cerradas de la Fase 0                      |
-| `docs/02-diseno.md`              | Dirección visual. **Manda en lo visual**              |
-| `docs/03-plan-implementacion.md` | Plan por fases. **En ejecución: Fase 4**              |
-| `docs/04-fase-2-detalle.md`      | Fase 2: tokens, Storybook y skills. Cerrada           |
-| `docs/05-fase-3-detalle.md`      | Fase 3: CodeViewer, vistas, transiciones, CI. Cerrada |
-| `docs/estado-sesion.md`          | Dónde lo dejamos: pendientes y decisiones recientes   |
+| Documento              | Qué contiene                                                   |
+| ---------------------- | -------------------------------------------------------------- |
+| `docs/architecture.md` | Stack, estructura, rutas, niveles de demo y decisiones         |
+| `docs/design.md`       | Dirección visual, tokens y modo oscuro. **Manda en lo visual** |
+| `docs/newlab.md`       | Cómo se crea un experimento y qué opciones hay                 |
+| `docs/TODO.md`         | Lo pendiente: experimentos, mejoras e ideas                    |
 
-Este `CLAUDE.md` se revisa **al cerrar cada fase**. Dos señales de que hay que tocarlo:
+`docs/` describe el proyecto como es, no cómo se llegó: no se escriben documentos por
+fase ni de estado de sesión. Lo pendiente va a `TODO.md` y se tacha al hacerlo.
+
+Este `CLAUDE.md` se revisa **al cerrar un bloque de trabajo**. Dos señales de que hay que tocarlo:
 una corrección repetida dos veces, o una convención que existe en el código y no está
 escrita en ningún sitio.

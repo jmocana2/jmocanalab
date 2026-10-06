@@ -73,7 +73,7 @@ carpetas con criterio no ambiguo:
 src/
 ├── layouts/         # BaseLayout.astro y otros envoltorios de página
 ├── components/
-│   ├── site/        # chrome del sitio: SiteHeader, SiteFooter, SkipLink
+│   ├── site/        # chrome del sitio: SiteHeader, SiteFooter, SkipLink, ThemeToggle
 │   ├── lab/         # piezas de listado y ficha: LabList, LabRow, LabDetail, LabMeta,
 │   │                #   LabDemo, LabFrame, CodeViewer
 │   └── ui/          # primitivas sin dominio con marcado propio: Tabs
@@ -186,9 +186,10 @@ Reglas:
 
 - Identificar el elemento LCP de cada vista —normalmente el título— y no hacerlo depender
   de una fuente sin `swap`.
-- `<link rel="preload" as="font" crossorigin>` para la **única** variante de fuente que
-  interviene en el primer pintado. Precargar de más compite por ancho de banda y empeora
-  el LCP: es una decisión medida, no un reflejo.
+- `<link rel="preload" as="font" crossorigin>` solo para las variantes que pintan sobre
+  el pliegue en todas las vistas: hoy, Archivo 400, 500 y 600 (`BaseLayout`). JetBrains
+  Mono no. Precargar de más compite por ancho de banda y empeora el LCP: una variante
+  nueva se precarga cuando se ha visto que hace falta, no por reflejo.
 - `fetchpriority="high"` en la imagen del LCP si alguna vista llega a tener una;
   `loading="lazy"` + `fetchpriority="low"` en todo lo que quede bajo el pliegue.
 - Los `iframe` de demo: `loading="lazy"` salvo que sean el contenido principal de la
@@ -352,6 +353,9 @@ utilidad, no un componente.** No se crea `<Eyebrow>` para envolver un `<span>`.
   suelto, no.
 - Nada de `!important`. Nada de estilos en línea salvo valores calculados en tiempo de
   render.
+- **Modo oscuro**: los mismos tokens redefinidos bajo `:root[data-theme='dark']` en
+  `tokens.css`, también los acentos. Un componente no escribe reglas para el oscuro: si
+  algo se ve mal, falta o sobra un token. Un color nuevo se da en los dos temas.
 - El acento de categoría se hereda, no se repite. Y **va solo en líneas y marcas, nunca
   como color de texto**: los tres acentos llegan a 3:1, no a 4.5:1. El texto sigue en
   tinta y el acento es el subrayado:

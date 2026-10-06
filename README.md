@@ -23,14 +23,13 @@ cliente.
 
 ## Estado
 
-**v0.1.0 — Fase 3 cerrada.** El sitio está completo y desplegado en
+**v0.1.0.** El sitio está completo y desplegado en
 [jmocanalab.vercel.app](https://jmocanalab.vercel.app): portada con los destacados,
-listado por categoría y ficha de cada experimento con sus pestañas _Resultado / Código_.
-Añadir un experimento es un comando. Lo que falta es contenido: de momento solo hay una
-ficha de prueba.
+listado por categoría y ficha de cada experimento con sus pestañas _Resultado / Código_,
+en claro y en oscuro. Añadir un experimento es un comando. Lo que falta es contenido: de
+momento solo hay una ficha de prueba.
 
-Siguiente: **Fase 4**, los dos primeros experimentos de verdad. El plan por fases está en
-[`docs/03-plan-implementacion.md`](docs/03-plan-implementacion.md).
+Lo siguiente, en [`docs/TODO.md`](docs/TODO.md).
 
 ## Stack
 
@@ -39,8 +38,8 @@ Astro 7 con `output: 'static'` · TypeScript en `strict` · CSS moderno con toke
 View Transitions nativas · Storybook para el design system · pnpm · CI en GitHub
 Actions · desplegado en Vercel.
 
-Sin Tailwind, sin SASS, sin i18n y con el JavaScript de cliente reducido al mínimo: hoy
-son unos 660 bytes, los de las pestañas.
+Sin Tailwind, sin SASS, sin i18n y con el JavaScript de cliente reducido al mínimo: el
+de las pestañas y el del modo oscuro.
 
 ## Cómo se organiza un experimento
 
@@ -89,10 +88,10 @@ pnpm storybook    # catálogo del design system, en el 6006
 .claude/skills/     convenciones del proyecto (maquetacion · javascript · nuevo-lab)
 .design/            maqueta de la dirección visual
 .github/workflows/  CI: lint, tipos, formato y build
-docs/               análisis, decisiones y plan por fases
+docs/               arquitectura, diseño, cómo crear un experimento y pendientes
 scripts/new-lab/    el generador de experimentos
 src/content/labs/   las fichas, una por experimento
-src/components/     site/ (cabecera, pie) · lab/ (listado, ficha, visor) · ui/ (pestañas)
+src/components/     site/ (cabecera, pie, tema) · lab/ (listado, ficha, visor) · ui/ (pestañas)
 src/demos/          demos inline
 public/demos/       demos iframe, sueltas y sin build
 src/styles/         tokens y capas. Único sitio con valores literales
@@ -101,14 +100,12 @@ src/design-system/  catálogo de Storybook
 
 ## Documentación
 
-| Documento                                                          | Qué contiene                                |
-| ------------------------------------------------------------------ | ------------------------------------------- |
-| [`docs/00-analisis-inicial.md`](docs/00-analisis-inicial.md)       | Análisis técnico y alternativas descartadas |
-| [`docs/01-decisiones.md`](docs/01-decisiones.md)                   | Decisiones cerradas                         |
-| [`docs/02-diseno.md`](docs/02-diseno.md)                           | Dirección visual                            |
-| [`docs/03-plan-implementacion.md`](docs/03-plan-implementacion.md) | Plan por fases                              |
-| [`docs/04-fase-2-detalle.md`](docs/04-fase-2-detalle.md)           | Fase 2 en detalle                           |
-| [`docs/05-fase-3-detalle.md`](docs/05-fase-3-detalle.md)           | Fase 3 en detalle                           |
+| Documento                                      | Qué contiene                             |
+| ---------------------------------------------- | ---------------------------------------- |
+| [`docs/architecture.md`](docs/architecture.md) | Arquitectura básica de la aplicación     |
+| [`docs/design.md`](docs/design.md)             | Dirección visual y tokens                |
+| [`docs/newlab.md`](docs/newlab.md)             | Cómo crear un experimento y sus opciones |
+| [`docs/TODO.md`](docs/TODO.md)                 | Pendientes e ideas                       |
 
 ---
 
