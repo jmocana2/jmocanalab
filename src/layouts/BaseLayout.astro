@@ -6,12 +6,25 @@
  *
  * `isDetail` marca la ficha: la nav dice que estás dentro de la categoría, no en su
  * página, y el contenido arranca más cerca de la nav, como en la maqueta.
+ *
+ * En el <head>:
+ * - Precarga de los tres pesos de Archivo (400 cuerpo, 500 títulos, 600 nav y marca):
+ *   los tres pintan sobre el pliegue en todas las vistas. JetBrains Mono no se precarga.
+ * - Script en línea que pone `data-theme` antes de pintar: la elección guardada o, si no
+ *   la hay, `prefers-color-scheme`. Tiene que ser en línea; empaquetado llegaría tarde y
+ *   la página parpadearía en claro.
  */
 import '../styles/global.css';
 import SiteHeader from '../components/site/SiteHeader/SiteHeader.astro';
 import SiteFooter from '../components/site/SiteFooter/SiteFooter.astro';
 import SkipLink from '../components/site/SkipLink/SkipLink.astro';
 import type { Category } from '../types';
+import { THEME_STORAGE_KEY } from '../constants/theme';
+import archivo400 from '@fontsource/archivo/files/archivo-latin-400-normal.woff2?url';
+import archivo500 from '@fontsource/archivo/files/archivo-latin-500-normal.woff2?url';
+import archivo600 from '@fontsource/archivo/files/archivo-latin-600-normal.woff2?url';
+
+const preloadFonts = [archivo400, archivo500, archivo600];
 
 type Props = {
   title: string;
@@ -28,8 +41,24 @@ const { title, description, activeCategory, isHome = false, isDetail = false } =
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline define:vars={{ storageKey: THEME_STORAGE_KEY }}>
+      let theme;
+      try {
+        theme = localStorage.getItem(storageKey);
+      } catch {
+        theme = null;
+      }
+      if (theme !== 'light' && theme !== 'dark') {
+        theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.dataset.theme = theme;
+    </script>
+    {preloadFonts.map((href) => (
+      <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />
+    ))}
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}

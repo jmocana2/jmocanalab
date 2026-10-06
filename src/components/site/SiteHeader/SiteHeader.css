@@ -1,6 +1,6 @@
 /*
  * SiteHeader.css — cabecera del sitio, en dos filas:
- * marca e iconos sociales arriba; nav de categorías bajo la línea negra abajo.
+ * marca, iconos sociales y botón de tema arriba; nav de categorías bajo la línea negra abajo.
  * Tiene nombre de View Transition propio: al navegar no funde con el contenido.
  */
 
@@ -33,6 +33,12 @@
       letter-spacing: var(--track-brand);
       line-height: 1;
       margin: 0;
+    }
+
+    .site-header__actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
     }
 
     .site-header__social {

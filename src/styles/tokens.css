@@ -1,6 +1,6 @@
 /*
  * tokens.css — contrato de estilos del sitio. Único fichero con valores literales.
- * Los valores salen de la maqueta `.design/Main.dc.html` (ver docs/04-fase-2-detalle.md).
+ * Los valores salen de la maqueta `.design/Main.dc.html` (ver docs/design.md).
  *
  * 1. Color
  * 2. Acento por categoría
@@ -8,10 +8,13 @@
  * 4. Espaciado
  * 5. Layout
  * 6. Breakpoints
+ * 7. Modo oscuro: los mismos nombres con otros valores, bajo `[data-theme='dark']`
  */
 
 @layer tokens {
   :root {
+    color-scheme: light;
+
     /* 1. Color — superficies */
     --color-bg: #f2f1ed;
     --color-bg-raised: #fbfaf7;
@@ -92,6 +95,7 @@
     --space-13: 8.8rem;
 
     /* 5. Layout */
+    --width-page: 190.5rem;
     --width-num: 6.6rem;
     --grid-row: var(--width-num) minmax(0, 1fr) 13.2rem 9.6rem;
     --width-title: 78rem;
@@ -121,5 +125,42 @@
 
   [data-category='react'] {
     --color-accent: #0098b4;
+  }
+
+  /*
+   * 7. Modo oscuro. Misma familia cálida que el claro. Ratios sobre --color-bg:
+   * ink 15.3 · ink-2 8.1 · ink-3 5.4 · hover 8.5. Los acentos pasan de 5:1, pero la
+   * regla no cambia: solo líneas y marcas.
+   */
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+
+    --color-bg: #161512;
+    --color-bg-raised: #1e1d19;
+    --color-bg-code: #211f1b;
+
+    --color-ink: #ecebe6;
+    --color-ink-code: #d2d0c7;
+    --color-ink-2: #b0ada4;
+    --color-ink-3: #8f8b82;
+    --color-ink-4: #55524b;
+
+    --color-line: #33312b;
+
+    --color-link-hover: #4cbfd6;
+
+    --color-heart: #e85d5d;
+  }
+
+  [data-theme='dark'] [data-category='css'] {
+    --color-accent: #e65fa8;
+  }
+
+  [data-theme='dark'] [data-category='js'] {
+    --color-accent: #d39a1e;
+  }
+
+  [data-theme='dark'] [data-category='react'] {
+    --color-accent: #1fb0cc;
   }
 }

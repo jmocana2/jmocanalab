@@ -3,7 +3,8 @@
  * sitio, no para un componente. Van en la capa `base` porque son estructura,
  * no componentes reutilizables.
  *
- * 1. Contenedor principal
+ * 1. Contenedor principal. La página no pasa de --width-page y se centra; el fondo
+ *    del body se propaga al lienzo, así que los laterales siguen con su color.
  * 2. Transición entre vistas: View Transitions nativas entre documentos, sin JS. El
  *    navegador funde el contenido y la cabecera, que tiene nombre propio, se queda
  *    quieta. Donde no hay soporte, se navega sin efecto. Con movimiento reducido, nada.
@@ -20,9 +21,11 @@
     display: grid;
     grid-template-rows: auto 1fr auto;
     min-height: 100dvh;
+    max-inline-size: var(--width-page);
+    margin-inline: auto;
   }
 
-  /* 1. Contenedor principal. Padding de página según docs/04-fase-2-detalle.md §2.4. */
+  /* 1. Contenedor principal. Padding de página según docs/design.md §5. */
   .site-main {
     padding-inline: var(--space-7);
     padding-block: var(--space-10) var(--space-12);

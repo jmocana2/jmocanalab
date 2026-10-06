@@ -1,0 +1,19 @@
+/*
+ * ThemeToggle.css — botón de modo oscuro. Mismo tamaño y color que los iconos sociales.
+ */
+
+@layer components {
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.4rem;
+    min-height: 2.4rem;
+    padding: 0;
+    color: var(--color-ink);
+
+    &:hover {
+      color: var(--color-link-hover);
+    }
+  }
+}

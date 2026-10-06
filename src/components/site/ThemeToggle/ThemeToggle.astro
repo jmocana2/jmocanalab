@@ -1,0 +1,58 @@
+---
+/*
+ * ThemeToggle.astro — botón de modo oscuro, en la cabecera junto a los iconos sociales.
+ * Un solo icono (círculo a medio rellenar) y `aria-pressed` para el estado: el lector de
+ * pantalla anuncia «Modo oscuro, activado» o «desactivado».
+ *
+ * El tema inicial lo pone el script en línea de `BaseLayout` antes de pintar; este script
+ * solo sincroniza `aria-pressed`, cambia el tema al pulsar y guarda la elección.
+ */
+import './ThemeToggle.css';
+---
+
+<button class="theme-toggle" type="button" aria-label="Modo oscuro" aria-pressed="false">
+  <svg
+    width="19"
+    height="19"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.5"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <circle cx="12" cy="12" r="8.5"></circle>
+    <path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"></path>
+  </svg>
+</button>
+
+<script>
+  import { THEME_STORAGE_KEY } from '../../../constants/theme';
+  import { NEXT_THEME } from './constants/index';
+  import { isTheme } from './utils/is-theme';
+
+  const root = document.documentElement;
+  const button = document.querySelector<HTMLButtonElement>('.theme-toggle');
+
+  function syncPressed(toggle: HTMLButtonElement) {
+    toggle.setAttribute('aria-pressed', String(root.dataset.theme === 'dark'));
+  }
+
+  if (button) {
+    syncPressed(button);
+
+    button.addEventListener('click', () => {
+      const current = isTheme(root.dataset.theme) ? root.dataset.theme : 'light';
+      const next = NEXT_THEME[current];
+
+      root.dataset.theme = next;
+      syncPressed(button);
+
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, next);
+      } catch {
+        return;
+      }
+    });
+  }
+</script>
