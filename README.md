@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img alt="release v0.2.0" src="https://img.shields.io/badge/release-v0.2.0-555555?style=flat-square">
+  <img alt="release v0.3.0" src="https://img.shields.io/badge/release-v0.3.0-555555?style=flat-square">
   <img alt="Astro 7.3" src="https://img.shields.io/badge/Astro-7.3-BC52EE?style=flat-square">
   <img alt="Node 22+" src="https://img.shields.io/badge/Node-22%2B-3C873A?style=flat-square">
   <img alt="pnpm 10" src="https://img.shields.io/badge/pnpm-10-F69220?style=flat-square">
@@ -23,13 +23,38 @@ cliente.
 
 ## Estado
 
-**v0.1.0.** El sitio está completo y desplegado en
-[jmocanalab.vercel.app](https://jmocanalab.vercel.app): portada con los destacados,
-listado por categoría y ficha de cada experimento con sus pestañas _Resultado / Código_,
-en claro y en oscuro. Añadir un experimento es un comando. Lo que falta es contenido: de
-momento hay un experimento, el de Flexbox.
+**v0.3.0.** El sitio está completo y desplegado en
+[jmocanalab.vercel.app](https://jmocanalab.vercel.app): portada con los experimentos más
+recientes, listado por categoría y ficha de cada experimento con sus pestañas
+_Resultado / Código_, en claro y en oscuro. Añadir un experimento es un comando.
 
 Lo siguiente, en [`docs/TODO.md`](docs/TODO.md).
+
+## Novedades
+
+Lo que va entrando en el laboratorio, por versión. Lo más reciente, arriba.
+
+### v0.3.0 · 29 oct 2026
+
+- **Nuevo experimento: [Flexbox](https://jmocanalab.vercel.app/labs/css/flexbox).** Diez
+  ejercicios para repasar Flexbox escribiendo CSS, de poner cajas en fila al reparto del
+  espacio con `flex-grow`, `flex-shrink`, `flex-basis` y el atajo `flex`. Comprobación
+  automática, solución explicada, progreso guardado en el navegador y chuleta con
+  diagramas.
+- La portada lista todos los experimentos, del más reciente al más antiguo.
+- El `iframe` de las demos se ajusta a la altura de su contenido: sin scroll propio.
+- Fichas con párrafos de presentación (`intro`), figuras SVG en el cuerpo y la pestaña
+  _Código_ opcional.
+
+### v0.2.0 · 6 oct 2026
+
+- Modo oscuro, con conmutador en la cabecera.
+- Documentación en `docs/`: arquitectura, diseño, cómo crear un experimento y pendientes.
+
+### v0.1.0 · 5 oct 2026
+
+- Primera versión del sitio: portada, listado por categoría, ficha con _Resultado /
+  Código_, generador de experimentos y CI.
 
 ## Stack
 
@@ -39,7 +64,7 @@ View Transitions nativas · Storybook para el design system · pnpm · CI en Git
 Actions · desplegado en Vercel.
 
 Sin Tailwind, sin SASS, sin i18n y con el JavaScript de cliente reducido al mínimo: el
-de las pestañas y el del modo oscuro.
+de las pestañas, el del modo oscuro y el que ajusta la altura de las demos.
 
 ## Cómo se organiza un experimento
 
