@@ -29,11 +29,11 @@ Una sola pantalla con tres estados. Cada uno tiene su URL; la sensación de "un 
 cambia" la dan las View Transitions. **Si hay que elegir entre el efecto y la URL, gana la
 URL.**
 
-| Vista      | Ruta                       | Qué muestra                                          |
-| ---------- | -------------------------- | ---------------------------------------------------- |
-| Destacados | `/`                        | Los labs con `featured: true`, por fecha             |
-| Listado    | `/labs/<categoría>`        | Todos los de una categoría, por número; estado vacío |
-| Ficha      | `/labs/<categoría>/<slug>` | Número, título, metadatos y _Resultado / Código_     |
+| Vista     | Ruta                       | Qué muestra                                          |
+| --------- | -------------------------- | ---------------------------------------------------- |
+| Recientes | `/`                        | Todos los labs, del más reciente al más antiguo      |
+| Listado   | `/labs/<categoría>`        | Todos los de una categoría, por número; estado vacío |
+| Ficha     | `/labs/<categoría>/<slug>` | Número, título, metadatos y _Resultado / Código_     |
 
 - La cabecera y la nav no se mueven nunca: llevan `view-transition-name` y no funden.
 - **Numeración** `001`, `002`… en las tres vistas: es el hilo conductor. Se calcula en el
@@ -117,7 +117,10 @@ negativo en los titulares. Pesos: 400 cuerpo, 500 titulares, 600 UI en mayúscul
 - Fila del listado: `--grid-row` (número · título · metadatos · estado). En móvil colapsa a
   una columna con el número sobre el título.
 - Título de ficha hasta `--width-title` (78rem); textos hasta `--width-text` (62rem).
-- Demo `iframe`: altura fija de `--height-frame` (40rem).
+- Demo `iframe`: reserva `--height-frame` (40rem), o la que pida la ficha con
+  `frameHeight`, y al cargar se ajusta a la altura de la demo.
+- Figuras del cuerpo de una ficha: SVG en línea hasta `--width-figure` (48rem), en tinta,
+  con el acento solo en las líneas marcadas con `data-accent`.
 
 ## 6. Código
 

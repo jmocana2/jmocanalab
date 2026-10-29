@@ -11,7 +11,9 @@ const labs = defineCollection({
     z.object({
       // Texto visible (español)
       title: z.string().min(1),
-      summary: z.string().max(180),
+      summary: z.string().max(240),
+      // Párrafos de presentación que siguen al resumen en la ficha, antes de la demo.
+      intro: z.array(z.string()).default([]),
 
       // Taxonomía: categorías cerradas, definidas en src/constants/categories.ts.
       category: z.enum(CATEGORIES),
@@ -37,6 +39,9 @@ const labs = defineCollection({
       // - inline/island → 'src/demos/<category>/<Component>/<Component>.astro'
       entry: z.string().optional(),
       sources: z.array(z.string()).default([]),
+
+      // Altura del iframe en rem, solo para `runtime: iframe`. Sin ella, --height-frame.
+      frameHeight: z.number().positive().optional(),
 
       // Imagen de portada opcional, procesada por Astro. Si se declara,
       // el alt es obligatorio (texto visible en español).

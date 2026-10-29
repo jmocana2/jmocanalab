@@ -69,7 +69,7 @@ El detalle de campos y del generador está en [newlab.md](newlab.md).
 
 | Ruta                             | Página                               | Qué hace                                            |
 | -------------------------------- | ------------------------------------ | --------------------------------------------------- |
-| `/`                              | `pages/index.astro`                  | Destacados (`featured`), por fecha descendente      |
+| `/`                              | `pages/index.astro`                  | Todos los labs, por fecha descendente               |
 | `/labs/<cat>`                    | `pages/labs/[category]/index.astro`  | Listado. Se genera para las tres, aunque esté vacía |
 | `/labs/<cat>/<slug>`             | `pages/labs/[category]/[slug].astro` | La ficha. La página solo resuelve ruta y número     |
 | `/demos/<cat>/<slug>/index.html` | `public/`                            | La demo aislada que carga el `iframe`               |

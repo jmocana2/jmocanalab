@@ -27,7 +27,7 @@ cliente.
 [jmocanalab.vercel.app](https://jmocanalab.vercel.app): portada con los destacados,
 listado por categoría y ficha de cada experimento con sus pestañas _Resultado / Código_,
 en claro y en oscuro. Añadir un experimento es un comando. Lo que falta es contenido: de
-momento solo hay una ficha de prueba.
+momento hay un experimento, el de Flexbox.
 
 Lo siguiente, en [`docs/TODO.md`](docs/TODO.md).
 

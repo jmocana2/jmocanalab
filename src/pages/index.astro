@@ -1,7 +1,8 @@
 ---
 /*
- * index.astro — portada: los experimentos destacados, del más reciente al más antiguo.
- * Si no hay ninguno, no se pinta la sección: un encabezado sobre una lista vacía no dice nada.
+ * index.astro — portada: todos los experimentos, de todas las categorías, del más
+ * reciente al más antiguo. Filtrar por categoría es cosa de la nav. Si no hay ninguno, no
+ * se pinta la sección: un encabezado sobre una lista vacía no dice nada.
  */
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -10,12 +11,11 @@ import { labNumber } from '../utils/lab-number';
 
 const labs = await getCollection('labs');
 
-const featured = labs
-  .filter((lab) => lab.data.featured)
+const latest = labs
   .toSorted((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .map((lab) => ({ lab, number: labNumber(lab, labs) }));
 ---
 
 <BaseLayout title="jmocanalab" description="Laboratorio y portfolio front-end." isHome>
-  {featured.length > 0 && <LabList heading="Destacados" items={featured} view="featured" />}
+  {latest.length > 0 && <LabList heading="Recientes" items={latest} view="latest" />}
 </BaseLayout>

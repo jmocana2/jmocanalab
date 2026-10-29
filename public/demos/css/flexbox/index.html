@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flexbox · demo</title>
+    <!--
+      Demo aislada: se abre sola con doble clic, sin build ni dependencias.
+      No ve los tokens del sitio, así que declara los suyos en :root.
+
+      Diez ejercicios de Flexbox. El objetivo y tu resultado son dos copias de la misma
+      escena (.stage y sus .box): el CSS fijo de cada ejercicio va en la capa `scene`, y la
+      solución y lo que escribes, sin capa, para que ganen siempre. Los datos de los
+      ejercicios están en exercises.js; la mecánica, en app.js. Al conseguir los diez se
+      abre la enhorabuena (.flexbox__finale): las cajas caen en fila una detrás de otra.
+
+      1. Tokens
+      2. Base y foco
+      3. Cabecera, enunciado, editor y solución (.flexbox)
+      4. Enhorabuena final y sus animaciones, apagadas con movimiento reducido
+      5. Escenas (.stage y .box): las clases que escribe quien hace el ejercicio
+    -->
+    <style>
+      @layer demo, scene;
+
+      @layer demo {
+        :root {
+          --color-bg: #fbfaf7;
+          --color-bg-stage: #f2f1ed;
+          --color-bg-code: #eae8e1;
+          --color-ink: #141311;
+          --color-ink-2: #55524b;
+          --color-line: #dcdad3;
+          --color-accent: #e14b9b;
+
+          --font-ui: system-ui, sans-serif;
+          --font-mono: ui-monospace, Menlo, Consolas, monospace;
+
+          --text-ui: 1.1rem;
+          --text-mono: 1.3rem;
+          --text-s: 1.4rem;
+          --text-m: 1.6rem;
+          --text-l: 2.3rem;
+
+          --leading-ui: 1.4;
+          --leading-m: 1.55;
+          --track-ui: 0.12em;
+          --weight-medium: 500;
+
+          --space-1: 0.4rem;
+          --space-2: 0.8rem;
+          --space-3: 1.2rem;
+          --space-4: 1.6rem;
+          --space-5: 2.4rem;
+          --space-6: 3.2rem;
+
+          --size-step: 2.8rem;
+          --size-editor: 16rem;
+          --width-text: 62rem;
+          --stage-width: 32rem;
+          --stage-height: 16rem;
+
+          --border-thin: 1px;
+          --border-active: 2px;
+
+          --color-backdrop: rgb(20 19 17 / 0.45);
+          --width-finale: 44rem;
+          --lift-drop: -12rem;
+          --lift-rise: 1.2rem;
+          --tilt-drop: -24deg;
+          --tilt-bounce: 4deg;
+          --duration-drop: 0.6s;
+          --duration-rise: 0.5s;
+          --stagger: 0.08s;
+          --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        * {
+          box-sizing: border-box;
+          margin: 0;
+        }
+
+        html {
+          font-size: 62.5%;
+        }
+
+        body {
+          background: var(--color-bg);
+          color: var(--color-ink);
+          font-family: var(--font-ui);
+          font-size: var(--text-m);
+          line-height: var(--leading-m);
+        }
+
+        :focus-visible {
+          outline: var(--border-active) solid var(--color-ink);
+          outline-offset: var(--border-active);
+        }
+
+        .flexbox {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr);
+          gap: var(--space-5);
+          padding: var(--space-4);
+
+          .flexbox__header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-3);
+          }
+
+          .flexbox__steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-1);
+            padding: 0;
+            list-style: none;
+          }
+
+          .flexbox__step {
+            inline-size: var(--size-step);
+            block-size: var(--size-step);
+            border: var(--border-thin) solid var(--color-line);
+            background: transparent;
+            color: var(--color-ink);
+            font-family: var(--font-mono);
+            font-size: var(--text-ui);
+            font-variant-numeric: tabular-nums;
+            cursor: pointer;
+
+            &[data-done] {
+              border-block-end: var(--border-active) solid var(--color-accent);
+            }
+
+            &[aria-current] {
+              border-color: var(--color-ink);
+              background: var(--color-ink);
+              color: var(--color-bg);
+            }
+          }
+
+          .flexbox__eyebrow,
+          .flexbox__label {
+            color: var(--color-ink-2);
+            font-size: var(--text-ui);
+            letter-spacing: var(--track-ui);
+            line-height: var(--leading-ui);
+            text-transform: uppercase;
+          }
+
+          .flexbox__brief {
+            display: grid;
+            gap: var(--space-2);
+            max-inline-size: var(--width-text);
+          }
+
+          .flexbox__title {
+            font-size: var(--text-l);
+            font-weight: var(--weight-medium);
+            line-height: var(--leading-ui);
+          }
+
+          .flexbox__prompt {
+            color: var(--color-ink-2);
+            text-wrap: pretty;
+          }
+
+          .flexbox__work {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: var(--space-5);
+
+            @media (min-width: 48em) {
+              grid-template-columns: minmax(0, 1fr) auto;
+              align-items: start;
+            }
+          }
+
+          .flexbox__editor,
+          .flexbox__stages {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: var(--space-3);
+          }
+
+          .flexbox__stages {
+            overflow-x: auto;
+          }
+
+          .flexbox__field {
+            display: grid;
+            gap: var(--space-1);
+          }
+
+          .flexbox__code,
+          .flexbox__input {
+            padding: var(--space-3);
+            border: var(--border-thin) solid var(--color-line);
+            background: var(--color-bg-code);
+            color: var(--color-ink);
+            font-family: var(--font-mono);
+            font-size: var(--text-mono);
+            line-height: var(--leading-m);
+            tab-size: 2;
+          }
+
+          .flexbox__code {
+            overflow-x: auto;
+          }
+
+          .flexbox__input {
+            inline-size: 100%;
+            min-block-size: var(--size-editor);
+            resize: vertical;
+            background: var(--color-bg);
+          }
+
+          .flexbox__actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-3);
+          }
+
+          .flexbox__status {
+            font-size: var(--text-s);
+
+            &[data-solved] {
+              padding-block-end: var(--space-1);
+              border-block-end: var(--border-active) solid var(--color-accent);
+            }
+          }
+
+          .flexbox__button {
+            padding: var(--space-2) var(--space-3);
+            border: var(--border-thin) solid var(--color-ink);
+            background: transparent;
+            color: var(--color-ink);
+            font: inherit;
+            font-size: var(--text-s);
+            cursor: pointer;
+
+            &:hover {
+              background: var(--color-ink);
+              color: var(--color-bg);
+            }
+
+            &:disabled {
+              border-color: var(--color-line);
+              background: transparent;
+              color: var(--color-ink-2);
+              cursor: default;
+            }
+          }
+
+          .flexbox__solution {
+            font-size: var(--text-s);
+
+            & summary {
+              cursor: pointer;
+            }
+
+            & > * + * {
+              margin-block-start: var(--space-2);
+            }
+          }
+
+          .flexbox__figure {
+            display: grid;
+            gap: var(--space-1);
+          }
+
+          .flexbox__finale {
+            inline-size: min(var(--width-finale), calc(100% - var(--space-6)));
+            margin: auto;
+            padding: var(--space-6) var(--space-5);
+            border: var(--border-thin) solid var(--color-line);
+            background: var(--color-bg);
+            color: var(--color-ink);
+            text-align: center;
+
+            &::backdrop {
+              background: var(--color-backdrop);
+            }
+
+            & > * + * {
+              margin-block-start: var(--space-4);
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+              & * {
+                animation: none;
+              }
+            }
+          }
+
+          .flexbox__finale-boxes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-1);
+          }
+
+          .flexbox__finale-box {
+            display: grid;
+            place-items: center;
+            inline-size: var(--size-step);
+            block-size: var(--size-step);
+            background: var(--color-ink);
+            color: var(--color-bg);
+            font-family: var(--font-mono);
+            font-size: var(--text-ui);
+            animation: finale-drop var(--duration-drop) var(--ease-bounce) both;
+            animation-delay: calc(var(--i) * var(--stagger));
+          }
+
+          .flexbox__finale-text {
+            animation: finale-rise var(--duration-rise) ease-out both;
+            animation-delay: calc(var(--stagger) * 12);
+          }
+
+          .flexbox__finale-code {
+            inline-size: fit-content;
+            margin-inline: auto;
+            text-align: start;
+          }
+
+          .flexbox__finale-title {
+            display: inline-block;
+            padding-block-end: var(--space-1);
+            background: linear-gradient(var(--color-accent), var(--color-accent)) bottom left / 0
+              var(--border-active) no-repeat;
+            font-size: var(--text-l);
+            font-weight: var(--weight-medium);
+            line-height: var(--leading-ui);
+            animation: finale-underline var(--duration-rise) ease-out both;
+            animation-delay: calc(var(--stagger) * 16);
+          }
+
+          .flexbox__measures {
+            min-block-size: calc(var(--text-mono) * var(--leading-m));
+            color: var(--color-ink-2);
+            font-family: var(--font-mono);
+            font-size: var(--text-mono);
+          }
+        }
+
+        @keyframes finale-drop {
+          from {
+            opacity: 0;
+            transform: translateY(var(--lift-drop)) rotate(var(--tilt-drop));
+          }
+
+          60% {
+            opacity: 1;
+            transform: rotate(var(--tilt-bounce));
+          }
+
+          to {
+            transform: none;
+          }
+        }
+
+        @keyframes finale-rise {
+          from {
+            opacity: 0;
+            transform: translateY(var(--lift-rise));
+          }
+        }
+
+        @keyframes finale-underline {
+          to {
+            background-size: 100% var(--border-active);
+          }
+        }
+
+        .stage {
+          box-sizing: content-box;
+          inline-size: var(--stage-width);
+          block-size: var(--stage-height);
+          overflow: hidden;
+          border: var(--border-thin) solid var(--color-line);
+          background: var(--color-bg-stage);
+        }
+
+        .box {
+          display: grid;
+          place-items: center;
+          min-block-size: var(--space-5);
+          background: var(--color-ink);
+          color: var(--color-bg);
+          font-family: var(--font-mono);
+          font-size: var(--text-ui);
+        }
+
+        [data-scope='target'] .box {
+          background: transparent;
+          color: var(--color-ink-2);
+          outline: var(--border-active) dashed var(--color-accent);
+          outline-offset: calc(var(--border-active) * -1);
+        }
+      }
+    </style>
+    <style data-scene></style>
+    <style data-target-css></style>
+    <style data-result-css></style>
+  </head>
+  <body>
+    <main class="flexbox">
+      <header class="flexbox__header">
+        <nav aria-label="Ejercicios">
+          <ol class="flexbox__steps" role="list" data-steps></ol>
+        </nav>
+        <p class="flexbox__label" data-progress></p>
+      </header>
+
+      <section class="flexbox__exercise" aria-labelledby="exercise-title">
+        <div class="flexbox__brief">
+          <p class="flexbox__eyebrow" data-number></p>
+          <h1 class="flexbox__title" id="exercise-title" data-title></h1>
+          <p class="flexbox__prompt" id="exercise-prompt" data-prompt></p>
+        </div>
+      </section>
+
+      <div class="flexbox__work">
+        <div class="flexbox__editor">
+          <div class="flexbox__field">
+            <p class="flexbox__label">HTML</p>
+            <pre class="flexbox__code"><code data-markup></code></pre>
+          </div>
+          <div class="flexbox__field">
+            <label class="flexbox__label" for="css-input">Tu CSS</label>
+            <textarea
+              class="flexbox__input"
+              id="css-input"
+              aria-describedby="exercise-prompt"
+              spellcheck="false"
+              autocapitalize="off"
+              autocomplete="off"
+              data-input
+            ></textarea>
+          </div>
+          <div class="flexbox__actions">
+            <p class="flexbox__status" role="status" data-status></p>
+            <button class="flexbox__button" type="button" data-next>Siguiente ejercicio</button>
+          </div>
+          <details class="flexbox__solution" data-solution>
+            <summary>Ver solución</summary>
+            <pre class="flexbox__code"><code data-solution-code></code></pre>
+            <p data-explanation></p>
+          </details>
+        </div>
+
+        <div class="flexbox__stages">
+          <figure class="flexbox__figure">
+            <figcaption class="flexbox__label">Objetivo</figcaption>
+            <div class="flexbox__scope" data-scope="target">
+              <div class="stage" data-stage></div>
+            </div>
+            <p class="flexbox__measures" data-measures></p>
+          </figure>
+          <figure class="flexbox__figure">
+            <figcaption class="flexbox__label">Tu resultado</figcaption>
+            <div class="flexbox__scope" data-scope="result">
+              <div class="stage" data-stage></div>
+            </div>
+            <p class="flexbox__measures" data-measures></p>
+          </figure>
+        </div>
+      </div>
+
+      <footer>
+        <button class="flexbox__button" type="button" data-reset>Empezar de nuevo</button>
+      </footer>
+
+      <dialog class="flexbox__finale" aria-labelledby="finale-title" data-finale>
+        <div class="flexbox__finale-boxes" aria-hidden="true">
+          <span class="flexbox__finale-box" style="--i: 0">01</span>
+          <span class="flexbox__finale-box" style="--i: 1">02</span>
+          <span class="flexbox__finale-box" style="--i: 2">03</span>
+          <span class="flexbox__finale-box" style="--i: 3">04</span>
+          <span class="flexbox__finale-box" style="--i: 4">05</span>
+          <span class="flexbox__finale-box" style="--i: 5">06</span>
+          <span class="flexbox__finale-box" style="--i: 6">07</span>
+          <span class="flexbox__finale-box" style="--i: 7">08</span>
+          <span class="flexbox__finale-box" style="--i: 8">09</span>
+          <span class="flexbox__finale-box" style="--i: 9">10</span>
+        </div>
+        <div class="flexbox__finale-text">
+          <p class="flexbox__eyebrow">Diez de diez</p>
+          <h2 class="flexbox__finale-title" id="finale-title">Eres un pro de Flexbox</h2>
+        </div>
+        <pre class="flexbox__code flexbox__finale-code flexbox__finale-text"><code>.tú {
+  flex: 1 0 auto;
+}</code></pre>
+        <p class="flexbox__prompt flexbox__finale-text">
+          Creces, no encoges nunca y partes de todo lo que ya sabías. Ningún contenedor se te
+          resiste.
+        </p>
+        <form class="flexbox__finale-text" method="dialog">
+          <button class="flexbox__button" type="submit" autofocus>Seguir practicando</button>
+        </form>
+      </dialog>
+    </main>
+
+    <script src="exercises.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

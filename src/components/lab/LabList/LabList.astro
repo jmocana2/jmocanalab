@@ -3,7 +3,7 @@
  * LabList.astro — sección con encabezado en eyebrow y la lista ordenada de filas.
  * `view` decide todo lo que cambia entre las dos vistas que la usan:
  *
- * - `featured` (portada): encabezado h2 en gris, la categoría como metadato de fila.
+ * - `latest` (portada): encabezado h2 en gris, la categoría como metadato de fila.
  * - `category` (listado): el nombre de la categoría es el h1, en tinta con el subrayado
  *   del acento; a su derecha el contador, y las etiquetas como metadato de fila. Si no
  *   hay filas, un aviso en lugar de la lista y sin contador: «0 ejercicios» repetiría
@@ -23,7 +23,7 @@ type Item = {
   number: number;
 };
 
-type View = 'featured' | 'category';
+type View = 'latest' | 'category';
 
 type Props = {
   heading: string;
@@ -37,22 +37,22 @@ const isCategory = view === 'category';
 const isEmpty = items.length === 0;
 
 const HEADING = {
-  featured: 'h2',
+  latest: 'h2',
   category: 'h1',
 } as const satisfies Record<View, 'h1' | 'h2'>;
 
 const ROW_HEADING_LEVEL = {
-  featured: 3,
+  latest: 3,
   category: 2,
 } as const satisfies Record<View, ComponentProps<typeof LabRow>['headingLevel']>;
 
 const ROW_META = {
-  featured: 'category',
+  latest: 'category',
   category: 'tags',
 } as const satisfies Record<View, ComponentProps<typeof LabRow>['meta']>;
 
 const headingClass = {
-  featured: 'lab-list__heading eyebrow',
+  latest: 'lab-list__heading eyebrow',
   category: 'lab-list__heading lab-list__heading--category eyebrow',
 } satisfies Record<View, string>;
 

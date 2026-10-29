@@ -100,6 +100,7 @@
     --grid-row: var(--width-num) minmax(0, 1fr) 13.2rem 9.6rem;
     --width-title: 78rem;
     --width-text: 62rem;
+    --width-figure: 48rem;
     --height-frame: 40rem;
 
     /* 5. Layout — bordes. Excepción a la regla del rem: son líneas, no texto. */

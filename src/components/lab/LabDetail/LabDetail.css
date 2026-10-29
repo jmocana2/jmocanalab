@@ -3,8 +3,10 @@
  *
  * 1. Volver
  * 2. Rejilla número + cuerpo
- * 3. Título, resumen, metadatos y visor
- * 4. Cuerpo del .md: estilos mínimos sobre el HTML que genera Markdown
+ * 3. Título, resumen (y los párrafos de `intro`, con sus enlaces), metadatos y visor
+ * 4. Cuerpo del .md: estilos mínimos sobre el HTML que genera Markdown, y las figuras
+ *    SVG en línea: trazo en tinta (currentColor) y el acento solo en lo marcado con
+ *    data-accent, siempre como línea
  */
 
 @layer components {
@@ -65,6 +67,15 @@
       text-wrap: pretty;
     }
 
+    .lab-detail__link {
+      color: var(--color-ink);
+      text-decoration: underline;
+
+      &:hover {
+        color: var(--color-link-hover);
+      }
+    }
+
     .lab-detail__meta {
       margin-block-start: var(--space-6);
     }
@@ -110,6 +121,29 @@
       & a {
         color: var(--color-ink);
         text-decoration: underline;
+      }
+
+      & figure {
+        display: grid;
+        gap: var(--space-4);
+        margin-block: var(--space-8);
+      }
+
+      & svg {
+        inline-size: 100%;
+        max-inline-size: var(--width-figure);
+        block-size: auto;
+        color: var(--color-ink);
+        font-family: var(--font-ui);
+      }
+
+      & svg [data-accent] {
+        stroke: var(--color-accent);
+      }
+
+      & figcaption {
+        font-size: var(--text-s);
+        line-height: var(--leading-m);
       }
     }
   }

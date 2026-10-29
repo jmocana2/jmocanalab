@@ -189,8 +189,8 @@ El sitio es estático y casi sin JS del lado del cliente. Antes de añadir una l
 llegue al navegador, comprobar que no se resuelve en build o con CSS. El presupuesto de JS
 es parte del diseño.
 
-Hoy el JS del sitio es el de `ui/Tabs` (unos 660 bytes), el de `site/ThemeToggle` y el
-script en línea del `<head>` de `BaseLayout`, que pone `data-theme` antes de pintar. Ese es
+Hoy el JS del sitio es el de `ui/Tabs` (unos 660 bytes), el de `site/ThemeToggle`, el de
+`lab/LabFrame` (ajusta el `iframe` a la altura de su demo) y el script en línea del `<head>` de `BaseLayout`, que pone `data-theme` antes de pintar. Ese es
 el único `is:inline` justificado: empaquetado llegaría tarde y la página parpadearía.
 Cuando haga falta más:
 

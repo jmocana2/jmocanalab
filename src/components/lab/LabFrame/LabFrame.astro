@@ -1,7 +1,10 @@
 ---
 /*
  * LabFrame.astro — iframe que aísla la demo de un experimento con `runtime: iframe`.
- * Altura reservada con token para no provocar saltos de layout al cargar. Sin
+ * Altura reservada con token para no provocar saltos de layout al cargar; la ficha puede
+ * pedir otra con `frameHeight`, que llega como custom property. Al cargar, el marco se
+ * ajusta a la altura de la demo y la sigue, así que la demo nunca tiene scroll propio:
+ * `frameHeight` conviene que se parezca a la altura real en escritorio. Sin
  * `loading="lazy"`: es el contenido principal de la ficha y está sobre el pliegue.
  */
 import './LabFrame.css';
@@ -9,9 +12,17 @@ import './LabFrame.css';
 type Props = {
   src: string;
   title: string;
+  height?: number;
 };
 
-const { src, title } = Astro.props;
+const { src, title, height } = Astro.props;
+const style = height ? `--frame-height: ${height}rem` : undefined;
 ---
 
-<iframe class="lab-frame" src={src} title={`Demo: ${title}`}></iframe>
+<iframe class="lab-frame" src={src} title={`Demo: ${title}`} style={style}></iframe>
+
+<script>
+  import { fitFrames } from './containers/fit-frames';
+
+  fitFrames();
+</script>

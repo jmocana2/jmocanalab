@@ -51,14 +51,15 @@ el `summary` vacío. **Nunca sobrescribe**: si algún fichero ya existe, no crea
 
 ## Después de generar
 
-1. Rellenar `summary` (máximo 180 caracteres, en español). Ajustar `kind` y `tags` si
+1. Rellenar `summary` (máximo 240 caracteres, en español). Ajustar `kind` y `tags` si
    hace falta.
 2. Escribir la demo siguiendo las skills `maquetacion` y `javascript`. En las demos
    `iframe`, todo dentro del `index.html` o en ficheros sueltos a su lado, sin build ni
    dependencias; si se añaden ficheros, se añaden también a `sources`.
 3. Si hace falta explicar el experimento, se escribe en el **cuerpo del `.md`**, debajo del
    frontmatter: la ficha lo pinta bajo _Resultado / Código_. Vacío, no se pinta nada.
-4. `status: done` cuando esté terminada; `featured: true` solo si el usuario lo pide.
+4. `status: done` cuando esté terminada. `featured` hoy no se pinta: la portada lista todas
+   las fichas por fecha.
 5. Comprobar con `pnpm build` y abrir `/labs/<cat>/<slug>`.
 
 ## Qué pinta la ficha
@@ -81,7 +82,7 @@ Cada error nombra la ficha. Mejor un build roto que una ficha vacía en producci
 - `runtime: iframe` sin su `public/demos/<cat>/<slug>/index.html`.
 - `runtime: inline` cuyo `entry` no es un `.astro` de `src/demos/`.
 - `runtime: island`: el esquema lo admite, pero no hay integración de React.
-- Lo que valida el esquema de `content.config.ts`, como un `summary` de más de 180
+- Lo que valida el esquema de `content.config.ts`, como un `summary` de más de 240
   caracteres.
 
 Línea roja de `CLAUDE.md`: nada de código, datos ni marcas de Atresmedia o Knowmad mood.

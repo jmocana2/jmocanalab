@@ -19,7 +19,9 @@ const demo = await resolveDemo(lab);
 const Inline = demo.kind === 'inline' ? demo.component : null;
 ---
 
-{demo.kind === 'iframe' && <LabFrame src={demo.src} title={lab.data.title} />}
+{demo.kind === 'iframe' && (
+  <LabFrame src={demo.src} title={lab.data.title} height={lab.data.frameHeight} />
+)}
 {Inline && (
   <div class="lab-demo">
     <Inline />

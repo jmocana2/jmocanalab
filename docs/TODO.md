@@ -17,13 +17,13 @@ funciona. Se tacha al hacerlo y se borra al cerrar el bloque.
 Los dos primeros, que sirven de plantilla viva para el resto. Todos con `pnpm new:lab`
 ([newlab.md](newlab.md)).
 
-- [ ] **CSS — Flexbox** (`iframe`). Una ficha.
+- [x] **CSS — Flexbox** (`iframe`). Una ficha con diez ejercicios.
 - [ ] **CSS — Grid** (`iframe`). Otra ficha: holy grail, rejilla de tarjetas con
       `auto-fit` / `minmax`, `subgrid`…
 - [ ] **JS — Programación orientada a objetos** (`inline`). Clases, herencia,
       composición, prototipos, `#private`, getters y setters. Valida el camino sin iframe y
       el `CodeViewer` sobre código que no se ve en pantalla.
-- [ ] Borrar la ficha `prueba` (`src/content/labs/css/prueba.md` y
+- [x] Borrar la ficha `prueba` (`src/content/labs/css/prueba.md` y
       `public/demos/css/prueba/`) cuando entre el primer experimento real.
 
 ## 3. Mejoras, por orden de rentabilidad
@@ -61,7 +61,7 @@ dependencia a cambio de nada.
 
 ## 5. Pendientes técnicos pequeños
 
-- [ ] `frameHeight` opcional en el esquema, cuando una demo `iframe` no quepa en 40rem.
+- [x] `frameHeight` opcional en el esquema, cuando una demo `iframe` no quepa en 40rem.
 - [ ] `superRefine` en `content.config.ts` que exija `coverAlt` si hay `cover`, cuando
       aparezca la primera ficha con portada.
 - [ ] Pintar `updated`, `links` y `cover` en la ficha, si llegan a usarse.

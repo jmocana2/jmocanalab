@@ -4,6 +4,10 @@
  * la categoría, número, título, resumen, metadatos, Resultado / Código y, si la ficha
  * tiene texto, el cuerpo del .md debajo.
  *
+ * Si la ficha trae `intro`, sus párrafos siguen al resumen: presentan la demo antes de
+ * llegar a ella. El resumen sigue siendo corto porque es también el del listado. Los
+ * párrafos admiten enlaces con la sintaxis de Markdown, `[texto](url)`, y nada más.
+ *
  * Desde 768, el número va en su propia columna, alineado con la línea base del título;
  * en móvil, encima. Va en tinta con el subrayado del acento: el acento no llega a AA
  * como color de texto.
@@ -16,6 +20,7 @@ import LabMeta from '../LabMeta/LabMeta.astro';
 import type { Lab } from '../../../types';
 import { CATEGORY_LABEL } from '../../../constants/labels';
 import { formatNumber } from '../../../utils/format-number';
+import { inlineLinks } from './utils/inline-links';
 
 type Props = {
   lab: Lab;
@@ -23,7 +28,7 @@ type Props = {
 };
 
 const { lab, number } = Astro.props;
-const { title, summary, category } = lab.data;
+const { title, summary, intro, category } = lab.data;
 
 const { Content } = await render(lab);
 const hasBody = Boolean(lab.body?.trim());
@@ -54,6 +59,19 @@ const hasBody = Boolean(lab.body?.trim());
     <div class="lab-detail__body">
       <h1 class="lab-detail__title">{title}</h1>
       <p class="lab-detail__summary">{summary}</p>
+      {intro.map((paragraph) => (
+        <p class="lab-detail__summary">
+          {inlineLinks(paragraph).map((part) =>
+            part.kind === 'link' ? (
+              <a class="lab-detail__link" href={part.href}>
+                {part.text}
+              </a>
+            ) : (
+              part.text
+            ),
+          )}
+        </p>
+      ))}
       <div class="lab-detail__meta">
         <LabMeta lab={lab} />
       </div>
